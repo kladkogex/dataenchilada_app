@@ -1,0 +1,18 @@
+%h1 Agents
+
+%table.table
+  %tr
+    %th Agent
+    %th Status
+    %th Commands
+
+  - @items.each do |item|
+    %tr
+      %td
+        =link_to item.title, '#'
+      %td
+        = item.status
+      %td
+        =link_to 'Edit', '#', class: 'btn btn-sm btn-primary'
+        =link_to 'Config', '#', class: 'btn btn-sm btn-primary'
+        =link_to 'Manage', manage_agent_path(item), class: 'btn btn-sm btn-primary'
