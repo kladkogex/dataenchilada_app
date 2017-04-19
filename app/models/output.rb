@@ -4,10 +4,10 @@ class Output < ActiveRecord::Base
       has_one :details, :class_name => "Fluentd::Setting::Detail::#{self.name.split('::').last}Detail", :foreign_key => :output_id
       accepts_nested_attributes_for :details
       default_scope -> { includes(:details) }
-      after_initialize :details_setup
+      after_initialize :setup_details
 
-      def details_setup
-        self.details = "Fluentd::Setting::Detail::#{self.name.split('::').last}Detail".constantize.new
+      def setup_details
+        self.details = "Fluentd::Setting::Detail::#{self.name.split('::').last}Detail".constantize.new(init_params)
       end
     EOF
   end
