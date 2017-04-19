@@ -9,15 +9,18 @@ module SettingConcern
 
 
   def show
-    @setting = target_class.new.details.new(initial_params)
+    @setting = target_class.new
     render "shared/settings/show"
   end
 
   def finish
-    @setting = target_class.new(setting_params)
+    @setting = target_class.new
+    @setting.details.attributes = setting_params
     unless @setting.valid?
       return render "shared/settings/show"
     end
+
+    @setting.save!
 
     @fluentd.agent.config_append @setting.to_config
     if @fluentd.agent.running?
@@ -34,7 +37,7 @@ module SettingConcern
   private
 
   def setting_params
-    params.require(target_class.to_s.underscore.gsub("/", "_")).permit(*target_class.const_get(:KEYS))
+    params.require(target_class.to_s.underscore.gsub("/", "_")).require('details_attributes').permit(*target_class.const_get(:KEYS))
   end
 
   def initial_params

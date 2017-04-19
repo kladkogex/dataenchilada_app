@@ -1,36 +1,29 @@
 class Fluentd
   module Setting
     class InTwitter < Source
-
-      relate_to_details
-
       # include ActiveModel::Model
       include Common
 
-      # KEYS = [
-      #     :consumer_key,
-      #     :consumer_secret,
-      #     :access_token,
-      #     :access_token_secret,
-      #     :tag,
-      #     :timeline,
-      #     :keyword,
-      #     :follow_ids,
-      #     :locations,
-      #     :lang,
-      #     :output_format
-      # ].freeze
+      relate_to_details
+
+      KEYS = [
+          :consumer_key,
+          :consumer_secret,
+          :access_token,
+          :access_token_secret,
+          :tag,
+          :timeline,
+          :keyword,
+          :follow_ids,
+          :locations,
+          :lang,
+          :output_format
+      ].freeze
       #
       # attr_accessor(*KEYS)
       #
-      validates :consumer_key, presence: true
-      validates :consumer_secret, presence: true
-      validates :oauth_token, presence: true
-      validates :oauth_token_secret, presence: true
-      validates :tag, presence: true
-      validates :timeline, presence: true
 
-      def self.initial_params
+      def initial_params
         {
             tag: 'twitter.nasa',
             timeline: 'tracking',
@@ -41,8 +34,8 @@ class Fluentd
             output_format: 'simple',
             consumer_key: 'a530R2VCibX8qDE1e19EIvm18',
             consumer_secret: '9QmK9w3ZaAEJGJxmrYd0dE5EhxFdTHTsr57WXHetE21M0VzPv8',
-            oauth_token: '454451418-hGagC8lLAwVPfXOLtfNlrPgUnMGuMD7JYvNdyluH',
-            oauth_token_secret: 'fqReoxNwIZwCi5v9nd0lOszWssDCHMnO0mpdpTUphh4DH'
+            access_token: '454451418-hGagC8lLAwVPfXOLtfNlrPgUnMGuMD7JYvNdyluH',
+            access_token_secret: 'fqReoxNwIZwCi5v9nd0lOszWssDCHMnO0mpdpTUphh4DH'
         }
       end
 
@@ -50,8 +43,8 @@ class Fluentd
         {
             consumer_key: '* YOUR_CONSUMER_KEY (required)',
             consumer_secret: '* YOUR_CONSUMER_SECRET (required)',
-            oauth_token: '* YOUR_CONSUMER_SECRET (required)',
-            oauth_token_secret: '* YOUR_CONSUMER_SECRET (required)',
+            access_token: '* YOUR_CONSUMER_SECRET (required)',
+            access_token_secret: '* YOUR_CONSUMER_SECRET (required)',
             tag: '* for example input.twitter.sampling (required)',
             timeline: '* tracking or sampling or location or userstream (required)',
             keyword: 'keyword has priority than follow_ids (optional)',
@@ -64,13 +57,13 @@ class Fluentd
 
       def common_options
         [
-          :consumer_key, :consumer_secret, :oauth_token, :oauth_token_secret, :tag, :timeline, :keyword
+            :consumer_key, :consumer_secret, :access_token, :access_token_secret, :tag, :timeline, :keyword
         ]
       end
 
       def advanced_options
         [
-          :follow_ids, :locations, :lang, :output_format
+            :follow_ids, :locations, :lang, :output_format
         ]
       end
 

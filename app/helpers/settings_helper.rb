@@ -2,7 +2,7 @@ module SettingsHelper
   def field(form, key, opts = {})
     html = '<div class="form-group">'
 
-    field_resolver(form.object.column_type(key), html, form, key, opts)
+    field_resolver(form.object.try(:column_type, key), html, form, key, opts)
     html << "<small class='form-text text-muted'>#{form.object.fields_descriptions[key]}</small>" if form.object.try(:fields_descriptions).present?
     html << "</div>"
     html.html_safe
