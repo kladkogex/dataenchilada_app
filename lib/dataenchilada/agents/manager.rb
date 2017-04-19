@@ -17,32 +17,40 @@ module Dataenchilada::Agents
       # install
       install(agent)
 
-      # check config
-      begin
-        cmd = cmd_check_config(agent)
-        res_config = Dataenchilada::System::Commands::exec(cmd)
-      rescue => e
-        return false
-      end
-
-      # run
+      # run manually
       #cmd = %Q(fluentd -q #{opts_args} 2>&1)
-      cmd = cmd_run(agent)
-      return Dataenchilada::System::Commands::exec(cmd)
+      #cmd = cmd_run(agent)
+      #return Dataenchilada::System::Commands::exec(cmd)
+
+      # start
+      start(agent)
+
     end
 
 
     def self.start(agent)
+      agent.begin_start!
+
+
+      agent.finish_start!
 
       return true
     end
 
     def self.stop(agent)
+      agent.begin_stop!
+
+
+      agent.finish_stop!
 
       return true
     end
 
     def self.restart(agent)
+      agent.begin_restart!
+
+
+      agent.finish_restart!
 
       return true
     end
@@ -52,6 +60,18 @@ module Dataenchilada::Agents
     ### install
 
     def self.install(agent)
+
+      #agent.set_installing!
+
+      # check config
+      begin
+        cmd = cmd_check_config(agent)
+        res_config = Dataenchilada::System::Commands::exec(cmd)
+      rescue => e
+        return false
+      end
+
+
       # install with supervisor
       require 'erb'
       s_tpl = File.read(File.join(Rails.root, "data/templates/supervisor.conf.erb"))
@@ -68,7 +88,11 @@ module Dataenchilada::Agents
         f.write(result)
       end
 
+      #
+      agent.finish_install!
 
+
+      true
     end
 
 

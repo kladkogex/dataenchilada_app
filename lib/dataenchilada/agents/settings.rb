@@ -22,10 +22,10 @@ module Dataenchilada::Agents
 
 
     def self.sv_file(agent)
-      File.join(DIR_SUPERVISOR_CONF, "dataenchilada_#{agent.name}.conf")
+      File.join(DIR_SUPERVISOR_CONF, "data_enchilada_#{agent.name}.conf")
 
       # DEBUG
-      "/tmp/fluentd/sv_dataenchilada_#{agent.name}.conf"
+      "/tmp/fluentd/sv_data_enchilada_#{agent.name}.conf"
     end
 
 

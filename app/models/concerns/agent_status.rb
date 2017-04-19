@@ -71,6 +71,59 @@ module AgentStatus
       end
 
 
+      # start
+      event :begin_start do
+        after do
+          #NodesFixStatusWorker.perform_in(30.minutes, self.id, 'starting', 'start_error')
+        end
+
+        transitions :from=>[:installed, :stopped, :start_error, :stop_error, :restart_error], :to => :starting
+      end
+
+      event :finish_start do
+        after do
+          #Gexcore::NodesService.do_after_started(self)
+        end
+
+        transitions :from=>:starting, :to => :active
+      end
+      event :set_start_error do
+        transitions :from=>[:starting, :active], :to => :start_error
+      end
+
+
+      # stop
+      event :begin_stop do
+        transitions :from=>[:active, :start_error, :stop_error, :restart_error], :to => :stopping
+        after do
+          #NodesFixStatusWorker.perform_in(30.minutes, self.id, 'stopping', 'stop_error')
+        end
+
+      end
+      event :finish_stop do
+        transitions :from=>:stopping, :to => :stopped
+      end
+      event :set_stop_error do
+        transitions :from=>:stopping, :to => :stop_error
+      end
+
+      # restart
+      event :begin_restart do
+        after do
+          #NodesFixStatusWorker.perform_in(30.minutes, self.id, 'restarting', 'restart_error')
+        end
+
+        transitions :from=>[:active, :start_error, :stop_error, :stopped, :restart_error], :to => :restarting
+      end
+      event :finish_restart do
+        transitions :from=>:restarting, :to => :active
+      end
+      event :set_restart_error do
+        transitions :from=>[:restarting], :to => :restart_error
+      end
+
+
+
       # uninstall
       event :begin_uninstall do
         after do
