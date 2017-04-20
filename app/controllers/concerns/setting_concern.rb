@@ -11,6 +11,7 @@ module SettingConcern
   def show
     # @setting = target_class.new
     @agent = Agent.new
+    @agent.name = 'aggg1'
     @agent.source = target_class.new
     @agent.source.details.attributes = target_class.initial_params
     render "shared/settings/show"

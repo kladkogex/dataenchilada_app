@@ -1,5 +1,22 @@
+- page_title "#{t("fluentd.settings.page_add")} #{t("fluentd.settings.#{target_plugin_name}.show.page_title")}"
+
+= raw t("fluentd.settings.#{target_plugin_name}.option_guide")
+
+
+
+= vertical_simple_form_for(@agent,  :defaults => { :input_html => { :class => "new-input" } }) do |f|
+  = render "shared/setting_errors"
+
+  = f.input :name, label: 'Name'
+
+  = f.simple_fields_for :source do |f_source|
+    - @agent.source.common_options.each do |key|
+      - v = @agent.source.details.attributes[key.to_s]
+      = f_source.input key.to_sym, :input_html => { :value => v}
+
+
 -#= render 'shared/settings/common_settings_page', action: plugin_setting_form_action_url(@fluentd), action_type: 'add'
-= form_for(@agent, url: plugin_setting_form_action_url, html: {class: "ignore-rails-error-div"}) do |form|
+-#= form_for(@agent, url: plugin_setting_form_action_url, html: {class: "ignore-rails-error-div"}) do |form|
   .tab-content
     #source.tab-pane.fade.in.active
       - page_title "#{t("fluentd.settings.page_add")} #{t("fluentd.settings.#{target_plugin_name}.show.page_title")}"

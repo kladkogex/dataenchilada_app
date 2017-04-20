@@ -62,4 +62,32 @@ module ApplicationHelper
       head.html_safe + block.try(:call).to_s
     end
   end
+
+
+  ### forms
+
+  def vertical_simple_form_for(resource, options = {}, &block)
+    options[:html] ||= {}
+
+    # class
+    options[:html][:class] ||= []
+    if options[:html][:class].is_a? Array
+      options[:html][:class] << 'form-vertical'
+    else
+      options[:html][:class] << ' form-vertical'
+    end
+    options[:html][:role] = 'form'
+
+
+    options[:wrapper] = :vertical_form
+    options[:wrapper_mappings] = {
+        check_boxes: :vertical_radio_and_checkboxes,
+        radio_buttons: :vertical_radio_and_checkboxes,
+        file: :vertical_file_input,
+        boolean: :vertical_boolean
+    }
+
+    simple_form_for(resource, options, &block)
+  end
+
 end
