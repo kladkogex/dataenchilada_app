@@ -1,4 +1,5 @@
 class Agent < ActiveRecord::Base
+  belongs_to :agent_type
   has_one :source
   has_many :outputs
   has_many :syncs
