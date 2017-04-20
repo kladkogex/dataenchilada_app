@@ -1,7 +1,8 @@
 [program:data_enchilada_<%=agent.name%>]
-directory=/tmp/fluentd
+#directory=/tmp/fluentd
 command=<%=cmd%>
 autostart=true
 autorestart=true
+#redirect_stderr=true
 stderr_logfile=/var/log/data_enchilada_agents.err.log
 stdout_logfile=/var/log/data_enchilada_agents.out.log
