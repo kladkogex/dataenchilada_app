@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+
+  # debug
+  get '/debug/:action', to: 'debug#action'
+
+
+  #
   root "welcome#home"
 
   resources :agents, only: [:index, :new] do
