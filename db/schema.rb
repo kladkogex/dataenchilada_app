@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170419172145) do
+ActiveRecord::Schema.define(version: 20170419172146) do
 
   create_table "agents", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -327,7 +327,7 @@ ActiveRecord::Schema.define(version: 20170419172145) do
     t.string "Enabled",        limit: 7,     default: "", null: false
   end
 
-  create_table "out_elastic_details", force: :cascade do |t|
+  create_table "out_elasticsearch_details", force: :cascade do |t|
     t.integer "output_id",  limit: 4
     t.string  "host",       limit: 255
     t.integer "port",       limit: 4
