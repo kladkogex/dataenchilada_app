@@ -14,8 +14,9 @@
       - v = @agent.source.details.attributes[key.to_s]
       = f_source.input key.to_sym, :input_html => { :value => v}
 
+  = f.button :submit, class:"btn btn-primary", :value=>"Next", "data-btn"=>"source-save", :data => { :disable_with => "Validating..." }
 
--#= render 'shared/settings/common_settings_page', action: plugin_setting_form_action_url(@fluentd), action_type: 'add'
+  -#= render 'shared/settings/common_settings_page', action: plugin_setting_form_action_url(@fluentd), action_type: 'add'
 -#= form_for(@agent, url: plugin_setting_form_action_url, html: {class: "ignore-rails-error-div"}) do |form|
   .tab-content
     #source.tab-pane.fade.in.active
