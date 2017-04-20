@@ -116,7 +116,7 @@ module SettingsHelper
                 :bind,
                 :port
             ],
-            default_params: Fluentd::Setting::InForward.default_element
+            # default_params: Fluentd::Setting::InForward.default_element
         },
         http: {
             icon: 'fa-globe',
@@ -126,7 +126,7 @@ module SettingsHelper
                 :bind,
                 :port
             ],
-            default_params: Fluentd::Setting::InHttp.default_element
+            # default_params: Fluentd::Setting::InHttp.default_element
         },
     }
   end
