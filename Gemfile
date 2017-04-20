@@ -35,6 +35,9 @@ gem 'fluent-plugin-cassandra-driver'
 
 gem 'simple_form'
 
+gem 'java-properties'
+
+
 group :development do
   gem 'i18n_generators', '1.2.1'
   gem 'better_errors'

@@ -13,4 +13,15 @@ class Output < ActiveRecord::Base
   end
 
   has_one :agent
+
+
+  OUTPUT_TYPES = {
+      'Fluentd::Setting::OutKafka' => 'kafka',
+      'Fluentd::Setting::OutKassandra' => 'cassandra',
+      'Fluentd::Setting::OutElasticsearch' => 'elasticsearch',
+  }
+  def output_type_name
+    return OUTPUT_TYPES[self.type]
+  end
+
 end
