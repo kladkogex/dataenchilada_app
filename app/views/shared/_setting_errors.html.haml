@@ -1,5 +1,5 @@
-- if @setting.errors.present?
+- if @agent.source.details.errors.present?
   .well.well-sm
-    - @setting.errors.full_messages.each do |msg|
+    - @agent.source.details.errors.full_messages.each do |msg|
       .text.text-danger= msg
 

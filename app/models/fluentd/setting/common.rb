@@ -124,7 +124,7 @@ class Fluentd
         #   path /var/log/td/aaa
         #   user nobody
         #   retry_limit 3
-        send(key).present? ? "#{key} #{send(key)}" : ""
+        details.send(key).present? ? "#{key} #{details.send(key)}" : ""
       end
 
       def boolenan(key)

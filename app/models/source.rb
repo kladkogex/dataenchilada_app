@@ -7,7 +7,7 @@ class Source < ActiveRecord::Base
       after_initialize :setup_details
 
       def setup_details
-        self.details = "Fluentd::Setting::Detail::#{self.name.split('::').last}Detail".constantize.new(initial_params)
+        self.details = "Fluentd::Setting::Detail::#{self.name.split('::').last}Detail".constantize.new
       end
     EOF
   end

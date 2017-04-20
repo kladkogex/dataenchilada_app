@@ -33,6 +33,7 @@ gem 'fluent-plugin-elasticsearch'
 gem 'fluent-plugin-webhdfs'
 gem 'fluent-plugin-cassandra-driver'
 
+gem 'simple_form'
 
 group :development do
   gem 'i18n_generators', '1.2.1'

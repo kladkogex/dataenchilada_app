@@ -23,7 +23,7 @@ class Fluentd
       # attr_accessor(*KEYS)
       #
 
-      def initial_params
+      def self.initial_params
         {
             tag: 'twitter.nasa',
             timeline: 'tracking',

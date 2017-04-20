@@ -150,7 +150,7 @@ en:
       page_title: Error log
       error_is_empty: No errors
     settings:
-      page_add: Add
+      page_add: Configure
       page_edit: Edit
       source_and_output:
         page_title: Add Source and Output
@@ -242,7 +242,7 @@ en:
         option_guide: |
           Input plugin to process tweets with Twitter Streaming API
         show:
-          page_title: twitter Input Plugin
+          page_title: Twitter Input Plugin
       in_sql:
         main_form:
           option_guide: |
@@ -376,3 +376,8 @@ en:
 
   activerecord: # for rspec
     <<: *activemodel
+  agents:
+    page_title: Agents
+    new:
+      page_title: Please, choose Source
+      choose: Choose

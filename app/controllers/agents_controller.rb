@@ -9,6 +9,10 @@ class AgentsController < ApplicationController
 
   end
 
+  def new
+    
+  end
+
   def manage
 
 

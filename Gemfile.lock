@@ -307,6 +307,9 @@ GEM
       sigdump (~> 0.2.2)
     settingslogic (2.0.9)
     sigdump (0.2.4)
+    simple_form (3.4.0)
+      actionpack (> 4, < 5.1)
+      activemodel (> 4, < 5.1)
     simple_oauth (0.3.1)
     slop (3.6.0)
     sprockets (2.12.3)
@@ -387,6 +390,7 @@ DEPENDENCIES
   puma
   redis (~> 3.2)
   rspec-rails (~> 3.0)
+  simple_form
   therubyracer (= 0.12.2)
   web-console (~> 2.0)
 
