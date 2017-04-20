@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170419172146) do
+ActiveRecord::Schema.define(version: 20170419172147) do
 
   create_table "agents", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -369,7 +369,8 @@ ActiveRecord::Schema.define(version: 20170419172146) do
   end
 
   create_table "outputs", force: :cascade do |t|
-    t.string "type", limit: 255
+    t.string  "type",     limit: 255
+    t.integer "agent_id", limit: 4
   end
 
   create_table "processlist", id: false, force: :cascade do |t|

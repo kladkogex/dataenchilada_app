@@ -3,6 +3,8 @@ class Fluentd
     class OutWebhdfs < Output
       include Common
 
+      relate_to_details
+
     end
   end
 end
