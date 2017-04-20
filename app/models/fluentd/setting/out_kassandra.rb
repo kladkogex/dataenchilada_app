@@ -3,6 +3,8 @@ class Fluentd
     class OutKassandra < Output
       include Common
 
+      relate_to_details
+
     end
   end
 end

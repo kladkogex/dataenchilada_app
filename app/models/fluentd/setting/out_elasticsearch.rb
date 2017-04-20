@@ -3,6 +3,8 @@ class Fluentd
     class OutElasticsearch < Output
       include Common
 
+      relate_to_details
+
       # KEYS = [
       #   :match,
       #   :host, :port, :index_name, :type_name,
