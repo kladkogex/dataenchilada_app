@@ -59,6 +59,15 @@ module Dataenchilada::Agents
     def self.restart(agent)
       agent.begin_restart!
 
+      # with supervisor
+      sv_name = ::Dataenchilada::Agents::Settings::sv_service_name(agent)
+      cmd = "sudo supervisorctl stop #{sv_name}"
+      res = Dataenchilada::System::Commands::exec(cmd)
+
+      cmd = "sudo supervisorctl start #{sv_name}"
+      res = Dataenchilada::System::Commands::exec(cmd)
+
+
 
       agent.finish_restart!
 
