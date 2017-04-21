@@ -1,7 +1,7 @@
 module Dataenchilada::System
   class Commands
 
-    def self.exec(cmd)
+    def self.exec(cmd, raise_error=true)
       Bundler.with_clean_env do
         #res = system("#{cmd}", out: File::NULL, err: File::NULL)
         res = `#{cmd}`
@@ -9,7 +9,11 @@ module Dataenchilada::System
 
         #if !res
         if exit_code>0
-          raise ::Dataenchilada::Error::BaseError
+          if raise_error
+            raise ::Dataenchilada::Error::BaseError
+          else
+            return false
+          end
         end
       end
 

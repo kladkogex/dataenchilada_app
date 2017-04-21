@@ -114,7 +114,7 @@ module Dataenchilada::Agents
 
       # reload supervisor
       cmd = "service supervisor stop && service supervisor start"
-      res = Dataenchilada::System::Commands::exec(cmd)
+      res = Dataenchilada::System::Commands::exec(cmd, false)
 
 
       true

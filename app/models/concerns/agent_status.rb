@@ -17,7 +17,18 @@ module AgentStatus
 
         uninstalling: 8,
         uninstalled: 9,
-        uninstall_error: 10
+        uninstall_error: 10,
+
+        starting: 11,
+        start_error: 12,
+
+        stopping: 13,
+        stop_error: 14,
+        stopped: 15,
+
+        restarting: 16,
+        restart_error: 17
+
 
     }
 
@@ -28,12 +39,25 @@ module AgentStatus
       state :installed
       state :install_error
       state :active
+
       state :removed
       state :removing
       state :remove_error
+
       state :uninstalled
       state :uninstalling
       state :uninstall_error
+
+      state :starting
+      state :start_error
+
+      state :restarting
+      state :restart_error
+
+      state :stopping
+      state :stop_error
+      state :stopped
+
 
       after_all_transitions :log_status_change
 
