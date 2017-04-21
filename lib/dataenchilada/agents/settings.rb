@@ -22,7 +22,7 @@ module Dataenchilada::Agents
 
 
     def self.sv_service_name(agent)
-      "data_enchilada_#{agent.name}.conf"
+      "data_enchilada_#{agent.name}"
     end
 
     def self.sv_file(agent)

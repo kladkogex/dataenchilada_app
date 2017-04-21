@@ -17,11 +17,6 @@ module Dataenchilada::Agents
       # install
       install(agent)
 
-      # run manually
-      #cmd = %Q(fluentd -q #{opts_args})
-      #cmd = cmd_run(agent)
-      #return Dataenchilada::System::Commands::exec(cmd)
-
       # start
       start(agent)
 
@@ -33,7 +28,7 @@ module Dataenchilada::Agents
 
       # start with supervisor
       sv_name = ::Dataenchilada::Agents::Settings::sv_service_name(agent)
-      cmd = "sudo supervisorctl start #{sv_name}"
+      cmd = "supervisorctl start #{sv_name}"
       res = Dataenchilada::System::Commands::exec(cmd)
 
 
@@ -47,7 +42,7 @@ module Dataenchilada::Agents
 
       # with supervisor
       sv_name = ::Dataenchilada::Agents::Settings::sv_service_name(agent)
-      cmd = "sudo supervisorctl stop #{sv_name}"
+      cmd = "supervisorctl stop #{sv_name}"
       res = Dataenchilada::System::Commands::exec(cmd)
 
 
