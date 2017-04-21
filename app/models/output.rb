@@ -15,7 +15,7 @@ class Output < ActiveRecord::Base
       kafka: Fluentd::Setting::Detail::OutKafka,
       elasticsearch: Fluentd::Setting::Detail::OutElasticsearch,
       kassandra: Fluentd::Setting::Detail::OutKassandra,
-      hdfs: Fluentd::Setting::Detail::OutWebhdfs
+      #hdfs: Fluentd::Setting::Detail::OutWebhdfs
   }
 
   TYPES_BASE = {
