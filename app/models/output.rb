@@ -11,7 +11,7 @@ class Output < ActiveRecord::Base
     EOF
   end
 
-  OUTPUT_TYPES = {
+  OUTPUT_TYPES_FOR_CREATE = {
       kafka: Fluentd::Setting::Detail::OutKafka,
       elasticsearch: Fluentd::Setting::Detail::OutElasticsearch,
       kassandra: Fluentd::Setting::Detail::OutKassandra,
