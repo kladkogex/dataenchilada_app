@@ -4,11 +4,13 @@ class Source < ActiveRecord::Base
       has_one :details, :class_name => "Fluentd::Setting::Detail::#{self.name.split('::').last}Detail", :foreign_key => :source_id
       accepts_nested_attributes_for :details
       default_scope -> { includes(:details) }
-      after_initialize :setup_details
+      # after_initialize :setup_details
+      # 
+      # def setup_details
+      #   self.details = "Fluentd::Setting::Detail::#{self.name.split('::').last}Detail".constantize.new
+      # end
 
-      def setup_details
-        self.details = "Fluentd::Setting::Detail::#{self.name.split('::').last}Detail".constantize.new
-      end
+      DETAILS_CLASS = "Fluentd::Setting::Detail::#{self.name.split('::').last}Detail".constantize
     EOF
   end
 

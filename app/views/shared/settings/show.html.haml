@@ -1,20 +1,40 @@
-- page_title "#{t("fluentd.settings.page_add")} #{t("fluentd.settings.#{target_plugin_name}.show.page_title")}"
-
-= raw t("fluentd.settings.#{target_plugin_name}.option_guide")
-
-
-
-= vertical_simple_form_for(@agent,  :defaults => { :input_html => { :class => "new-input" } }) do |f|
+= vertical_simple_form_for(@agent, url: plugin_setting_form_action_url, defaults: { input_html: { class: "new-input" } }) do |f|
   = render "shared/setting_errors"
 
-  = f.input :name, label: 'Name'
+  .tab-content
+    #source.tab-pane.fade.in.active
+      %h1.page-header
+        = "#{t("fluentd.settings.page_add")} #{t("fluentd.settings.#{target_plugin_name}.show.page_title")}"
+      .well
+        = raw t("fluentd.settings.#{target_plugin_name}.option_guide")
 
-  = f.simple_fields_for :source do |f_source|
-    - @agent.source.common_options.each do |key|
-      - v = @agent.source.details.attributes[key.to_s]
-      = f_source.input key.to_sym, :input_html => { :value => v}
+      = f.input :name, label: 'Name of Agent', input_html: {class: "form-control"}
 
-  = f.button :submit, class:"btn btn-primary", :value=>"Next", "data-btn"=>"source-save", :data => { :disable_with => "Validating..." }
+      = f.simple_fields_for :source do |f_source|
+        - @agent.source.common_options.each do |key|
+          - v = @agent.source.details.attributes[key.to_s]
+          = f_source.input key.to_sym, :input_html => { :value => v, class: "form-control"}
+        - if @agent.source.advanced_options.present?
+          .well.well-sm
+            %h4{"data-toggle" => "collapse", "href" => "#advanced-setting"}
+              = icon('fa-caret-down')
+              = t('terms.advanced_setting')
+            #advanced-setting.collapse
+              - @agent.source.advanced_options.each do |key|
+                - v = @agent.source.details.attributes[key.to_s]
+                = f_source.input key.to_sym, :input_html => { :value => v, class: "form-control"}
+      %a.btn.btn-primary{data: {toggle: :tab}, href: '#outputs'} Next
+
+    #outputs.tab-pane.fade
+      %h1.page-header
+        = "Choose outputs for your stream"
+      .well
+        = raw t("fluentd.settings.#{target_plugin_name}.option_guide")
+
+      = f.simple_fields_for :outputs do |f_output|
+        - Output::OUTPUT_TYPES.each do |key, value|
+          = f_output.input key, as: :boolean, checked_value: true, unchecked_value: false
+      = f.button :submit, class:"btn btn-primary", :value=>"Save", "data-btn"=>"source-save", :data => { :disable_with => "Validating..." }
 
   -#= render 'shared/settings/common_settings_page', action: plugin_setting_form_action_url(@fluentd), action_type: 'add'
 -#= form_for(@agent, url: plugin_setting_form_action_url, html: {class: "ignore-rails-error-div"}) do |form|

@@ -78,6 +78,23 @@ module SettingsHelper
     html << h(form.label(key))
     html << form.text_field(key, class: "form-control")
   end
+  #
+  # def outputs_types_with_icons
+  #   {
+  #       kafka: {
+  #           icon: 'fa-file-text-o'
+  #       },
+  #       elasticsearch: {
+  #           icon: 'fa-file-text-o'
+  #       },
+  #       webhdfs: {
+  #           icon: 'fa-file-text-o'
+  #       },
+  #       kassandra: {
+  #           icon: 'fa-file-text-o'
+  #       }
+  #   }
+  # end
 
   def settings_types_with_icons
     {

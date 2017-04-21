@@ -13,19 +13,20 @@ module SettingConcern
     @agent = Agent.new
     @agent.name = 'aggg1'
     @agent.source = target_class.new
-    @agent.source.details.attributes = target_class.initial_params
+    @agent.source.details = target_class::DETAILS_CLASS.new(initial_params)
     render "shared/settings/show"
   end
 
   def finish
     @setting = target_class.new
-    @setting.details.attributes = setting_params
+    @setting.details = target_class::DETAILS_CLASS.new(setting_params)
 
     unless @setting.valid?
       return render "shared/settings/show"
     end
 
     @setting.save!
+
 
     # @fluentd.agent.config_append @setting.to_config
     # if @fluentd.agent.running?
@@ -41,8 +42,16 @@ module SettingConcern
 
   private
 
+  def agent_params
+    params.require('agent').permit(:name)
+  end
+
   def setting_params
-    params.require(target_class.to_s.underscore.gsub("/", "_")).require('details_attributes').permit(*target_class.const_get(:KEYS))
+    params.require('agent').require('source').permit(*target_class.const_get(:KEYS))
+  end
+
+  def output_params
+    params.require('agent').require('outputs').permit(Output::OUTPUT_TYPES.keys)
   end
 
   def target_plugin_name

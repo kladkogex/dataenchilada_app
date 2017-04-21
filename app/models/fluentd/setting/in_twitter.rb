@@ -57,13 +57,13 @@ class Fluentd
 
       def common_options
         [
-            :consumer_key, :consumer_secret, :access_token, :access_token_secret, :tag, :timeline, :keyword
+            :consumer_key, :consumer_secret, :access_token, :access_token_secret, :tag, :keyword
         ]
       end
 
       def advanced_options
         [
-            :follow_ids, :locations, :lang, :output_format
+            :timeline, :follow_ids, :locations, :lang, :output_format
         ]
       end
 
