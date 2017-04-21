@@ -6,6 +6,8 @@ class Output < ActiveRecord::Base
       default_scope -> { includes(:details) }
       
       DETAILS_CLASS = "Fluentd::Setting::Detail::#{self.name.split('::').last}Detail".constantize
+
+      belongs_to :agent
     EOF
   end
 
