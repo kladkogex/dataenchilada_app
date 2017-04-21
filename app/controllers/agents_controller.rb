@@ -1,11 +1,15 @@
 class AgentsController < ApplicationController
-  before_action :init_agent, only: [:manage, :command]
+  before_action :init_agent, only: [:show, :manage, :command]
 
 
   def index
 
     @items = Agent.w_not_deleted.order("created_at desc").all
 
+
+  end
+
+  def show
 
   end
 

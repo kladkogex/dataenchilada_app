@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   #
   root "welcome#home"
 
-  resources :agents, only: [:index, :new] do
+  resources :agents, only: [:index, :new, :show] do
     member do
       get 'manage'
       post 'command'

@@ -10,7 +10,7 @@
   - @items.each do |item|
     %tr
       %td
-        =link_to item.title, '#'
+        =link_to item.title, agent_path(item)
       %td
         = item.status
       %td

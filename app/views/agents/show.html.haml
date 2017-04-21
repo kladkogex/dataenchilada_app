@@ -1,0 +1,15 @@
+%h1 Agent #{@agent.name}
+
+%h2 Sources
+
+=@agent.source.type
+%br
+tag: #{@agent.source.details.tag}
+
+%h2 Outputs
+
+- @agent.outputs.each do |output|
+  =link_to '#' do
+    %b=output.output_type_name
+  =output.output_type_name
+  %br
