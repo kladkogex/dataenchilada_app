@@ -9,6 +9,8 @@ class Output < ActiveRecord::Base
     EOF
   end
 
+  has_one :agent
+
   OUTPUT_TYPES = {
       kafka: Fluentd::Setting::Detail::OutKafka,
       elasticsearch: Fluentd::Setting::Detail::OutElasticsearch,
@@ -16,16 +18,14 @@ class Output < ActiveRecord::Base
       hdfs: Fluentd::Setting::Detail::OutWebhdfs
   }
 
-  has_one :agent
-
-
-  OUTPUT_TYPES = {
+  TYPES_BASE = {
       'Fluentd::Setting::OutKafka' => 'kafka',
       'Fluentd::Setting::OutKassandra' => 'cassandra',
       'Fluentd::Setting::OutElasticsearch' => 'elasticsearch',
   }
+
   def output_type_name
-    return OUTPUT_TYPES[self.type]
+    return TYPES_BASE[self.type]
   end
 
 end

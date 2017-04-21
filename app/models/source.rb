@@ -15,4 +15,21 @@ class Source < ActiveRecord::Base
   end
 
   has_one :agent
+
+  TYPES = {
+      twitter: Fluentd::Setting::Detail::InTwitter,
+      tail: Fluentd::Setting::Detail::OutWebhdfs
+  }
+
+  TYPES_BASE = {
+      'Fluentd::Setting::InTwitter' => 'twitter',
+      'Fluentd::Setting::InTail' => 'tail',
+  }
+
+
+  ###
+  def source_type_name
+    return TYPES_BASE[self.type]
+  end
+
 end
