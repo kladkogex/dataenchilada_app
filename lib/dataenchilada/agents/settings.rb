@@ -27,10 +27,13 @@ module Dataenchilada::Agents
 
     def self.sv_file(agent)
       sv_name = sv_service_name(agent)
-      File.join(DIR_SUPERVISOR_CONF, "#{sv_name}.conf")
 
       # DEBUG
-      "/tmp/#{sv_name}.conf"
+      #"/tmp/#{sv_name}.conf"
+
+      File.join(DIR_SUPERVISOR_CONF, "#{sv_name}.conf")
+
+
     end
 
 
