@@ -9,7 +9,14 @@ module Dataenchilada::Agents
       res = ""
 
       tag = agent.source.details.tag
-      tag = "mytag"
+      #tag = "mytag"
+
+      # sources
+      source = agent.source
+      s_source = generate_config_source(source)
+      res << s_source
+
+      res << "\n\n"
 
       # outputs
       agent.outputs.each do |output|
@@ -34,7 +41,23 @@ module Dataenchilada::Agents
     end
 
     def self.generate_config_source(source, extra_args={})
+      agent = output.agent
 
+      f_tpl = filename_template_input(agent.agent_type.name, source.source_type_name)
+
+      #
+      props_system = get_system_props
+      props = build_source_props(source)
+
+      tpl_vars = {
+          agent: agent,
+          source: source,
+          props: props,
+          #servers: props_servers,
+          system: props_system
+      }
+
+      process_erb_file(f_tpl, tpl_vars)
     end
 
 

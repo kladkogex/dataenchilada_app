@@ -1,0 +1,10 @@
+<source>
+  @type tail
+  path /var/log/bootstrap.log
+  tag <%=tag%>
+  format none
+  read_from_head true
+  pos_file <%=props['pos_file']%>
+
+  refresh_interval 5
+</source>
