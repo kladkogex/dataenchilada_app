@@ -60,6 +60,8 @@ module Dataenchilada::Agents
     ### install
 
     def self.install(agent)
+      # generate config
+      res_config = Dataenchilada::Agents::Configurator.generate_config(agent)
 
       #agent.set_installing!
 
