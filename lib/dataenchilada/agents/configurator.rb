@@ -45,8 +45,6 @@ module Dataenchilada::Agents
 
       f_tpl = filename_template_input(agent.agent_type.name, source.source_type_name)
 
-      puts "f=#{f_tpl}"
-
       #
       props_system = get_system_props
       props = build_source_props(source)
@@ -147,9 +145,12 @@ module Dataenchilada::Agents
     ### system props
 
     def self.get_system_props
-      if Rails.env.development?
-        f = File.join(Rails.root, "data/temp/data_enchilada.properties")
+      f = "/etc/data_enchilada/data_enchilada.properties"
 
+      if Rails.env.development?
+        if !File.exists?(f)
+          f = File.join(Rails.root, "data/temp/data_enchilada.properties")
+        end
       end
 
       properties = JavaProperties.load(f)
