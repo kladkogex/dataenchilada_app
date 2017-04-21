@@ -18,7 +18,7 @@ module Dataenchilada::Agents
       install(agent)
 
       # run manually
-      #cmd = %Q(fluentd -q #{opts_args} 2>&1)
+      #cmd = %Q(fluentd -q #{opts_args})
       #cmd = cmd_run(agent)
       #return Dataenchilada::System::Commands::exec(cmd)
 
@@ -31,6 +31,11 @@ module Dataenchilada::Agents
     def self.start(agent)
       agent.begin_start!
 
+      # start with supervisor
+      sv_name = ::Dataenchilada::Agents::Settings::sv_service_name(agent)
+      cmd = "sudo supervisorctl start #{sv_name}"
+      res = Dataenchilada::System::Commands::exec(cmd)
+
 
       agent.finish_start!
 
@@ -39,6 +44,11 @@ module Dataenchilada::Agents
 
     def self.stop(agent)
       agent.begin_stop!
+
+      # with supervisor
+      sv_name = ::Dataenchilada::Agents::Settings::sv_service_name(agent)
+      cmd = "sudo supervisorctl stop #{sv_name}"
+      res = Dataenchilada::System::Commands::exec(cmd)
 
 
       agent.finish_stop!
@@ -75,8 +85,20 @@ module Dataenchilada::Agents
 
 
       # install with supervisor
+      install_service_supervisor(agent)
+
+
+      #
+      agent.finish_install!
+
+
+      true
+    end
+
+
+    def self.install_service_supervisor(agent)
       require 'erb'
-      s_tpl = File.read(File.join(Rails.root, "data/templates/supervisor.conf.erb"))
+      s_tpl = File.read(File.join(Rails.root, "data/templates/#{agent.agent_type.name}/supervisor/supervisor.conf.erb"))
 
       cmd_run = cmd_run(agent)
       vars = OpenStruct.new(agent: agent, cmd: cmd_run)
@@ -90,13 +112,13 @@ module Dataenchilada::Agents
         f.write(result)
       end
 
-      #
-      agent.finish_install!
+      # reload supervisor
+      cmd = "service supervisor stop && service supervisor start"
+      res = Dataenchilada::System::Commands::exec(cmd)
 
 
       true
     end
-
 
 
     ### helpers - operations with agent
@@ -110,7 +132,7 @@ module Dataenchilada::Agents
       opts_args = options_to_argv(agent, opts)
 
       # run
-      %Q(fluentd -q #{opts_args} 2>&1)
+      %Q(fluentd #{opts_args})
     end
 
 
@@ -123,7 +145,7 @@ module Dataenchilada::Agents
       opts_args = options_to_argv(agent, opts)
 
       # run
-      %Q(fluentd -q --dry-run #{opts_args} 2>&1)
+      %Q(fluentd --dry-run #{opts_args} 2>&1)
     end
 
 
@@ -133,8 +155,8 @@ module Dataenchilada::Agents
 
       argv = ""
       argv << " -c #{opts[:config_file] || lib.config_file(agent)}"
-      argv << " -d #{opts[:pid_file] || lib.pid_file(agent)}"
-      argv << " -o #{opts[:log_file] || lib.log_file(agent)}"
+      #argv << " -d #{opts[:pid_file] || lib.pid_file(agent)}"
+      #argv << " -o #{opts[:log_file] || lib.log_file(agent)}"
       argv
     end
 

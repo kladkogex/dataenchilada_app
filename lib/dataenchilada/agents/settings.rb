@@ -1,8 +1,8 @@
 module Dataenchilada::Agents
   class Settings
 
-    DIR_LOGS = "/tmp/fluentd/log"
-    DIR_PIDS = "/tmp/fluentd/pids"
+    DIR_LOGS = "/var/log/fluentd"
+    DIR_PIDS = "/etc/fluentd/pids"
     DIR_SUPERVISOR_CONF = "/etc/supervisor/conf.d"
 
     def self.pid_file(agent)
@@ -21,11 +21,16 @@ module Dataenchilada::Agents
     end
 
 
+    def self.sv_service_name(agent)
+      "data_enchilada_#{agent.name}.conf"
+    end
+
     def self.sv_file(agent)
-      File.join(DIR_SUPERVISOR_CONF, "data_enchilada_#{agent.name}.conf")
+      sv_name = sv_service_name(agent)
+      File.join(DIR_SUPERVISOR_CONF, "#{sv_name}.conf")
 
       # DEBUG
-      "/tmp/fluentd/sv_data_enchilada_#{agent.name}.conf"
+      "/tmp/#{sv_name}.conf"
     end
 
 

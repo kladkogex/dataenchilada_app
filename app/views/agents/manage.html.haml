@@ -1,5 +1,9 @@
 %h1 Agent #{@agent.name}
 
+status: #{@agent.status}
+
+%br
+%br
 Manage:
 
 =link_to 'Run', command_agent_path(agent: @agent, cmd: 'run'), method: :post, class: 'btn btn-primary'
