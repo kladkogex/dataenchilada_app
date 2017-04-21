@@ -104,12 +104,20 @@ module Dataenchilada::Agents
       require 'erb'
       s_tpl = File.read(File.join(Rails.root, "data/templates/#{agent.agent_type.name}/supervisor/supervisor.conf.erb"))
 
-      cmd_run = cmd_run(agent)
-      vars = OpenStruct.new(agent: agent, cmd: cmd_run)
-      result = ERB.new(s_tpl).result(vars.instance_eval { binding })
+      puts "ssss tpl: #{s_tpl}"
+
+      cmd = build_cmd_run(agent)
+      tpl_vars = OpenStruct.new(agent: agent, cmd: cmd)
+
+      puts "vars : #{cmd}"
+
+      result = ERB.new(s_tpl).result(tpl_vars.instance_eval { binding })
 
       #sudo service supervisor restart
       sv_filename = ::Dataenchilada::Agents::Settings::sv_file(agent)
+
+      puts "save to file: #{sv_filename}"
+      puts "content: #{result}"
 
 
       File.open(sv_filename,'w') do |f|
@@ -127,7 +135,7 @@ module Dataenchilada::Agents
 
     ### helpers - operations with agent
 
-    def self.cmd_run(agent, opts={})
+    def self.build_cmd_run(agent, opts={})
       #
       config_file_path = Dataenchilada::Agents::Configurator.config_filename(agent)
 
