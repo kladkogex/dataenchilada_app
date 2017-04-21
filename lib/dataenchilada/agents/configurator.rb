@@ -8,7 +8,8 @@ module Dataenchilada::Agents
 
       res = ""
 
-      tag = ""
+      tag = agent.source.details.tag
+      tag = "mytag"
 
       # outputs
       agent.outputs.each do |output|
@@ -75,13 +76,26 @@ module Dataenchilada::Agents
 
     def self.build_output_props_elasticsearch(output, tag)
       {
-          "index_name"=>"test",
+          "index_name"=>tag,
           "type_name"=>tag,
 
       }
     end
 
 
+    def self.build_output_props_cassandra(output, tag)
+      {
+          "column_family"=>tag,
+
+      }
+    end
+
+    def self.build_output_props_kafka(output, tag)
+      {
+          "topic"=>tag,
+
+      }
+    end
 
     ### system props
 
@@ -109,6 +123,9 @@ module Dataenchilada::Agents
               "username"=>props_system[:cassandra_username],
               "password"=>props_system[:cassandra_password],
               "keyspace"=>props_system[:cassandra_keyspace],
+          },
+          "kafka" => {
+              "zookeeper_url"=>props_system[:zookeeper]
           }
       }
     end
