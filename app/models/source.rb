@@ -16,6 +16,8 @@ class Source < ActiveRecord::Base
 
   has_one :agent
 
+  belongs_to :engine, class: ::Agent, foreign_key: :agent_id
+
   TYPES = {
       twitter: Fluentd::Setting::Detail::InTwitter,
       tail: Fluentd::Setting::Detail::OutWebhdfs

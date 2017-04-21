@@ -11,6 +11,8 @@ class Output < ActiveRecord::Base
     EOF
   end
 
+  belongs_to :engine, class: ::Agent, foreign_key: :agent_id
+
   OUTPUT_TYPES = {
       'kafka' => 'Fluentd::Setting::Detail::OutKafka',
       'elasticsearch' => 'Fluentd::Setting::Detail::OutElasticsearch',

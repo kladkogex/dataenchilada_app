@@ -41,9 +41,11 @@ module Dataenchilada::Agents
     end
 
     def self.generate_config_source(source, extra_args={})
-      agent = output.agent
+      agent = source.engine
 
       f_tpl = filename_template_input(agent.agent_type.name, source.source_type_name)
+
+      puts "f=#{f_tpl}"
 
       #
       props_system = get_system_props
@@ -62,7 +64,7 @@ module Dataenchilada::Agents
 
 
     def self.generate_config_output(output, tag, extra_args={})
-      agent = output.agent
+      agent = output.engine
 
       f_tpl = filename_template_output(agent.agent_type.name, output.output_type_name)
 
@@ -83,6 +85,28 @@ module Dataenchilada::Agents
 
       process_erb_file(f_tpl, tpl_vars)
     end
+
+
+    ### source props
+
+    def self.build_source_props(source)
+
+      mtd = :"build_source_props_#{source.source_type_name}"
+      if respond_to?(mtd)
+        return send(mtd, source)
+      end
+
+      nil
+    end
+
+    def self.build_source_props_tail(source)
+      {
+          "path"=>source.details.path,
+          #"pos_file"=>source.details.pos_file,
+
+      }
+    end
+
 
 
     ### output props
@@ -158,6 +182,11 @@ module Dataenchilada::Agents
     def self.config_filename(agent)
       File.join(Rails.root, "data/agents/#{agent.name}", "agent.conf")
     end
+
+    def self.filename_template_input(agent_type, source_type)
+      File.join(Rails.root, "data/templates/#{agent_type}/source/", "#{source_type}.erb")
+    end
+
 
     def self.filename_template_output(agent_type, output_type)
       File.join(Rails.root, "data/templates/#{agent_type}/output/", "#{output_type}.erb")
