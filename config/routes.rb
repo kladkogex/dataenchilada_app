@@ -66,6 +66,12 @@ Rails.application.routes.draw do
           post "update_config"
         end
 
+        resource :in_netflow, only: [:show], module: :settings, controller: :in_netflow do
+          post "finish"
+          post "edit"
+          post "update_config"
+        end
+
         resource :in_mixpanel, only: [:show], module: :settings, controller: :in_mixpanel do
           post "finish"
           post "edit"

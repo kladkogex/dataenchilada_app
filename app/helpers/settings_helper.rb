@@ -145,6 +145,16 @@ module SettingsHelper
             ],
             # default_params: Fluentd::Setting::InHttp.default_element
         },
+        netflow: {
+            icon: 'fa-exchange',
+            edit_link: edit_daemon_setting_in_netflow_path,
+            create_link: daemon_setting_in_netflow_path,
+            preview_fields: [
+                :bind,
+                :port
+            ],
+            # default_params: Fluentd::Setting::InHttp.default_element
+        },
     }
   end
 

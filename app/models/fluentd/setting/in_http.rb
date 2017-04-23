@@ -6,14 +6,11 @@ class Fluentd
       # include ActiveModel::Model
       include Common
 
-      # KEYS = [
-      #   :bind, :port, :body_size_limit, :keepalive_timeout, :add_http_headers, :format, :log_level, :add_remote_addr
-      # ].freeze
+      KEYS = [
+        :bind, :port, :body_size_limit, :keepalive_timeout, :add_http_headers, :format, :log_level, :add_remote_addr
+      ].freeze
 
       # attr_accessor(*KEYS)
-
-      validates :bind, presence: true
-      validates :port, presence: true
 
       def self.initial_params
         {

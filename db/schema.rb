@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170422174705) do
+ActiveRecord::Schema.define(version: 20170423131640) do
 
   create_table "agent_types", force: :cascade do |t|
     t.string  "name",   limit: 255
@@ -51,6 +51,14 @@ ActiveRecord::Schema.define(version: 20170422174705) do
     t.string  "format",            limit: 255
     t.string  "log_level",         limit: 255
     t.string  "add_remote_addr",   limit: 255
+  end
+
+  create_table "in_netflow_details", force: :cascade do |t|
+    t.integer "source_id",                  limit: 4
+    t.string  "bind",                       limit: 255
+    t.integer "port",                       limit: 4
+    t.string  "switched_times_from_uptime", limit: 255
+    t.string  "tag",                        limit: 255
   end
 
   create_table "in_sql_details", force: :cascade do |t|

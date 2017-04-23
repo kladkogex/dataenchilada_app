@@ -121,6 +121,7 @@ en:
       setup_in_http: Http Input
       setup_in_http_mixpanel: Mixpanel input
       setup_in_forward: Remote Machines
+      setup_in_netflow: Netflow
       setup_out_td: Treasure Data
       setup_out_mongo: MongoDB
       setup_out_stdout: stdout (log)
@@ -221,6 +222,12 @@ en:
           Please see refer to the <a target="_blank" href="http://docs.fluentd.org/articles/in_http">http Input Plugin</a> documentation page.
         show:
           page_title: http Input Plugin
+      in_netflow:
+        option_guide: |
+          Input plugin that acts as Netflow v5/v9 collector.<br />
+          Please see refer to the <a target="_blank" href="https://github.com/repeatedly/fluent-plugin-netflow">Netflow Input Plugin</a> documentation page.
+        show:
+          page_title: Netflow Input Plugin
       in_mixpanel:
         option_guide: |
           DataEnchilada plugin to integrate <a target="_blank" href="https://mixpanel.com/help/reference/javascript">mixpanel javascript libraries</a>.<br /><br />
