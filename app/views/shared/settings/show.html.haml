@@ -8,7 +8,7 @@
       .well
         = raw t("fluentd.settings.#{target_plugin_name}.option_guide")
 
-      = f.input :name, label: 'Name of Agent', input_html: {class: "form-control"}
+      = f.input :title, label: 'Name of Agent', input_html: {class: "form-control"}
 
       = f.simple_fields_for :source do |f_source|
         - @agent.source.common_options.each do |key|

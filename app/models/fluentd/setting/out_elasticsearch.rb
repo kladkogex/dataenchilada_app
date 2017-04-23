@@ -5,22 +5,18 @@ class Fluentd
 
       relate_to_details
 
-      # KEYS = [
-      #   :match,
-      #   :host, :port, :index_name, :type_name,
-      #   :logstash_format, :logstash_prefix, :logstash_dateformat, :utc_index,
-      #   :hosts, :request_timeout, :include_tag_key
-      # ].freeze
+      KEYS = [
+        # :match,
+        :host, :port, :index_name, :type_name,
+        :logstash_format, :logstash_prefix, :logstash_dateformat, :utc_index,
+        :hosts, :request_timeout, :include_tag_key
+      ].freeze
       #
       # attr_accessor(*KEYS)
 
       booleans :logstash_format, :utc_index, :include_tag_key
 
-      validates :match, presence: true
-      validates :host, presence: true
-      validates :port, presence: true
-      validates :index_name, presence: true
-      validates :type_name, presence: true
+      # validates :match, presence: true
 
       def self.initial_params
         {
@@ -46,6 +42,10 @@ class Fluentd
           :hosts, :logstash_prefix, :logstash_dateformat,
           :utc_index, :request_timeout, :include_tag_key,
         ]
+      end
+
+      def fluent_type
+        'elasticsearch'
       end
     end
   end

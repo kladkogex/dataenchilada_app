@@ -19,8 +19,8 @@ class Source < ActiveRecord::Base
   belongs_to :engine, class: ::Agent, foreign_key: :agent_id
 
   TYPES = {
-      twitter: Fluentd::Setting::Detail::InTwitter,
-      tail: Fluentd::Setting::Detail::OutWebhdfs
+      twitter: 'Fluentd::Setting::InTwitter',
+      tail: 'Fluentd::Setting::OutWebhdfs'
   }
 
   TYPES_BASE = {

@@ -11,21 +11,31 @@ module SettingConcern
   def show
     # @setting = target_class.new
     @agent = Agent.new
-    @agent.name = 'aggg1'
+    @agent.title = 'aggg1'
     @agent.source = target_class.new
-    @agent.source.details = target_class::DETAILS_CLASS.new(initial_params)
+    @agent.source.details = target_class::DETAILS_CLASS.new(target_class.initial_params)
     render "shared/settings/show"
   end
 
   def finish
-    @setting = target_class.new
-    @setting.details = target_class::DETAILS_CLASS.new(setting_params)
+    @agent = Agent.new(agent_params)
+    source = target_class.new
+    @agent.name = source.plugin_name
+    details = target_class::DETAILS_CLASS.new(setting_params)
+    # @agent.source = target_class.new
+    # @agent.source.details = target_class::DETAILS_CLASS.new(setting_params)
+    # binding.pry
+    # @agent.outputs = get_outputs
 
-    unless @setting.valid?
+    unless details.valid?
       return render "shared/settings/show"
     end
 
-    @setting.save!
+    @agent.save!
+    @agent.source = source
+    @agent.source.details = details
+    @agent.source.details.save!
+    @agent.outputs = get_outputs
 
 
     # @fluentd.agent.config_append @setting.to_config
@@ -37,13 +47,25 @@ module SettingConcern
     #     return render "shared/settings/edit"
     #   end
     # end
-    # redirect_to source_daemon_setting_path(@fluentd)
+    redirect_to agents_path
+  end
+
+  def get_outputs
+    outputs = []
+    output_params.each do |key, flag|
+      if flag == 'true'
+        output = Output::OUTPUT_TYPES[key].constantize.new
+        output.details = Output::OUTPUT_TYPES[key].constantize::DETAILS_CLASS.new(Output::OUTPUT_TYPES[key].constantize.initial_params)
+        outputs << output
+      end
+    end
+    outputs
   end
 
   private
 
   def agent_params
-    params.require('agent').permit(:name)
+    params.require('agent').permit(:title)
   end
 
   def setting_params

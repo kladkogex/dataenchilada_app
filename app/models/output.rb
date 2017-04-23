@@ -14,10 +14,10 @@ class Output < ActiveRecord::Base
   belongs_to :engine, class: ::Agent, foreign_key: :agent_id
 
   OUTPUT_TYPES = {
-      'kafka' => 'Fluentd::Setting::Detail::OutKafka',
-      'elasticsearch' => 'Fluentd::Setting::Detail::OutElasticsearch',
-      'kassandra' => 'Fluentd::Setting::Detail::OutKassandra',
-      'hdfs' => 'Fluentd::Setting::Detail::OutWebhdfs'
+      'kafka' => 'Fluentd::Setting::OutKafka',
+      'elasticsearch' => 'Fluentd::Setting::OutElasticsearch',
+      'kassandra' => 'Fluentd::Setting::OutKassandra',
+      'hdfs' => 'Fluentd::Setting::OutWebhdfs'
   }
 
   TYPES_BASE = {

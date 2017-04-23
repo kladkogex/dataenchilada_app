@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170420133052) do
+ActiveRecord::Schema.define(version: 20170422174705) do
 
   create_table "agent_types", force: :cascade do |t|
     t.string  "name",   limit: 255
@@ -98,11 +98,14 @@ ActiveRecord::Schema.define(version: 20170420133052) do
   end
 
   create_table "out_elasticsearch_details", force: :cascade do |t|
-    t.integer "output_id",  limit: 4
-    t.string  "host",       limit: 255
-    t.integer "port",       limit: 4
-    t.string  "index_name", limit: 255
-    t.string  "type_name",  limit: 255
+    t.integer "output_id",       limit: 4
+    t.string  "host",            limit: 255
+    t.integer "port",            limit: 4
+    t.string  "index_name",      limit: 255
+    t.string  "type_name",       limit: 255
+    t.boolean "logstash_format", limit: 1
+    t.boolean "include_tag_key", limit: 1
+    t.boolean "utc_index",       limit: 1
   end
 
   create_table "out_kafka_details", force: :cascade do |t|
@@ -116,6 +119,7 @@ ActiveRecord::Schema.define(version: 20170420133052) do
     t.string  "compression_codec", limit: 255
     t.integer "max_send_retries",  limit: 4
     t.integer "required_acks",     limit: 4
+    t.string  "zookeeper",         limit: 255
   end
 
   create_table "out_kassandra_details", force: :cascade do |t|
