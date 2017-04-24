@@ -14,6 +14,8 @@
         - @agent.source.common_options.each do |key|
           - v = @agent.source.details.attributes[key.to_s]
           = f_source.input key.to_sym, :input_html => { :value => v, class: "form-control"}
+          - if @agent.source.try(:fields_descriptions).present?
+            %small.form-text.text-muted= @agent.source.fields_descriptions[key]
         - if @agent.source.advanced_options.present?
           .well.well-sm
             %h4{"data-toggle" => "collapse", "href" => "#advanced-setting"}
@@ -23,6 +25,8 @@
               - @agent.source.advanced_options.each do |key|
                 - v = @agent.source.details.attributes[key.to_s]
                 = f_source.input key.to_sym, :input_html => { :value => v, class: "form-control"}
+                - if @agent.source.try(:fields_descriptions).present?
+                  %small.form-text.text-muted= @agent.source.fields_descriptions[key]
       %a.btn.btn-primary{data: {toggle: :tab}, href: '#outputs'} Next
 
     #outputs.tab-pane.fade

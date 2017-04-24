@@ -6,20 +6,31 @@
 = render "shared/setting_errors"
 
 - # NOTE: plugin_setting_form_action_url is defined at SettingConcern
-= form_for(@setting, url: action, html: {class: "ignore-rails-error-div"}) do |f|
+-#= form_for(@setting, url: action, html: {class: "ignore-rails-error-div"}) do |f|
+= vertical_simple_form_for(@agent, url: plugin_setting_form_action_url, defaults: { input_html: { class: "new-input" } }) do |f|
   .row
     .col-xs-4
       %h2= "Main DB settings"
-      - @setting.common_options.each do |key|
-        = field(f, key)
-      - if @setting.advanced_options.present?
-        .well.well-sm
-          %h4{"data-toggle" => "collapse", "href" => "#advanced-setting"}
-            = icon('fa-caret-down')
-            = t('terms.advanced_setting')
-          #advanced-setting.collapse
-            - @setting.advanced_options.each do |key|
-              = field(f, key)
+      = f.simple_fields_for :source do |f_source|
+        - @agent.source.common_options.each do |key|
+          - v = @agent.source.details.attributes[key.to_s]
+          = f_source.input key.to_sym, :input_html => { :value => v, class: "form-control"}
+          - if @agent.source.try(:fields_descriptions).present?
+            %small.form-text.text-muted= @agent.source.fields_descriptions[key]
+          -#= field(f, key)
+        - if @agent.source.advanced_options.present?
+          .well.well-sm
+            %h4{"data-toggle" => "collapse", "href" => "#advanced-setting"}
+              = icon('fa-caret-down')
+              = t('terms.advanced_setting')
+            #advanced-setting.collapse
+              - @agent.source.advanced_options.each do |key|
+                - v = @agent.source.details.attributes[key.to_s]
+                = f_source.input key.to_sym, :input_html => { :value => v, class: "form-control"}
+                -#- binding.pry
+                - if @agent.source.try(:fields_descriptions).present?
+                  %small.form-text.text-muted= @agent.source.fields_descriptions[key]
+                -#= field(f, key)
             -#.form-group
             -#  = f.check_box :all_tables
             -#  = f.label :all_tables
@@ -34,9 +45,9 @@
         %small.form-text.text-muted.pull-right
           = t('.no_table_notice')
       #tables_container
-        - if @setting.table.present?
-          - @setting.table.each_with_index do |table, index|
-            = render partial: 'fluentd/settings/in_sql/table_form', locals: {table: table, index: index, table_count: @setting.table.size}
+        - if @agent.source.tables.present?
+          - @agent.source.tables.each_with_index do |table, index|
+            = render partial: 'fluentd/settings/in_sql/table_form', locals: {table: table, index: index, table_count: @agent.source.tables.size}
   - if @section_id.present?
     = hidden_field_tag :id, @section_id
   = f.submit t('fluentd.common.finish'), class: "btn btn-lg btn-primary pull-left"
@@ -62,7 +73,7 @@
 
   $('#add-table').click(function(e) {
     e.preventDefault();
-    var html = "#{escape_javascript(render partial: 'fluentd/settings/in_sql/table_form', locals: {table: {}, index: rand(99..9999), table_count: 2})}";
+    var html = "#{escape_javascript(render partial: 'fluentd/settings/in_sql/table_form', locals: {table: @agent.source.tables.first.class.new, index: rand(99..9999), table_count: 2})}";
     $('#tables_container').append(html);
     updateTables();
   });

@@ -3,32 +3,29 @@ class Fluentd
     class InSql < Source
 
       relate_to_details
+
+      TABLES_CLASS = InSqlTable
+
+      has_many :tables, foreign_key: "source_id", class_name: TABLES_CLASS
       # include ActiveModel::Model
       include Common
 
-      # KEYS = [
-      #     :host,
-      #     :port,
-      #     :database,
-      #     :adapter,
-      #     :username,
-      #     :password,
-      #     :tag_prefix,
-      #     :select_interval,
-      #     :select_limit,
-      #     :state_file,
-      #     :table,
-      #     # :all_tables
-      # ].freeze
+      KEYS = [
+          :host,
+          :port,
+          :database,
+          :adapter,
+          :username,
+          :password,
+          :tag_prefix,
+          :select_interval,
+          :select_limit,
+          :state_file,
+          :table,
+          # :all_tables
+      ].freeze
       #
       # attr_accessor(*KEYS)
-
-      validates :host, presence: true
-      validates :database, presence: true
-      validates :adapter, presence: true
-      validates :username, presence: true
-      validates :password, presence: true
-      validates :state_file, presence: true
 
       def self.initial_params
         {
@@ -40,16 +37,17 @@ class Fluentd
             tag_prefix: 'my.rdb',
             select_interval: '60s',
             select_limit: '500',
-            state_file: "/tmp/data_enchilada-sql-#{Fluentd.instance.id}-#{Time.now.to_i}.pos",
-            table: [
-                {
-                    table: 'rdb_table',
-                    tag: 'rdb_table_tag',
-                    update_column: 'updated_at',
-                    time_column: 'updated_at',
-                    primary_key: ''
-                }
-            ]
+            state_file: "/tmp/data_enchilada-sql-#{Fluentd.instance.id}-#{Time.now.to_i}.pos"
+        }
+      end
+
+      def self.initial_table_params
+        {
+            table: 'rdb_table',
+            tag: 'rdb_table_tag',
+            update_column_val: 'updated_at',
+            time_column: 'updated_at',
+            primary_key: ''
         }
       end
 
@@ -66,13 +64,6 @@ class Fluentd
             select_limit: 'LIMIT of number of rows for each SQL (optional)',
             state_file: '* path to a file to store last rows (required)',
             # all_tables: 'reads all tables instead of configuring each tables in &lt;table&gt; sections (optional)',
-            table: {
-                tag: 'tag name of events (optional; default value is table name)',
-                table: '* RDBM table name',
-                update_column: '* see above description',
-                time_column: "(optional): if this option is set, this plugin uses this column's value as the the event's time. Otherwise it uses current time.",
-                primary_key: "(optional): if you want to get data from the table which doesn't have primary key like PostgreSQL's View, set this parameter."
-            }
         }
       end
 

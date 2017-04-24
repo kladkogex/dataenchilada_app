@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170423131640) do
+ActiveRecord::Schema.define(version: 20170424101641) do
 
   create_table "agent_types", force: :cascade do |t|
     t.string  "name",   limit: 255
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20170423131640) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "agent_type_id", limit: 4
+    t.string   "agent_type",    limit: 255
   end
 
   add_index "agents", ["name"], name: "index_agents_on_name", using: :btree
@@ -74,6 +75,15 @@ ActiveRecord::Schema.define(version: 20170423131640) do
     t.string  "select_limit",    limit: 255
     t.string  "state_file",      limit: 255
     t.string  "table",           limit: 255
+  end
+
+  create_table "in_sql_tables", force: :cascade do |t|
+    t.integer "source_id",     limit: 4
+    t.string  "table",         limit: 255
+    t.string  "tag",           limit: 255
+    t.string  "update_column", limit: 255
+    t.string  "time_column",   limit: 255
+    t.string  "primary_key",   limit: 255
   end
 
   create_table "in_tail_details", force: :cascade do |t|
