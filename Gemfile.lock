@@ -69,6 +69,7 @@ GEM
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
       rack (>= 0.9.0)
+    bindata (2.4.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     buftok (0.2.0)
@@ -134,6 +135,9 @@ GEM
     fluent-plugin-mixpanel-enchanced (0.0.13)
       fluentd (>= 0.10.55)
       mixpanel-ruby (~> 2.2.0)
+    fluent-plugin-netflow (0.2.7)
+      bindata (~> 2.1)
+      fluentd (>= 0.10.17, < 2)
     fluent-plugin-retag (0.0.2)
       fluentd
     fluent-plugin-rss (0.0.1)
@@ -366,6 +370,7 @@ DEPENDENCIES
   fluent-plugin-elasticsearch
   fluent-plugin-kafka
   fluent-plugin-mixpanel-enchanced
+  fluent-plugin-netflow
   fluent-plugin-retag
   fluent-plugin-rss
   fluent-plugin-sql
