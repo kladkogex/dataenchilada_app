@@ -60,7 +60,7 @@ module Dataenchilada::Agents
       props = build_source_props(source)
 
       tpl_vars = {
-          tag = agent.source.details.tag,
+          tag: source.details.tag,
           agent: agent,
           source: source,
           props: props,
