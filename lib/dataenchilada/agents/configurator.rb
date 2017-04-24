@@ -20,21 +20,27 @@ module Dataenchilada::Agents
 
       # outputs
       agent.outputs.each do |output|
-        s_output = generate_config_output(output, tag)
-
-        res << s_output
-
-        x=0
+        res << generate_config_output(output, tag)
       end
 
       res << "\n\n"
 
 
       # save to file
+      write_config_file(agent, res)
+
+      true
+    end
+
+    def self.write_config_file(agent, content)
       f_out = config_filename(agent)
 
+      d = File.dirname(f_out)
+      FileUtils.mkdir_p(d) unless Dir.exists?(d)
+
+      #
       File.open(f_out,'w') do |f|
-        f.write(res)
+        f.write(content)
       end
 
       true
