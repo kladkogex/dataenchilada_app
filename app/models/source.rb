@@ -20,12 +20,13 @@ class Source < ActiveRecord::Base
 
   TYPES = {
       twitter: 'Fluentd::Setting::InTwitter',
-      tail: 'Fluentd::Setting::OutWebhdfs'
+      #tail: 'Fluentd::Setting::OutWebhdfs',
   }
 
   TYPES_BASE = {
       'Fluentd::Setting::InTwitter' => 'twitter',
       'Fluentd::Setting::InTail' => 'tail',
+      'Fluentd::Setting::InNetflow' => 'netflow',
   }
 
 
