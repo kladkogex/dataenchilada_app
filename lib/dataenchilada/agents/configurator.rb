@@ -1,6 +1,10 @@
 module Dataenchilada::Agents
   class Configurator
 
+    ###
+    def self.logger
+      Rails.logger
+    end
 
     ### main method
 
@@ -153,8 +157,10 @@ module Dataenchilada::Agents
     def self.get_system_props
       f = "/etc/data_enchilada/data_enchilada.properties"
 
-      if Rails.env.development?
-        if !File.exists?(f)
+
+      if !File.exists?(f)
+        logger.error "File not found: #{f}"
+        if Rails.env.development?
           f = File.join(Rails.root, "data/temp/data_enchilada.properties")
         end
       end

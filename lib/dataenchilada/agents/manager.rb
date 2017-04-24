@@ -3,6 +3,12 @@ module Dataenchilada::Agents
 
     COMMANDS = ['run', 'start', 'stop', 'restart']
 
+    ###
+    def self.logger
+      Rails.logger
+    end
+
+    ###
     def self.do_command(agent, cmd)
       unless COMMANDS.include?(cmd)
         return false
@@ -30,7 +36,6 @@ module Dataenchilada::Agents
       sv_name = ::Dataenchilada::Agents::Settings::sv_service_name(agent)
       cmd = "supervisorctl start #{sv_name}"
       res = Dataenchilada::System::Commands::exec(cmd)
-
 
       agent.finish_start!
 
@@ -83,9 +88,19 @@ module Dataenchilada::Agents
       begin
         cmd = cmd_check_config(agent)
         res_config = Dataenchilada::System::Commands::exec(cmd)
+
+
+        logger.debug "Run cmd: #{cmd}. Output: #{res_config[1]}"
       rescue => e
-        return false
+        logger.error "Error in config"
+        logger.error "Error in config: #{res_config[1]}"
+
+        raise 'Error in config'
+        #return false
       end
+
+      logger.error "Config Ok. Agent: #{agent.name}"
+
 
 
       # install with supervisor
@@ -109,16 +124,27 @@ module Dataenchilada::Agents
 
       result = ERB.new(s_tpl).result(tpl_vars.instance_eval { binding })
 
-      #sudo service supervisor restart
       sv_filename = ::Dataenchilada::Agents::Settings::sv_file(agent)
+
+      logger.debug "Try to write to file: #{sv_filename}"
+      logger.debug "Content: #{result}"
 
       File.open(sv_filename,'w') do |f|
         f.write(result)
       end
 
+      logger.info "Created sv file: #{sv_filename}"
+
       # reload supervisor
-      cmd = "service supervisor stop && service supervisor start"
-      res = Dataenchilada::System::Commands::exec(cmd, false)
+=begin
+      begin
+        cmd = "service supervisor stop; service supervisor start"
+        res = Dataenchilada::System::Commands::exec(cmd, true)
+        logger.debug "Restart supervisor. Output: #{res[1]}"
+      rescue => e
+        logger.error "Cannot restart supervisor"
+      end
+=end
 
 
       true
@@ -149,7 +175,7 @@ module Dataenchilada::Agents
       opts_args = options_to_argv(agent, opts)
 
       # run
-      %Q(fluentd --dry-run #{opts_args} 2>&1)
+      %Q(fluentd --dry-run #{opts_args})
     end
 
 
