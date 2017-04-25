@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   helper_method :fluentd_exists?
   before_action :login_required
   before_action :set_locale
-  before_action :notice_new_fluentd_ui_available
+  # before_action :notice_new_fluentd_ui_available
 
   private
 

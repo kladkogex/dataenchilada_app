@@ -13,8 +13,7 @@ class Fluentd::Settings::InSqlController < ApplicationController
   end
 
   def finish
-
-    @agent = Agent.new(agent_params)
+    @agent = ::Agent.new(agent_params)
     source = target_class.new
     @agent.name = source.plugin_name
     details = target_class::DETAILS_CLASS.new(setting_params)
@@ -47,27 +46,52 @@ class Fluentd::Settings::InSqlController < ApplicationController
     #   end
     # end
     # redirect_to source_daemon_setting_path(@fluentd)
+    redirect_to agents_path
   end
 
   private
 
+  # def setting_params
+  #   params.require(target_class.to_s.underscore.gsub("/", "_")).permit(:host,
+  #                                                                      :port,
+  #                                                                      :database,
+  #                                                                      :adapter,
+  #                                                                      :username,
+  #                                                                      :password,
+  #                                                                      :tag_prefix,
+  #                                                                      :select_interval,
+  #                                                                      :select_limit,
+  #                                                                      :state_file,
+  #                                                                      :all_tables,
+  #                                                                      table: [:table,
+  #                                                                              :tag,
+  #                                                                              :update_column,
+  #                                                                              :time_column,
+  #                                                                              :primary_key])
+  # end
+
+  def get_outputs
+    outputs = []
+    output_params.each do |key, flag|
+      if flag == 'true'
+        output = Output::OUTPUT_TYPES[key].constantize.new
+        output.details = Output::OUTPUT_TYPES[key].constantize::DETAILS_CLASS.new(Output::OUTPUT_TYPES[key].constantize.initial_params)
+        outputs << output
+      end
+    end
+    outputs
+  end
+
+  def agent_params
+    params.require('agent').permit(:title)
+  end
+
   def setting_params
-    params.require(target_class.to_s.underscore.gsub("/", "_")).permit(:host,
-                                                                       :port,
-                                                                       :database,
-                                                                       :adapter,
-                                                                       :username,
-                                                                       :password,
-                                                                       :tag_prefix,
-                                                                       :select_interval,
-                                                                       :select_limit,
-                                                                       :state_file,
-                                                                       :all_tables,
-                                                                       table: [:table,
-                                                                               :tag,
-                                                                               :update_column,
-                                                                               :time_column,
-                                                                               :primary_key])
+    params.require('agent').require('source').permit(*target_class.const_get(:KEYS))
+  end
+
+  def output_params
+    params.require('agent').require('outputs').permit(Output::OUTPUT_TYPES.keys)
   end
 
   def target_class
