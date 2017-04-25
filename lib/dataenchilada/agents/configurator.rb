@@ -10,7 +10,7 @@ module Dataenchilada::Agents
 
     def self.generate_config(agent)
 
-      res = ""
+      res = {}
 
       tag = agent.source.details.tag
       #tag = "mytag"
@@ -18,16 +18,13 @@ module Dataenchilada::Agents
       # sources
       source = agent.source
       s_source = generate_config_source(source)
-      res << s_source
-
-      res << "\n\n"
+      res['source'] = s_source
 
       # outputs
+      res['outputs'] = []
       agent.outputs.each do |output|
-        res << generate_config_output(output, tag)
+        res['outputs'] << generate_config_output(output, tag)
       end
-
-      res << "\n\n"
 
 
       # save to file
@@ -36,13 +33,23 @@ module Dataenchilada::Agents
       true
     end
 
-    def self.write_config_file(agent, content)
+    def self.write_config_file(agent, data)
       f_out = config_filename(agent)
 
       d = File.dirname(f_out)
       FileUtils.mkdir_p(d) unless Dir.exists?(d)
 
       #
+      f_tpl = filename_template_agent(agent.agent_type.name)
+
+      tpl_vars = {
+          source: data['source'],
+          outputs: data['outputs'],
+      }
+
+      content = process_erb_file(f_tpl, tpl_vars)
+
+
       File.open(f_out,'w') do |f|
         f.write(content)
       end
@@ -195,6 +202,10 @@ module Dataenchilada::Agents
 
     def self.config_filename(agent)
       File.join(Rails.root, "data/agents/#{agent.name}", "agent.conf")
+    end
+
+    def self.filename_template_agent(agent_type)
+      File.join(Rails.root, "data/templates/#{agent_type}", "agent.erb")
     end
 
     def self.filename_template_input(agent_type, source_type)

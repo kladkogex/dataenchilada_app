@@ -1,0 +1,11 @@
+<%=source%>
+
+<match <%=tag%>>
+  @type copy
+
+  <% outputs.each do |output| %>
+  <store>
+    <%=output%>
+    </store>
+  <% end %>
+</match>
