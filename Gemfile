@@ -32,7 +32,7 @@ gem 'fluent-plugin-mixpanel-enchanced'
 gem 'fluent-plugin-elasticsearch'
 gem 'fluent-plugin-webhdfs'
 gem 'fluent-plugin-cassandra-driver'
-gem 'fluent-plugin-netflow'
+gem 'fluent-plugin-netflow-enchanced'
 
 gem 'simple_form'
 
