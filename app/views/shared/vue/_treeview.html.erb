@@ -2,6 +2,10 @@
 <% action ||= "" %>
 <% submit_button ||= "" %>
 <%= form_tag(action, method: :post) do %>
+    <div class="form-group string optional agent_title">
+      <label class="control-label string optional" for="agent_title">Name of Agent</label>
+      <input class="new-input string optional form-control" type="text" value="aggg1" name="agent[title]" id="agent_title">
+    </div>
   <div id="treeview" initialPath="/var/log">
     <pre>{{ path }}</pre>
     <input type="hidden" name="<%= name %>" v-model="path" />

@@ -1,3 +1,5 @@
+- content_for(:page_title) do
+  = "#{t("fluentd.settings.page_add")} #{t("fluentd.settings.#{target_plugin_name}.show.page_title")}"
 = vertical_simple_form_for(@agent, url: plugin_setting_form_action_url, defaults: { input_html: { class: "new-input" } }) do |f|
   = render "shared/setting_errors"
 
@@ -27,13 +29,13 @@
                 = f_source.input key.to_sym, :input_html => { :value => v, class: "form-control"}
                 - if @agent.source.try(:fields_descriptions).present?
                   %small.form-text.text-muted= @agent.source.fields_descriptions[key]
-      %a.btn.btn-primary{data: {toggle: :tab}, href: '#outputs'} Next
+      %a.btn.btn-primary.scroll-top{data: {toggle: :tab}, href: '#outputs'} Next
 
     #outputs.tab-pane.fade
       %h1.page-header
         = "Choose outputs for your stream"
-      .well
-        = raw t("fluentd.settings.#{target_plugin_name}.option_guide")
+      -#.well
+        -#= raw t("fluentd.settings.#{target_plugin_name}.option_guide")
 
       = f.simple_fields_for :outputs do |f_output|
         - Output::OUTPUT_TYPES.each do |key, value|

@@ -21,4 +21,5 @@
 //= require bower/codemirror/lib/codemirror
 //= require codemirror_fluentd
 //= require vue_common
+//= require data_enchilada_custom
 //= require_tree .

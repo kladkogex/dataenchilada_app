@@ -1,3 +1,5 @@
+- content_for(:page_title) do
+  = "#{t("fluentd.settings.page_#{action_type}")} #{t(".page_title")}"
 = vertical_simple_form_for(@agent, url: plugin_setting_form_action_url, defaults: { input_html: { class: "new-input" } }) do |f|
   .tab-content
     #source.tab-pane.fade.in.active
@@ -55,12 +57,12 @@
                 = render partial: 'fluentd/settings/in_sql/table_form', locals: {table: table, index: index, table_count: @agent.source.tables.size}
       - if @section_id.present?
         = hidden_field_tag :id, @section_id
-      %a.btn.btn-primary{data: {toggle: :tab}, href: '#outputs'} Next
+      %a.btn.btn-primary.scroll-top{data: {toggle: :tab}, href: '#outputs'} Next
       -#= f.submit t('fluentd.common.finish'), class: "btn btn-lg btn-primary pull-left"
     #outputs.tab-pane.fade
       %h1.page-header
         = "Choose outputs for your stream"
-      .well
+      -#.well
         = raw t("fluentd.settings.#{target_plugin_name}.option_guide")
 
       = f.simple_fields_for :outputs do |f_output|

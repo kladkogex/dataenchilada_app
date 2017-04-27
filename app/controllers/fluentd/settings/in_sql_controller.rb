@@ -16,13 +16,14 @@ class Fluentd::Settings::InSqlController < ApplicationController
     @agent = ::Agent.new(agent_params)
     source = target_class.new
     @agent.name = source.plugin_name
+    @agent.agent_type = AgentType.find_by(name: 'fluentd')
     details = target_class::DETAILS_CLASS.new(setting_params)
     # @agent.source = target_class.new
     # @agent.source.details = target_class::DETAILS_CLASS.new(setting_params)
     # binding.pry
     # @agent.outputs = get_outputs
 
-    unless details.valid?
+    unless details.valid? && get_outputs.present?
       return render "shared/settings/show"
     end
 

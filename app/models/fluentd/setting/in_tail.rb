@@ -9,8 +9,6 @@ class Fluentd
       # include ActiveModel::Model
       # attr_accessor :path, :tag, :format, :regexp, :time_format, :rotate_wait, :pos_file, :read_from_head, :refresh_interval
 
-      validates :path, presence: true
-      validates :tag, presence: true
       #validates :format, presence: true
 
       def self.known_formats
@@ -37,7 +35,7 @@ class Fluentd
       end
 
       def guess_format
-        case path
+        case details.path
         when /\.json$/
           :json
         when /\.csv$/
@@ -58,16 +56,16 @@ class Fluentd
       end
 
       def extra_format_options
-        self.class.known_formats[format.to_sym] || []
+        self.class.known_formats[details.format.to_sym] || []
       end
 
       def format_specific_conf
-        return "" if %w(grok regexp).include?(format)
+        return "" if %w(grok regexp).include?(details.format)
 
         indent = " " * 2
         format_specific_conf = ""
 
-        if format.to_sym == :multiline
+        if details.format.to_sym == :multiline
           known_formats[:multiline].each do |key|
             value = send(key)
             if value.present?
@@ -87,13 +85,13 @@ class Fluentd
       end
 
       def certain_format_line
-        case format
+        case details.format
         when "grok"
           "format /#{grok.convert_to_regexp(grok_str).source.gsub("/", "\\/")}/ # grok: '#{grok_str}'"
         when "regexp"
           "format /#{regexp}/"
         else
-          "format #{format}"
+          "format #{details.format}"
         end
       end
 
@@ -106,20 +104,25 @@ class Fluentd
           end
       end
 
+      def plugin_name
+        'tail'
+      end
+
       def to_conf
         # NOTE: Using strip_heredoc makes more complex for format_specific_conf indent
         <<-XML.gsub(/^[ ]*\n/m, "")
 <source>
   type tail
-  path #{path}
-  tag #{tag}
+  path #{details.path}
+  tag #{details.tag}
   #{certain_format_line}
 #{format_specific_conf}
+#{format_specific_conf}
 
-  #{read_from_head.to_i.zero? ? "" : "read_from_head true"}
-  #{pos_file.present? ? "pos_file #{pos_file}" : ""}
-  #{rotate_wait.present? ? "rotate_wait #{rotate_wait}" : ""}
-  #{refresh_interval.present? ? "refresh_interval #{refresh_interval}" : ""}
+  #{details.read_from_head.to_i.zero? ? "" : "read_from_head true"}
+  #{details.pos_file.present? ? "pos_file #{details.pos_file}" : ""}
+  #{details.rotate_wait.present? ? "rotate_wait #{details.rotate_wait}" : ""}
+  #{details.refresh_interval.present? ? "refresh_interval #{details.refresh_interval}" : ""}
 </source>
         XML
       end

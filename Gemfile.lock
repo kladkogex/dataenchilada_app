@@ -135,9 +135,9 @@ GEM
     fluent-plugin-mixpanel-enchanced (0.0.13)
       fluentd (>= 0.10.55)
       mixpanel-ruby (~> 2.2.0)
-    fluent-plugin-netflow (0.2.7)
+    fluent-plugin-netflow-enchanced (1.0.0.rc1)
       bindata (~> 2.1)
-      fluentd (>= 0.10.17, < 2)
+      fluentd (>= 0.14.10, < 2)
     fluent-plugin-retag (0.0.2)
       fluentd
     fluent-plugin-rss (0.0.1)
@@ -370,7 +370,7 @@ DEPENDENCIES
   fluent-plugin-elasticsearch
   fluent-plugin-kafka
   fluent-plugin-mixpanel-enchanced
-  fluent-plugin-netflow
+  fluent-plugin-netflow-enchanced
   fluent-plugin-retag
   fluent-plugin-rss
   fluent-plugin-sql
