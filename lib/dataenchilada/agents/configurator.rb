@@ -13,6 +13,8 @@ module Dataenchilada::Agents
       res = {}
 
       tag = agent.source.details.tag
+
+      res['tag'] = tag
       #tag = "mytag"
 
       # sources
@@ -43,6 +45,7 @@ module Dataenchilada::Agents
       f_tpl = filename_template_agent(agent.agent_type.name)
 
       tpl_vars = {
+          tag: data['tag'],
           source: data['source'],
           outputs: data['outputs'],
       }
