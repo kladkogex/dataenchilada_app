@@ -2,4 +2,5 @@
 log/
 tmp/
 database.yml
+data/agents/
 

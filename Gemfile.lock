@@ -1,8 +1,8 @@
 GIT
   remote: git://github.com/zhron4x/fluent-plugin-twitter.git
-  revision: 7fcf4c5e372288296eb5880517d34bf972cbaaad
+  revision: d83b722e882fa8e01f60afad5571248b4099bac5
   specs:
-    fluent-plugin-twitter (0.6.1)
+    fluent-plugin-twitter (0.6.3)
       fluentd (>= 0.14.0, < 2)
       twitter (~> 6.0)
 
@@ -356,7 +356,7 @@ DEPENDENCIES
   fluent-plugin-retag
   fluent-plugin-rss
   fluent-plugin-sql
-  fluent-plugin-twitter (~> 0.6.1)!
+  fluent-plugin-twitter (~> 0.6.3)!
   fluent-plugin-webhdfs
   fluentd-ui!
   font-awesome-rails
@@ -366,6 +366,7 @@ DEPENDENCIES
   pry
   pry-rails
   puma
+  rails (= 4.2.8)
   redis (~> 3.2)
   rspec-rails (~> 3.0)
   simple_form
@@ -373,4 +374,4 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.14.3
+   1.14.6
