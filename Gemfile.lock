@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/zhron4x/fluent-plugin-twitter.git
+  revision: 7fcf4c5e372288296eb5880517d34bf972cbaaad
+  specs:
+    fluent-plugin-twitter (0.6.1)
+      fluentd (>= 0.14.0, < 2)
+      twitter (~> 6.0)
+
 PATH
   remote: .
   specs:
@@ -130,9 +138,6 @@ GEM
       activerecord (~> 4.2)
       activerecord-import (~> 0.7)
       fluentd (>= 0.12.17, < 2)
-    fluent-plugin-twitter-enchanced (0.6.1)
-      fluentd (>= 0.14.0, < 2)
-      twitter (~> 6.0)
     fluent-plugin-webhdfs (1.1.0)
       bzip2-ffi
       fluentd (>= 0.14.4)
@@ -351,7 +356,7 @@ DEPENDENCIES
   fluent-plugin-retag
   fluent-plugin-rss
   fluent-plugin-sql
-  fluent-plugin-twitter-enchanced
+  fluent-plugin-twitter (~> 0.6.1)!
   fluent-plugin-webhdfs
   fluentd-ui!
   font-awesome-rails
