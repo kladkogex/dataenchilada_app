@@ -24,7 +24,7 @@ gem 'redis', '~>3.2'
 gem 'aasm', '4.11.0'
 
 gem 'fluent-plugin-sql'
-gem 'fluent-plugin-twitter', '~>0.6.1', github: 'zhron4x/fluent-plugin-twitter'
+gem 'fluent-plugin-twitter', '~>0.6.2', github: 'zhron4x/fluent-plugin-twitter'
 gem 'fluent-plugin-kafka'
 gem 'fluent-plugin-retag'
 gem 'fluent-plugin-rss'
