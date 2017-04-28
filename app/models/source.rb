@@ -16,7 +16,7 @@ class Source < ActiveRecord::Base
 
   has_one :agent
 
-  belongs_to :engine, class: ::Agent, foreign_key: :agent_id
+  belongs_to :engine, class_name: '::Agent', foreign_key: :agent_id
 
   TYPES = {
       twitter: 'Fluentd::Setting::InTwitter',
