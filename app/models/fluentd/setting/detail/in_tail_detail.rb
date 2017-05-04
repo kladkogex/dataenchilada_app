@@ -5,7 +5,6 @@ class Fluentd
         belongs_to :source
 
         validates :path, presence: true
-        validates :tag, presence: true
       end
     end
   end

@@ -6,7 +6,8 @@ class Fluentd::Settings::InSqlController < ApplicationController
 
   def show
     @agent = ::Agent.new
-    @agent.title = 'aggg1'
+    @agent.title = 'My agent name'
+    @agent.tag = target_class.default_tag
     @agent.source = target_class.new
     @agent.source.details = target_class::DETAILS_CLASS.new(target_class.initial_params)
     @agent.source.tables = [target_class::TABLES_CLASS.new(target_class.initial_table_params)]
@@ -22,8 +23,13 @@ class Fluentd::Settings::InSqlController < ApplicationController
     # @agent.source.details = target_class::DETAILS_CLASS.new(setting_params)
     # binding.pry
     # @agent.outputs = get_outputs
+    tables = target_class::TABLES_CLASS.new(tables_params)
 
-    unless details.valid? && get_outputs.present?
+    unless @agent.valid? && details.valid? && get_outputs.present?
+      @agent.source = source
+      @agent.source.details = details
+      @agent.source.tables = [tables]
+
       return render "shared/settings/show"
     end
 
@@ -31,6 +37,7 @@ class Fluentd::Settings::InSqlController < ApplicationController
     @agent.source = source
     @agent.source.details = details
     @agent.source.details.save!
+    @agent.source.tables = [tables]
     @agent.outputs = get_outputs
 
 
@@ -83,8 +90,12 @@ class Fluentd::Settings::InSqlController < ApplicationController
     outputs
   end
 
+  def tables_params
+    params.require(:tables).first.permit([:table, :update_column_val, :time_column, :primary_key])
+  end
+
   def agent_params
-    params.require('agent').permit(:title)
+    params.require('agent').permit(:title, :tag)
   end
 
   def setting_params

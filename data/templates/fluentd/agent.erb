@@ -4,12 +4,12 @@
   @type stdout
 </match>
 
-<match <%=tag%>>
+<match **>
   @type copy
 
   <% outputs.each do |output| %>
   <store>
     <%=output%>
-    </store>
+  </store>
   <% end %>
 </match>

@@ -93,13 +93,14 @@ module Dataenchilada::Agents
         logger.debug "Run cmd: #{cmd}. Output: #{res_config[1]}"
       rescue => e
         logger.error "Error in config"
-        logger.error "Error in config: #{res_config[1]}"
+        logger.error "Error in config: #{res_config.try(:[],1)}"
+        logger.error e.message
 
         raise 'Error in config'
         #return false
       end
 
-      logger.error "Config Ok. Agent: #{agent.name}"
+      logger.error "Config Ok. Agent: #{agent.conf_name}"
 
 
 

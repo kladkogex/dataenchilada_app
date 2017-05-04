@@ -17,13 +17,14 @@ class Output < ActiveRecord::Base
       'kafka' => 'Fluentd::Setting::OutKafka',
       'elasticsearch' => 'Fluentd::Setting::OutElasticsearch',
       'kassandra' => 'Fluentd::Setting::OutKassandra',
-      'hdfs' => 'Fluentd::Setting::OutWebhdfs'
+      'webhdfs' => 'Fluentd::Setting::OutWebhdfs'
   }
 
   TYPES_BASE = {
       'Fluentd::Setting::OutKafka' => 'kafka',
       'Fluentd::Setting::OutKassandra' => 'cassandra',
       'Fluentd::Setting::OutElasticsearch' => 'elasticsearch',
+      'Fluentd::Setting::OutWebhdfs' => 'webhdfs',
   }
 
   def output_type_name

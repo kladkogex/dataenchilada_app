@@ -27,6 +27,9 @@ class Source < ActiveRecord::Base
       'Fluentd::Setting::InTwitter' => 'twitter',
       'Fluentd::Setting::InTail' => 'tail',
       'Fluentd::Setting::InNetflow' => 'netflow',
+      'Fluentd::Setting::InForward' => 'forward',
+      'Fluentd::Setting::InSql' => 'sql',
+      'Fluentd::Setting::InHttp' => 'http',
   }
 
 

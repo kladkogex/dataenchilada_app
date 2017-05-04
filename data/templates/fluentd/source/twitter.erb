@@ -1,5 +1,5 @@
 <source>
-  @type twitter
+  @type <%=source.plugin_name%>
   tag <%=tag%>
 
   consumer_key <%=source.details.consumer_key%>
@@ -8,8 +8,9 @@
   access_token_secret <%=source.details.access_token_secret%>
 
   keyword <%=source.details.keyword%>
-  lang en
-  output_format simple
-  timeline tracking
-
+  lang <%=source.details.lang%>
+  output_format <%=source.details.output_format%>
+  timeline <%=source.details.timeline%>
+  <%= "locations #{source.details.locations}" if source.details.locations.present? %>
+  <%= "follow_ids #{source.details.locations}" if source.details.locations.present? %>
 </source>

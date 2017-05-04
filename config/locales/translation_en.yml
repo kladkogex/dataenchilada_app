@@ -255,7 +255,7 @@ en:
           option_guide: |
             SQL input plugin reads records from RDBMSes periodically. An example use case would be getting "diffs" of a table (based on the "updated_at" field).
           page_title: Sql Input Plugin
-          tracked_tables: Tracked tables
+          tracked_tables: Tracked table
           add_table:  + Add table
           no_table_notice: "* If you will not add tables, so 'All tables' flag will be accepted"
         table_form:

@@ -52,6 +52,10 @@ class Fluentd
         }
       end
 
+      def self.default_tag
+        'type_expected_http_tag'
+      end
+
       def plugin_name
         'http'
       end

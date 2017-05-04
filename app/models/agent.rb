@@ -4,6 +4,9 @@ class Agent < ActiveRecord::Base
   has_many :outputs
   has_many :syncs
 
+  validates :title, presence: true, uniqueness: true
+  validates :tag, presence: true, uniqueness: true
+
 
   ### status, state
   include AASM
@@ -14,6 +17,10 @@ class Agent < ActiveRecord::Base
   #scope :w_active, -> { active }
 
   ### get
+
+  def conf_name
+    "#{name}_#{id}"
+  end
 
   def self.get_by_id(id)
     where(id: id).first

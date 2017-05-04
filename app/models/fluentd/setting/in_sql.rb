@@ -17,7 +17,7 @@ class Fluentd
           :adapter,
           :username,
           :password,
-          :tag_prefix,
+          # :tag_prefix,
           :select_interval,
           :select_limit,
           :state_file,
@@ -34,7 +34,7 @@ class Fluentd
             adapter: 'mysql2',
             username: 'myusername',
             password: 'mypassword',
-            tag_prefix: 'my.rdb',
+            # tag_prefix: 'my.rdb',
             select_interval: '60s',
             select_limit: '500',
             state_file: "/tmp/data_enchilada-sql-#{Time.now.to_i}.pos"
@@ -44,7 +44,7 @@ class Fluentd
       def self.initial_table_params
         {
             table: 'rdb_table',
-            tag: 'rdb_table_tag',
+            # tag: 'rdb_table_tag',
             update_column_val: 'updated_at',
             time_column: 'updated_at',
             primary_key: ''
@@ -59,7 +59,7 @@ class Fluentd
             adapter: '* RDBMS driver name. You should install corresponding gem before start (mysql2 gem for mysql2 adapter, pg gem for postgresql adapter, etc. (required)',
             username: '* RDBMS login user name (required)',
             password: '* RDBMS login password (required)',
-            tag_prefix: 'prefix of tags of events. actual tag will be this_tag_prefix.tables_tag (optional, but recommended)',
+            # tag_prefix: 'prefix of tags of events. actual tag will be this_tag_prefix.tables_tag (optional, but recommended)',
             select_interval: 'interval to run SQLs (optional)',
             select_limit: 'LIMIT of number of rows for each SQL (optional)',
             state_file: '* path to a file to store last rows (required)',
@@ -75,7 +75,7 @@ class Fluentd
             :adapter,
             :username,
             :password,
-            :tag_prefix
+            # :tag_prefix
         ]
       end
 
@@ -105,6 +105,10 @@ class Fluentd
             :time_column,
             :primary_key
         ]
+      end
+
+      def self.default_tag
+        'type_expected_db_table_tag'
       end
 
       def to_config

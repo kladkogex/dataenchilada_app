@@ -11,7 +11,8 @@ module SettingConcern
   def show
     # @setting = target_class.new
     @agent = Agent.new
-    @agent.title = 'aggg1'
+    @agent.title = 'My agent name'
+    @agent.tag = target_class.default_tag
     @agent.source = target_class.new
     @agent.source.details = target_class::DETAILS_CLASS.new(target_class.initial_params)
     render "shared/settings/show"
@@ -23,12 +24,11 @@ module SettingConcern
     @agent.name = source.plugin_name
     @agent.agent_type = AgentType.find_by(name: 'fluentd')
     details = target_class::DETAILS_CLASS.new(setting_params)
-    # @agent.source = target_class.new
-    # @agent.source.details = target_class::DETAILS_CLASS.new(setting_params)
-    # binding.pry
-    # @agent.outputs = get_outputs
 
-    unless details.valid? && get_outputs.present?
+    unless @agent.valid? && details.valid? && get_outputs.present?
+      @agent.source = source
+      @agent.source.details = details
+
       return render "shared/settings/show"
     end
 
@@ -37,7 +37,6 @@ module SettingConcern
     @agent.source.details = details
     @agent.source.details.save!
     @agent.outputs = get_outputs
-
 
     # @fluentd.agent.config_append @setting.to_config
     # if @fluentd.agent.running?
@@ -66,7 +65,7 @@ module SettingConcern
   private
 
   def agent_params
-    params.require('agent').permit(:title)
+    params.require('agent').permit(:title, :tag)
   end
 
   def setting_params

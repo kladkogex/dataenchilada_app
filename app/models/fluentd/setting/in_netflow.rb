@@ -7,7 +7,7 @@ class Fluentd
       include Common
 
       KEYS = [
-        :bind, :port, :tag, :switched_times_from_uptime
+        :bind, :port, :switched_times_from_uptime
       ].freeze
 
       # attr_accessor(*KEYS)
@@ -16,14 +16,17 @@ class Fluentd
         {
           bind: "0.0.0.0",
           port: 5140,
-          tag: "netflow.tag",
           switched_times_from_uptime: "yes"
         }
       end
 
+      def self.default_tag
+        'type_expected_netflow_tag'
+      end
+
       def common_options
         [
-          :bind, :port, :tag
+          :bind, :port
         ]
       end
 

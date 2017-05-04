@@ -5,8 +5,7 @@ class Fluentd
         belongs_to :source
 
         validates :bind, presence: true
-        validates :port, presence: true
-        validates :tag, presence: true
+        validates :port, presence: true, uniqueness: true
       end
     end
   end

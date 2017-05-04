@@ -1,10 +1,10 @@
 <source>
-  @type tail
+  @type <%=source.plugin_name%>
   path <%=source.details.path%>
   tag <%=tag%>
-  format none
-  read_from_head true
+  format <%=source.format%>
   pos_file <%=source.details.pos_file%>
-
-  refresh_interval 5
+  <%= "read_from_head true" if source.details.read_from_head.present? %>
+  <%= "rotate_wait #{source.details.rotate_wait}" if source.details.rotate_wait.present? %>
+  <%= "refresh_interval #{source.details.refresh_interval}" if source.details.refresh_interval.present? %>
 </source>

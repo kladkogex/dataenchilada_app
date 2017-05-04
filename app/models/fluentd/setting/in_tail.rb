@@ -108,13 +108,13 @@ class Fluentd
         'tail'
       end
 
-      def to_conf
+      def to_conf tag
         # NOTE: Using strip_heredoc makes more complex for format_specific_conf indent
         <<-XML.gsub(/^[ ]*\n/m, "")
 <source>
   type tail
   path #{details.path}
-  tag #{details.tag}
+  tag #{tag}
   #{certain_format_line}
 #{format_specific_conf}
 #{format_specific_conf}

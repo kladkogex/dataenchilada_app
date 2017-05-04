@@ -7,12 +7,12 @@ module Dataenchilada::Agents
 
     def self.pid_file(agent)
       #extra_options[:pid_file] || self.class.default_options[:pid_file]
-      File.join(DIR_PIDS, "#{agent.name}.pid")
+      File.join(DIR_PIDS, "#{agent.conf_name}.pid")
     end
 
     def self.log_file(agent)
       #extra_options[:log_file] || self.class.default_options[:log_file]
-      File.join(DIR_LOGS, "#{agent.name}.log")
+      File.join(DIR_LOGS, "#{agent.conf_name}.log")
     end
 
 
@@ -22,7 +22,7 @@ module Dataenchilada::Agents
 
 
     def self.sv_service_name(agent)
-      "data_enchilada_agent_#{agent.name}"
+      "data_enchilada_agent_#{agent.conf_name}"
     end
 
     def self.sv_file(agent)
@@ -41,7 +41,7 @@ module Dataenchilada::Agents
     ### for tail
 
     def self.pos_file(agent)
-      File.join(DIR_LOGS, "#{agent.name}.pos")
+      File.join(DIR_LOGS, "#{agent.conf_name}.pos")
     end
 
 

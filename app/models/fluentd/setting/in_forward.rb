@@ -6,14 +6,11 @@ class Fluentd
       # include ActiveModel::Model
       include Common
 
-      # KEYS = [
-      #   :bind, :port, :linger_timeout, :chunk_size_limit, :chunk_size_warn_limit, :log_level
-      # ].freeze
+      KEYS = [
+        :bind, :port, :linger_timeout, :chunk_size_limit, :chunk_size_warn_limit, :log_level
+      ].freeze
       #
       # attr_accessor(*KEYS)
-
-      validates :bind, presence: true
-      validates :port, presence: true
 
       def self.initial_params
         {
@@ -36,6 +33,10 @@ class Fluentd
         [
           :linger_timeout, :chunk_size_limit, :chunk_size_warn_limit, :log_level
         ]
+      end
+
+      def self.default_tag
+        'type_expected_forward_tag'
       end
 
       def self.default_element

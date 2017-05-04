@@ -11,7 +11,6 @@ class Fluentd
           :consumer_secret,
           :access_token,
           :access_token_secret,
-          :tag,
           :timeline,
           :keyword,
           :follow_ids,
@@ -23,9 +22,12 @@ class Fluentd
       # attr_accessor(*KEYS)
       #
 
+      def self.default_tag
+        'twitter_nasa'
+      end
+
       def self.initial_params
         {
-            tag: 'twitter.nasa',
             timeline: 'tracking',
             keyword: 'nasa',
             follow_ids: '',
@@ -45,7 +47,7 @@ class Fluentd
             consumer_secret: '* YOUR_CONSUMER_SECRET (required)',
             access_token: '* YOUR_CONSUMER_SECRET (required)',
             access_token_secret: '* YOUR_CONSUMER_SECRET (required)',
-            tag: '* for example input.twitter.sampling (required)',
+            # tag: '* for example input.twitter.sampling (required)',
             timeline: '* tracking or sampling or location or userstream (required)',
             keyword: 'keyword has priority than follow_ids (optional)',
             follow_ids: '"14252,53235" - integers, not screen names (optional)',
@@ -57,7 +59,7 @@ class Fluentd
 
       def common_options
         [
-            :consumer_key, :consumer_secret, :access_token, :access_token_secret, :tag, :keyword
+            :consumer_key, :consumer_secret, :access_token, :access_token_secret, :keyword
         ]
       end
 

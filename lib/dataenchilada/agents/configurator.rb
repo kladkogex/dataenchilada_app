@@ -12,7 +12,7 @@ module Dataenchilada::Agents
 
       res = {}
 
-      tag = agent.source.details.tag
+      tag = agent.tag
 
       res['tag'] = tag
       #tag = "mytag"
@@ -70,7 +70,7 @@ module Dataenchilada::Agents
       props = build_source_props(source)
 
       tpl_vars = {
-          tag: source.details.tag,
+          tag: agent.tag,
           agent: agent,
           source: source,
           props: props,
@@ -204,7 +204,7 @@ module Dataenchilada::Agents
     ### helpers
 
     def self.config_filename(agent)
-      File.join(Rails.root, "data/agents/#{agent.name}", "agent.conf")
+      File.join(Rails.root, "data/agents/#{agent.conf_name}", "agent.conf")
     end
 
     def self.filename_template_agent(agent_type)

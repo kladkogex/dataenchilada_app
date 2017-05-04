@@ -192,4 +192,11 @@ module SettingsHelper
         # }
     }
   end
+
+  def required?(obj, attribute)
+    target = (obj.class == Class) ? obj : obj.class
+    target.validators_on(attribute)
+        .map(&:class)
+        .include?(ActiveModel::Validations::PresenceValidator)
+  end
 end

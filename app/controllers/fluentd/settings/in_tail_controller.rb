@@ -5,11 +5,10 @@ class Fluentd::Settings::InTailController < ApplicationController
   def after_file_choose
     @setting = Fluentd::Setting::InTail.new({
       details: Fluentd::Setting::Detail::InTailDetail.new({
-        :path => params[:path],
-        :tag => nil,
+        :path => params[:path]
       })
     })
-    @agent_title = agent_params['title']
+    @agent_params = agent_params
   end
 
   def after_format
@@ -18,18 +17,18 @@ class Fluentd::Settings::InTailController < ApplicationController
     if attrs[:pos_file].blank?
       attrs.merge!(pos_file: "/tmp/fluentd-file-#{Time.now.to_i}.pos")
     end
-    attrs.merge!(tag: attrs['path'].split('/').last)
+    # attrs.merge!(tag: attrs['path'].split('/').last)
     @setting = Fluentd::Setting::InTail.new({
       details: Fluentd::Setting::Detail::InTailDetail.new(attrs)
     })
-    @agent_title = agent_params['title']
+    @agent_params = agent_params
   end
 
   def confirm
     @setting = Fluentd::Setting::InTail.new({
         details: Fluentd::Setting::Detail::InTailDetail.new(setting_params)
     })
-    @agent_title = agent_params['title']
+    @agent_params = agent_params
     if params[:back]
       return render :after_file_choose
     end
@@ -88,7 +87,7 @@ class Fluentd::Settings::InTailController < ApplicationController
   private
 
   def agent_params
-    params.require('agent').permit(:title)
+    params.require('agent').permit(:title, :tag)
   end
 
   def output_params
@@ -96,7 +95,7 @@ class Fluentd::Settings::InTailController < ApplicationController
   end
 
   def setting_params
-    params.require(:setting).require(:details_attributes).permit(:path, :format, :regexp, *Fluentd::Setting::InTail.known_formats, :tag, :rotate_wait, :pos_file, :read_from_head, :refresh_interval)
+    params.require(:setting).require(:details_attributes).permit(:path, :format, :regexp, *Fluentd::Setting::InTail.known_formats, :rotate_wait, :pos_file, :read_from_head, :refresh_interval)
   end
 
   def target_class
