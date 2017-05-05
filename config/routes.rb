@@ -11,6 +11,9 @@ Rails.application.routes.draw do
     member do
       get 'manage'
       post 'command'
+      get 'raw_log'
+      get 'edit_config'
+      post 'update_config'
     end
   end
 

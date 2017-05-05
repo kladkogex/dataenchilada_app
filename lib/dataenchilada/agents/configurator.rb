@@ -204,7 +204,7 @@ module Dataenchilada::Agents
     ### helpers
 
     def self.config_filename(agent)
-      File.join(Rails.root, "data/agents/#{agent.conf_name}", "agent.conf")
+      agetn.config_path
     end
 
     def self.filename_template_agent(agent_type)

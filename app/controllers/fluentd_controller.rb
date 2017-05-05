@@ -1,6 +1,6 @@
 class FluentdController < ApplicationController
-  before_action :find_fluentd, only: [:show, :edit, :update, :destroy, :log, :raw_log, :errors]
-  before_action :check_fluentd_exists, only: [:edit, :log, :raw_log, :errors]
+  # before_action :find_fluentd, only: [:show, :edit, :update, :destroy, :log, :raw_log, :errors]
+  # before_action :check_fluentd_exists, only: [:edit, :log, :raw_log, :errors]
 
   def show
   end

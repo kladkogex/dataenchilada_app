@@ -1,5 +1,5 @@
 class AgentsController < ApplicationController
-  before_action :init_agent, only: [:show, :manage, :command]
+  before_action :init_agent, only: [:show, :manage, :command, :raw_log, :edit_config, :update_config]
 
 
   def index
@@ -19,7 +19,19 @@ class AgentsController < ApplicationController
 
   def manage
 
+  end
 
+  def raw_log
+    send_data @agent.log, type: "application/octet-stream", filename: File.basename(@agent.log_path)
+  end
+
+  def edit_config
+
+  end
+
+  def update_config
+    @agent.update_config(params[:config])
+    redirect_to manage_agent_path(@agent)
   end
 
   def command

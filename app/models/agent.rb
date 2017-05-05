@@ -25,4 +25,26 @@ class Agent < ActiveRecord::Base
   def self.get_by_id(id)
     where(id: id).first
   end
+
+  def config_path
+    File.join(Rails.root, "data/agents/#{conf_name}", "agent.conf")
+  end
+
+  def log_path
+    File.join(Rails.root, "data/agents/#{conf_name}", "agent.log")
+  end
+
+  def config
+    File.read config_path rescue ''
+  end
+
+  def log
+    File.read log_path rescue ''
+  end
+
+  def update_config content
+    File.open(config_path, 'w') do |f|
+      f.write(content)
+    end
+  end
 end

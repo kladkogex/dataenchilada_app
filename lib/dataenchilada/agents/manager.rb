@@ -156,10 +156,10 @@ module Dataenchilada::Agents
 
     def self.build_cmd_run(agent, opts={})
       #
-      config_file_path = Dataenchilada::Agents::Configurator.config_filename(agent)
+      # config_file_path = Dataenchilada::Agents::Configurator.config_filename(agent)
 
       #
-      opts = {config_file: config_file_path}
+      opts = {config_file: agent.config_path, log_file: agent.log_path}
       opts_args = options_to_argv(agent, opts)
 
       # run
@@ -187,7 +187,7 @@ module Dataenchilada::Agents
       argv = ""
       argv << " -c #{opts[:config_file] || lib.config_file(agent)}"
       #argv << " -d #{opts[:pid_file] || lib.pid_file(agent)}"
-      #argv << " -o #{opts[:log_file] || lib.log_file(agent)}"
+      argv << " -o #{opts[:log_file] || lib.log_file(agent)}"
       argv
     end
 

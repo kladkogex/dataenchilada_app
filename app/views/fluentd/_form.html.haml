@@ -1,6 +1,6 @@
 .col-xs-6
-  - @fluentd.errors.full_messages.each do |e|
-    .alert.alert-danger= e
+  -#- @fluentd.errors.full_messages.each do |e|
+  -#  .alert.alert-danger= e
 
   = form_for(:fluentd, url: url, method: method) do |f|
     -#.form-group
