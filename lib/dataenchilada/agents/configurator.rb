@@ -204,7 +204,7 @@ module Dataenchilada::Agents
     ### helpers
 
     def self.config_filename(agent)
-      agetn.config_path
+      agent.config_path
     end
 
     def self.filename_template_agent(agent_type)
