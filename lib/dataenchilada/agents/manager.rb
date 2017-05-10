@@ -90,10 +90,10 @@ module Dataenchilada::Agents
         res_config = Dataenchilada::System::Commands::exec(cmd)
 
 
-        logger.debug "Run cmd: #{cmd}. Output: #{res_config[1]}"
+        logger.error "Run cmd: #{cmd}. Output: #{res_config[1]}"
       rescue => e
         logger.error "Error in config"
-        logger.error "Error in config: #{res_config.try(:[],1)}"
+        logger.error "Error in config: #{res_config.try(:[],1)}, cmd: #{cmd}"
         logger.error e.message
 
         raise 'Error in config'
@@ -159,7 +159,7 @@ module Dataenchilada::Agents
       # config_file_path = Dataenchilada::Agents::Configurator.config_filename(agent)
 
       #
-      opts = {config_file: agent.config_path, log_file: agent.log_path}
+      #opts = {config_file: agent.config_path, log_file: agent.log_path}
       opts_args = options_to_argv(agent, opts)
 
       # run
@@ -182,12 +182,15 @@ module Dataenchilada::Agents
 
 
     def self.options_to_argv(agent, opts = {})
+
       lib = ::Dataenchilada::Agents::Settings
 
       argv = ""
-      argv << " -c #{opts[:config_file] || lib.config_file(agent)}"
+
+
+      argv << " -c #{agent.config_path || opts[:config_file] || lib.config_file(agent)}"
       #argv << " -d #{opts[:pid_file] || lib.pid_file(agent)}"
-      argv << " -o #{opts[:log_file] || lib.log_file(agent)}"
+      argv << " -o #{agent.log_path || opts[:log_file] || lib.log_file(agent)}"
       argv
     end
 
