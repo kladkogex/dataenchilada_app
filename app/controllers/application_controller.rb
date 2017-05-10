@@ -41,7 +41,7 @@ class ApplicationController < ActionController::Base
   end
 
   def fluentd_run_user
-    Fluentd.instance.td_agent? ? "td-agent" : ENV["USER"]
+    Fluentd.instance.try(:td_agent?) ? "td-agent" : ENV["USER"]
   end
 
   def installing_gem?
