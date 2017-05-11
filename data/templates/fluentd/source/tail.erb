@@ -2,7 +2,7 @@
   @type <%=source.plugin_name%>
   path <%=source.details.path%>
   tag <%=tag%>
-  format <%=source.format%>
+  format <%=source.details.format%>
   pos_file <%=source.details.pos_file%>
   <%= "read_from_head true" if source.details.read_from_head.present? %>
   <%= "rotate_wait #{source.details.rotate_wait}" if source.details.rotate_wait.present? %>
