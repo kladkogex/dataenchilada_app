@@ -28,6 +28,7 @@ gem 'fluent-plugin-twitter', '~>0.6.3', github: 'zhron4x/fluent-plugin-twitter'
 gem 'fluent-plugin-kafka'
 gem 'fluent-plugin-retag'
 gem 'fluent-plugin-rss'
+gem 'zookeeper'
 
 gem 'fluent-plugin-mixpanel-enchanced'
 gem 'fluent-plugin-elasticsearch'
