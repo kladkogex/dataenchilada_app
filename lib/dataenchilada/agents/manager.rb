@@ -136,16 +136,14 @@ module Dataenchilada::Agents
       logger.info "Created sv file: #{sv_filename}"
 
       # reload supervisor
-=begin
       begin
-        cmd = "service supervisor stop; service supervisor start"
-        #supervisorctl reread && supervisorctl update
+        #cmd = "service supervisor stop; service supervisor start"
+        cmd = "supervisorctl reread && supervisorctl update"
         res = Dataenchilada::System::Commands::exec(cmd, true)
         logger.debug "Restart supervisor. Output: #{res[1]}"
       rescue => e
         logger.error "Cannot restart supervisor"
       end
-=end
 
 
       true
