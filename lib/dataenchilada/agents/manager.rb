@@ -89,7 +89,6 @@ module Dataenchilada::Agents
         cmd = cmd_check_config(agent)
         res_config = Dataenchilada::System::Commands::exec(cmd)
 
-
         logger.error "Run cmd: #{cmd}. Output: #{res_config[1]}"
       rescue => e
         logger.error "Error in config"
@@ -140,6 +139,7 @@ module Dataenchilada::Agents
 =begin
       begin
         cmd = "service supervisor stop; service supervisor start"
+        #supervisorctl reread && supervisorctl update
         res = Dataenchilada::System::Commands::exec(cmd, true)
         logger.debug "Restart supervisor. Output: #{res[1]}"
       rescue => e

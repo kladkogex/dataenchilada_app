@@ -1,6 +1,7 @@
 [program:data_enchilada_agent_<%=agent.conf_name%>]
 #directory=/tmp/fluentd
-command=<%=cmd%>
+directory=/var/www/apps/data_enchilada
+command=/usr/local/rvm/gems/ruby-2.3.3/bin/bundle exec <%=cmd%>
 autostart=true
 autorestart=true
 #redirect_stderr=true
