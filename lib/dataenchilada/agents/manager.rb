@@ -138,7 +138,7 @@ module Dataenchilada::Agents
       # reload supervisor
       begin
         #cmd = "service supervisor stop; service supervisor start"
-        cmd = "supervisorctl reread && supervisorctl update"
+        cmd = "supervisorctl reread; supervisorctl update"
         res = Dataenchilada::System::Commands::exec(cmd, true)
         logger.debug "Restart supervisor. Output: #{res[1]}"
       rescue => e
