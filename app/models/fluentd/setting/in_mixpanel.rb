@@ -9,12 +9,12 @@ class Fluentd
           keepalive_timeout: "10s",
         }
       end
-
-      def self.default_element
-        params = self.initial_params.stringify_keys
-        params['type'] = 'http_mixpanel'
-        Fluent::Config::Element.new('source', '', params, [])
-      end
+      #
+      # def self.default_element
+      #   params = self.initial_params.stringify_keys
+      #   params['type'] = 'http_mixpanel'
+      #   Fluent::Config::Element.new('source', '', params, [])
+      # end
 
       def plugin_name
         "http_mixpanel"

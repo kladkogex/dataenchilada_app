@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170504071428) do
+ActiveRecord::Schema.define(version: 20170504071429) do
 
   create_table "agent_types", force: :cascade do |t|
     t.string  "name",   limit: 255
@@ -52,6 +52,21 @@ ActiveRecord::Schema.define(version: 20170504071428) do
     t.string  "format",            limit: 255
     t.string  "log_level",         limit: 255
     t.string  "add_remote_addr",   limit: 255
+  end
+
+  create_table "in_kafka_details", force: :cascade do |t|
+    t.integer "source_id",           limit: 4
+    t.string  "brokers",             limit: 255
+    t.string  "topics",              limit: 255
+    t.string  "format",              limit: 255
+    t.string  "message_key",         limit: 255
+    t.string  "add_prefix",          limit: 255
+    t.string  "add_suffix",          limit: 255
+    t.string  "offset_zookeeper",    limit: 255
+    t.string  "offset_zk_root_node", limit: 255
+    t.string  "max_bytes",           limit: 255
+    t.string  "max_wait_time",       limit: 255
+    t.string  "min_bytes",           limit: 255
   end
 
   create_table "in_netflow_details", force: :cascade do |t|

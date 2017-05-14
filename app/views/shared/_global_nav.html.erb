@@ -4,30 +4,21 @@
       <%= icon("fa-puzzle-piece fa-fw") << "DataEnchilada" %>
     </a>
     <ul class="nav nav-second-level">
-      <% if fluentd_exists? %>
-        <li>
-          <%= link_to_other t('fluentd.show.page_title'), daemon_path %>
-        </li>
-        <!--<li>-->
-          <!--<%= link_to_other t('fluentd.settings.source.page_title'), source_daemon_setting_path %>-->
-        <!--</li>-->
-        <li>
-          <%= link_to_other t('agents.page_title'), agents_path %>
-        </li>
-        <li>
-          <%= link_to_other t('fluentd.settings.show.page_title'), daemon_setting_path %>
-        </li>
-        <li>
-          <%= link_to_other t('fluentd.common.log'), log_daemon_path %>
-        </li>
-        <li>
-          <%= link_to_other t('fluentd.errors.page_title'), errors_daemon_path %>
-        </li>
-      <% else %>
-        <li>
-          <%= link_to_other t('terms.initial_setup'), daemon_path %>
-        </li>
-      <% end %>
+      <li>
+        <%= link_to_other t('fluentd.show.page_title'), daemon_path %>
+      </li>
+      <li>
+        <%= link_to_other t('agents.page_title'), agents_path %>
+      </li>
+      <li>
+        <%= link_to_other t('fluentd.settings.show.page_title'), daemon_setting_path %>
+      </li>
+      <li>
+        <%= link_to_other t('fluentd.common.log'), log_daemon_path %>
+      </li>
+      <li>
+        <%= link_to_other t('fluentd.errors.page_title'), errors_daemon_path %>
+      </li>
     </ul>
   </li>
 

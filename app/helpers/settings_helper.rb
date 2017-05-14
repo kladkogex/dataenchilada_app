@@ -155,6 +155,16 @@ module SettingsHelper
             ],
             # default_params: Fluentd::Setting::InHttp.default_element
         },
+        kafka: {
+            icon: 'fa-cloud',
+            edit_link: edit_daemon_setting_in_kafka_path,
+            create_link: daemon_setting_in_kafka_path,
+            preview_fields: [
+                :bind,
+                :port
+            ],
+            # default_params: Fluentd::Setting::InHttp.default_element
+        },
     }
   end
 

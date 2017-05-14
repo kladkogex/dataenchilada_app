@@ -250,6 +250,11 @@ en:
           Input plugin to process tweets with Twitter Streaming API
         show:
           page_title: Twitter Input Plugin
+      in_kafka:
+        option_guide: |
+          A fluentd plugin to both consume and produce data for Apache Kafka. See <a target="_blank" href="https://github.com/fluent/fluent-plugin-kafka">documentation</a> for more information.
+        show:
+          page_title: Kafka Input Plugin
       in_sql:
         main_form:
           option_guide: |

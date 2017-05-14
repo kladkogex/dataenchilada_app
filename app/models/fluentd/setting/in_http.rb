@@ -33,12 +33,6 @@ class Fluentd
         ]
       end
 
-      def self.default_element
-        params = self.initial_params.stringify_keys
-        params['type'] = 'http'
-        Fluent::Config::Element.new('source', '', params, [])
-      end
-
       def fields_descriptions
         {
             bind: "The bind address to listen to. Default Value = 0.0.0.0 (all addresses)",

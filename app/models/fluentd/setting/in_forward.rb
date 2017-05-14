@@ -39,12 +39,6 @@ class Fluentd
         'type_expected_forward_tag'
       end
 
-      def self.default_element
-        params = self.initial_params.stringify_keys
-        params['type'] = 'forward'
-        Fluent::Config::Element.new('source', '', params, [])
-      end
-
       def plugin_name
         "forward"
       end

@@ -30,6 +30,7 @@ class Source < ActiveRecord::Base
       'Fluentd::Setting::InForward' => 'forward',
       'Fluentd::Setting::InSql' => 'sql',
       'Fluentd::Setting::InHttp' => 'http',
+      'Fluentd::Setting::InKafka' => 'kafka',
   }
 
 

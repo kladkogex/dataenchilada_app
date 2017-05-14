@@ -49,6 +49,12 @@ Rails.application.routes.draw do
           post "update_config"
         end
 
+        resource :in_kafka, only: [:show], module: :settings, controller: :in_kafka do
+          post "finish"
+          post "edit"
+          post "update_config"
+        end
+
         resource :in_sql, only: [:show], module: :settings, controller: :in_sql do
           post "finish"
           post "edit"
