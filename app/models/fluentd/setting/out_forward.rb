@@ -1,6 +1,6 @@
 class Fluentd
   module Setting
-    class OutForward
+    class OutForward < Output
       class Server
         include Common
         KEYS = [
