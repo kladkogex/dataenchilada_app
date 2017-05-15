@@ -88,6 +88,10 @@ class Fluentd
           :phi_threshold, :hard_timeout,
         ]
       end
+
+      def self.stream_field_name
+        'server'
+      end
     end
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170504071429) do
+ActiveRecord::Schema.define(version: 20170504071459) do
 
   create_table "agent_types", force: :cascade do |t|
     t.string  "name",   limit: 255
@@ -136,6 +136,29 @@ ActiveRecord::Schema.define(version: 20170504071429) do
     t.boolean "utc_index"
   end
 
+  create_table "out_file_details", force: :cascade do |t|
+    t.integer "source_id",         limit: 4
+    t.string  "path",              limit: 255
+    t.string  "time_slice_format", limit: 255
+    t.string  "time_slice_wait",   limit: 255
+    t.string  "time_format",       limit: 255
+    t.string  "compress",          limit: 255
+  end
+
+  create_table "out_forward_details", force: :cascade do |t|
+    t.integer "source_id",     limit: 4
+    t.string  "brokers",       limit: 255
+    t.string  "topics",        limit: 255
+    t.string  "format",        limit: 255
+    t.string  "phi_threshold", limit: 255
+    t.string  "add_prefix",    limit: 255
+    t.string  "hard_timeout",  limit: 255
+    t.string  "server_name",   limit: 255
+    t.string  "server_host",   limit: 255
+    t.string  "server_port",   limit: 255
+    t.string  "server_weight", limit: 255
+  end
+
   create_table "out_kafka_details", force: :cascade do |t|
     t.integer "output_id",         limit: 4
     t.string  "brokers",           limit: 255
@@ -159,6 +182,16 @@ ActiveRecord::Schema.define(version: 20170504071429) do
     t.string  "schema",        limit: 255
     t.string  "json_column",   limit: 255
     t.string  "pop_data_keys", limit: 255
+  end
+
+  create_table "out_kudu_details", force: :cascade do |t|
+    t.integer "source_id",             limit: 4
+    t.string  "master_addresses",      limit: 255
+    t.string  "table_name",            limit: 255
+    t.string  "producer",              limit: 255
+    t.string  "batchSize",             limit: 255
+    t.string  "timeout_millis",        limit: 255
+    t.string  "ignore_duplicate_rows", limit: 255
   end
 
   create_table "out_webhdfs_details", force: :cascade do |t|

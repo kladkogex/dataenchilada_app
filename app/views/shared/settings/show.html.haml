@@ -33,15 +33,7 @@
       %a.btn.btn-primary.scroll-top{data: {toggle: :tab}, href: '#outputs'} Next
 
     #outputs.tab-pane.fade
-      %h1.page-header
-        = "Choose outputs for your stream"
-      -#.well
-        -#= raw t("fluentd.settings.#{target_plugin_name}.option_guide")
-
-      = f.simple_fields_for :outputs do |f_output|
-        - Output::OUTPUT_TYPES.each do |key, value|
-          = f_output.input key, as: :boolean, checked_value: true, unchecked_value: false
-      = f.button :submit, class:"btn btn-primary", :value=>"Save", "data-btn"=>"source-save", :data => { :disable_with => "Validating..." }
+      = render 'shared/settings/outputs', f: f
 
   -#= render 'shared/settings/common_settings_page', action: plugin_setting_form_action_url(@fluentd), action_type: 'add'
 -#= form_for(@agent, url: plugin_setting_form_action_url, html: {class: "ignore-rails-error-div"}) do |form|

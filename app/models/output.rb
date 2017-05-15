@@ -16,7 +16,7 @@ class Output < ActiveRecord::Base
   OUTPUT_TYPES = {
       'kafka' => 'Fluentd::Setting::OutKafka',
       'elasticsearch' => 'Fluentd::Setting::OutElasticsearch',
-      'kassandra' => 'Fluentd::Setting::OutKassandra',
+      'cassandra' => 'Fluentd::Setting::OutCassandra',
       'webhdfs' => 'Fluentd::Setting::OutWebhdfs',
       'forward' => 'Fluentd::Setting::OutForward',
       'file' => 'Fluentd::Setting::OutFile',
@@ -25,9 +25,22 @@ class Output < ActiveRecord::Base
 
   TYPES_BASE = {
       'Fluentd::Setting::OutKafka' => 'kafka',
-      'Fluentd::Setting::OutKassandra' => 'cassandra',
+      'Fluentd::Setting::OutCassandra' => 'cassandra',
       'Fluentd::Setting::OutElasticsearch' => 'elasticsearch',
       'Fluentd::Setting::OutWebhdfs' => 'webhdfs',
+      'Fluentd::Setting::OutForward' => 'forward',
+      'Fluentd::Setting::OutFile' => 'file',
+      'Fluentd::Setting::OutKudu' => 'kudu'
+  }
+
+  STREAM_FIELD_NAMES = {
+      'kafka' => 'default_topic',
+      'elasticsearch' => 'index_name',
+      'cassandra' => 'schema',
+      'webhdfs' => 'path',
+      'forward' => 'server',
+      'file' => 'path',
+      'kudu' => 'table_name',
   }
 
   def output_type_name

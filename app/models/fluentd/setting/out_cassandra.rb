@@ -1,6 +1,6 @@
 class Fluentd
   module Setting
-    class OutKassandra < Output
+    class OutCassandra < Output
       include Common
 
       relate_to_details
@@ -19,6 +19,11 @@ class Fluentd
 
       def fluent_type
         'cassandra_driver'
+      end
+
+
+      def self.stream_field_name
+        'schema'
       end
 
     end
