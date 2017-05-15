@@ -36,7 +36,7 @@ class Output < ActiveRecord::Base
   STREAM_FIELD_NAMES = {
       'kafka' => 'default_topic',
       'elasticsearch' => 'index_name',
-      'cassandra' => 'schema',
+      'cassandra' => 'keyspace',
       'webhdfs' => 'path',
       'forward' => 'server',
       'file' => 'path',

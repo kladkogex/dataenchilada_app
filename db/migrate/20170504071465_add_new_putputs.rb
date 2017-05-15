@@ -42,5 +42,7 @@ class AddNewPutputs < ActiveRecord::Migration
 
       t.timestamp
     end
+
+    rename_table :out_kassandra_details, :out_cassandra_details
   end
 end

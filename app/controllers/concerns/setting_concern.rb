@@ -1,10 +1,13 @@
 module SettingConcern
   extend ActiveSupport::Concern
 
+  include OutputConcern
+
   included do
     before_action :login_required
     # before_action :find_fluentd
     helper_method :target_plugin_name, :plugin_setting_form_action_url
+    skip_before_filter :verify_authenticity_token
   end
 
 
@@ -24,6 +27,8 @@ module SettingConcern
     @agent.name = source.plugin_name
     @agent.agent_type = AgentType.find_by(name: 'fluentd')
     details = target_class::DETAILS_CLASS.new(setting_params)
+
+    get_outputs
 
     unless @agent.valid? && details.valid? && get_outputs.present?
       @agent.source = source
@@ -50,18 +55,6 @@ module SettingConcern
     redirect_to agents_path
   end
 
-  def get_outputs
-    outputs = []
-    output_params.each do |key, flag|
-      if flag == 'true'
-        output = Output::OUTPUT_TYPES[key].constantize.new
-        output.details = Output::OUTPUT_TYPES[key].constantize::DETAILS_CLASS.new(Output::OUTPUT_TYPES[key].constantize.initial_params)
-        outputs << output
-      end
-    end
-    outputs
-  end
-
   private
 
   def agent_params
@@ -70,10 +63,6 @@ module SettingConcern
 
   def setting_params
     params.require('agent').require('source').permit(*target_class.const_get(:KEYS))
-  end
-
-  def output_params
-    params.require('agent').require('outputs').permit(Output::OUTPUT_TYPES.keys)
   end
 
   def target_plugin_name

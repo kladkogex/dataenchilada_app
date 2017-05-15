@@ -20,17 +20,5 @@
       %p
         = link_to t('terms.beginning'), daemon_setting_in_tail_path, class: "btn btn-lg btn-primary"
         = f.submit t('terms.prev'),   class: "btn btn-lg btn-default", name: "back"
-        %a.btn.btn-lg.btn-primary.pull-right.scroll-top{data: {toggle: :tab}, href: '#outputs'} Next
-    #outputs.tab-pane.fade
-      %h1.page-header
-        = "Choose outputs for your stream"
-      -#.well
-        -#= raw t("fluentd.settings.#{target_plugin_name}.option_guide")
-
-      = f.simple_fields_for :outputs do |f_output|
-        - Output::OUTPUT_TYPES.each do |key, value|
-          = f_output.input key, as: :boolean, checked_value: true, unchecked_value: false
-      = f.submit "Save", class:"btn btn-lg btn-primary", "data-btn"=>"source-save", :data => { :disable_with => "Validating..." }
-      -#.clearfix.pull-right= t('terms.notice_restart_for_config_edit', brand: fluentd_ui_brand)
-      -#= f.submit t('fluentd.common.finish'), class: "btn btn-lg btn-primary pull-right"
-      -#= f.submit t('terms.prev'),   class: "btn btn-lg btn-default", name: "back"
+        %a.btn.btn-lg.btn-primary.pull-right.scroll-top.go-to-output{data: {toggle: :tab}, href: '#outputs'} Next
+    = render 'shared/settings/outputs', f: f

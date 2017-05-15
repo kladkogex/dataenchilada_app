@@ -3,6 +3,7 @@ class Fluentd::Settings::InSqlController < ApplicationController
   # before_action :find_fluentd
 
   include SettingEditConcern
+  include OutputConcern
 
   def show
     @agent = ::Agent.new
@@ -30,7 +31,7 @@ class Fluentd::Settings::InSqlController < ApplicationController
       @agent.source.details = details
       @agent.source.tables = [tables]
 
-      return render "shared/settings/show"
+      return render "fluentd/settings/in_sql/show"
     end
 
     @agent.save!
@@ -78,18 +79,6 @@ class Fluentd::Settings::InSqlController < ApplicationController
   #                                                                              :primary_key])
   # end
 
-  def get_outputs
-    outputs = []
-    output_params.each do |key, flag|
-      if flag == 'true'
-        output = Output::OUTPUT_TYPES[key].constantize.new
-        output.details = Output::OUTPUT_TYPES[key].constantize::DETAILS_CLASS.new(Output::OUTPUT_TYPES[key].constantize.initial_params)
-        outputs << output
-      end
-    end
-    outputs
-  end
-
   def tables_params
     params.require(:tables).first.permit([:table, :update_column_val, :time_column, :primary_key])
   end
@@ -100,10 +89,6 @@ class Fluentd::Settings::InSqlController < ApplicationController
 
   def setting_params
     params.require('agent').require('source').permit(*target_class.const_get(:KEYS))
-  end
-
-  def output_params
-    params.require('agent').require('outputs').permit(Output::OUTPUT_TYPES.keys)
   end
 
   def target_class

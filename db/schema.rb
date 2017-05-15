@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170504071459) do
+ActiveRecord::Schema.define(version: 20170504071465) do
 
   create_table "agent_types", force: :cascade do |t|
     t.string  "name",   limit: 255
@@ -125,6 +125,17 @@ ActiveRecord::Schema.define(version: 20170504071459) do
     t.string  "flatten_separator",   limit: 255
   end
 
+  create_table "out_cassandra_details", force: :cascade do |t|
+    t.integer "output_id",     limit: 4
+    t.string  "hosts",         limit: 255
+    t.string  "keyspace",      limit: 255
+    t.string  "column_family", limit: 255
+    t.string  "ttl",           limit: 255
+    t.string  "schema",        limit: 255
+    t.string  "json_column",   limit: 255
+    t.string  "pop_data_keys", limit: 255
+  end
+
   create_table "out_elasticsearch_details", force: :cascade do |t|
     t.integer "output_id",       limit: 4
     t.string  "host",            limit: 255
@@ -171,17 +182,6 @@ ActiveRecord::Schema.define(version: 20170504071459) do
     t.integer "max_send_retries",  limit: 4
     t.integer "required_acks",     limit: 4
     t.string  "zookeeper",         limit: 255
-  end
-
-  create_table "out_kassandra_details", force: :cascade do |t|
-    t.integer "output_id",     limit: 4
-    t.string  "hosts",         limit: 255
-    t.string  "keyspace",      limit: 255
-    t.string  "column_family", limit: 255
-    t.string  "ttl",           limit: 255
-    t.string  "schema",        limit: 255
-    t.string  "json_column",   limit: 255
-    t.string  "pop_data_keys", limit: 255
   end
 
   create_table "out_kudu_details", force: :cascade do |t|
