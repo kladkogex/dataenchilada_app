@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170504071465) do
+ActiveRecord::Schema.define(version: 20170504071466) do
 
   create_table "agent_types", force: :cascade do |t|
     t.string  "name",   limit: 255
@@ -148,7 +148,7 @@ ActiveRecord::Schema.define(version: 20170504071465) do
   end
 
   create_table "out_file_details", force: :cascade do |t|
-    t.integer "source_id",         limit: 4
+    t.integer "output_id",         limit: 4
     t.string  "path",              limit: 255
     t.string  "time_slice_format", limit: 255
     t.string  "time_slice_wait",   limit: 255

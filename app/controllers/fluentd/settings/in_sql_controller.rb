@@ -1,6 +1,7 @@
 class Fluentd::Settings::InSqlController < ApplicationController
   before_action :login_required
   # before_action :find_fluentd
+  skip_before_filter :verify_authenticity_token
 
   include SettingEditConcern
   include OutputConcern

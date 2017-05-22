@@ -86,4 +86,8 @@ class Fluentd::Settings::InTailController < ApplicationController
     Fluentd::Setting::InTail
   end
 
+  def output_params
+    params.require(:setting).require('outputs')
+  end
+
 end

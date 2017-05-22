@@ -44,6 +44,10 @@ class Fluentd
         ]
       end
 
+      def counter
+
+      end
+
       def fluent_type
         'elasticsearch'
       end

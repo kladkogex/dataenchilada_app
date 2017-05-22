@@ -7,7 +7,6 @@ module SettingConcern
     before_action :login_required
     # before_action :find_fluentd
     helper_method :target_plugin_name, :plugin_setting_form_action_url
-    skip_before_filter :verify_authenticity_token
   end
 
 
