@@ -3,6 +3,5 @@ directory=/var/www/apps/data_enchilada
 command=/bin/bash -c "source /etc/profile.d/rvm.sh; exec bundle exec fluentd -c <%=agent.config_path%>"
 autorestart=true
 redirect_stderr=true
-stopasgroup=true
 stderr_logfile=/var/log/data_enchilada_agent_<%=agent.conf_name%>.err.log
 stdout_logfile=/var/log/data_enchilada_agent_<%=agent.conf_name%>.out.log
