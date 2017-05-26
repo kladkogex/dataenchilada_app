@@ -35,6 +35,7 @@ gem 'fluent-plugin-elasticsearch'
 gem 'fluent-plugin-webhdfs'
 gem 'fluent-plugin-cassandra-driver'
 gem 'fluent-plugin-netflow-enchanced'
+gem 'fluent-plugin-record-reformer'
 
 gem 'simple_form'
 
