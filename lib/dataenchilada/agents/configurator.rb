@@ -53,7 +53,7 @@ module Dataenchilada::Agents
       content = process_erb_file(f_tpl, tpl_vars)
 
 
-      File.open(f_out,'w') do |f|
+      File.open(f_out, 'w') do |f|
         f.write(content)
       end
 
@@ -120,12 +120,11 @@ module Dataenchilada::Agents
 
     def self.build_source_props_tail(source)
       {
-          "path"=>source.details.path,
+          "path" => source.details.path,
           #"pos_file"=>source.details.pos_file,
 
       }
     end
-
 
 
     ### output props
@@ -142,8 +141,8 @@ module Dataenchilada::Agents
 
     def self.build_output_props_elasticsearch(output, tag)
       {
-          "index_name"=>tag,
-          "type_name"=>tag,
+          "index_name" => tag,
+          "type_name" => tag,
 
       }
     end
@@ -151,15 +150,17 @@ module Dataenchilada::Agents
 
     def self.build_output_props_cassandra(output, tag)
       {
-          "column_family"=>tag,
+          #todo change
+          "keyspace" => "data_enchilada",
+          "column_family" => tag,
+          "schema" => "{:id => :integer, :name => :string, :created_at => :string, :updated_at => :string}",
 
       }
     end
 
     def self.build_output_props_kafka(output, tag)
       {
-          "topic"=>tag,
-
+          "topic" => tag,
       }
     end
 
@@ -184,20 +185,28 @@ module Dataenchilada::Agents
     def self.build_servers_props(props_system)
 
       {
-          "elasticsearch"=>{
-              "host"=>props_system[:elasticsearch_host],
-              "port"=>props_system[:elasticsearch_port] || 9200,
+          "elasticsearch" => {
+              "host" => props_system[:elasticsearch_host],
+              "port" => props_system[:elasticsearch_port] || 9200,
           },
-          'cassandra' =>{
-              "host"=>props_system[:cassandra_host],
-              "port"=>props_system[:cassandra_port] || 9042,
-              "username"=>props_system[:cassandra_username],
-              "password"=>props_system[:cassandra_password],
-              "keyspace"=>props_system[:cassandra_keyspace],
+          'cassandra' => {
+              "host" => props_system[:cassandra_host],
+              "port" => props_system[:cassandra_port] || 9042,
+              "username" => props_system[:cassandra_username],
+              "password" => props_system[:cassandra_password],
           },
           "kafka" => {
-              "zookeeper_url"=>props_system[:zookeeper]
-          }
+              "host" => props_system[:kafka_host],
+              "port" => props_system[:kafka_port] || 9200,
+          },
+          "zookeeper" => {
+              "host" => props_system[:zookeeper_host],
+              "port" => props_system[:zookeeper_port] || 2181,
+          },
+          "hdfs" => {
+              "host" => props_system[:hdfs_host],
+              "port" => props_system[:hdfs_port] || 50070,
+          },
       }
     end
 
@@ -227,7 +236,7 @@ module Dataenchilada::Agents
       s_tpl = File.read(filename)
 
       vars = OpenStruct.new(vars)
-      result = ERB.new(s_tpl).result(vars.instance_eval { binding })
+      result = ERB.new(s_tpl).result(vars.instance_eval {binding})
 
 
       result

@@ -1,7 +1,7 @@
   @type webhdfs
-  host 51.77.1.9
-  port 50070
-  path /data_enchilada/test2/%Y%m%d/data-%H.json
+  host <%=servers['hdfs']['host']%>
+  port <%=servers['hdfs']['port']%>
+  path <%=props['hdfs_path']%>
   flush_interval 10s
   <format>
     @type json
