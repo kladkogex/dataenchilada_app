@@ -4,7 +4,7 @@
   @type stdout
 </match>
 
-<match **>
+<match <%=tag%>>
   @type record_reformer
   tag reformed.${tag}
   enable_ruby true
@@ -14,7 +14,7 @@
   </record>
 </match>
 
-<match reformed.*>
+<match reformed.<%=tag%>>
   @type copy
 
   <% outputs.each do |output| %>
