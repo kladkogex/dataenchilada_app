@@ -13,6 +13,6 @@ agent.channels.channel1.transactionCapacity = 1000
 agent.sinks.sink1.channel = channel1
 agent.sinks.sink1.type = org.apache.kudu.flume.sink.KuduSink
 agent.sinks.sink1.masterAddresses = <%=servers['kudu']['master']['host']%>:<%=servers['kudu']['master']['port']%>
-agent.sinks.sink1.tableName = <%=props['kudu_table']%>
+agent.sinks.sink1.tableName = <%=output.details.table%>
 agent.sinks.sink1.batchSize = 50
 agent.sinks.sink1.producer = KuduJsonProducer
