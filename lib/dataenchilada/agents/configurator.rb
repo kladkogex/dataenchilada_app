@@ -164,6 +164,12 @@ module Dataenchilada::Agents
       }
     end
 
+    def self.build_output_props_kudu(output, tag)
+      {
+          "kudu_table" => tag,
+      }
+    end
+
     ### system props
 
     def self.get_system_props
@@ -206,6 +212,12 @@ module Dataenchilada::Agents
           "hdfs" => {
               "host" => props_system[:hdfs_host],
               "port" => props_system[:hdfs_port] || 50070,
+          },
+          "kudu" => {
+              "master" => {
+                  "host" => props_system[:kudu_master_host],
+                  "port" => props_system[:kudu_master_port] || 7051,
+              }
           },
       }
     end
