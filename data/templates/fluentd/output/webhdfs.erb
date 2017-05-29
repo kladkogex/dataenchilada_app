@@ -1,7 +1,7 @@
   @type webhdfs
   host <%=servers['hdfs']['host']%>
   port <%=servers['hdfs']['port']%>
-  path <%=props['hdfs_path']%>
+  path <%=output.details.path%>
   flush_interval 10s
   <format>
     @type json
