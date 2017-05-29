@@ -79,7 +79,7 @@ class Fluentd::Settings::InTailController < ApplicationController
   end
 
   def setting_params
-    params.require(:setting).require(:details_attributes).permit(:path, :format, :regexp, *Fluentd::Setting::InTail.known_formats, :rotate_wait, :pos_file, :read_from_head, :refresh_interval)
+    params.require(:agent).require(:details_attributes).permit(:path, :format, :regexp, *Fluentd::Setting::InTail.known_formats, :rotate_wait, :pos_file, :read_from_head, :refresh_interval)
   end
 
   def target_class
@@ -87,7 +87,7 @@ class Fluentd::Settings::InTailController < ApplicationController
   end
 
   def output_params
-    params.require(:setting).require('outputs')
+    params.require(:agent).require('outputs')
   end
 
 end
