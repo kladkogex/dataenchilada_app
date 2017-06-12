@@ -1,7 +1,7 @@
 module Dataenchilada::Agents
   class Manager
 
-    COMMANDS = ['start', 'stop', 'restart', 'delete']#'run',
+    COMMANDS = ['run', 'start', 'stop', 'restart', 'delete']
 
     ###
     def self.logger
