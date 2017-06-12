@@ -9,7 +9,7 @@
   = f.label :format
   = f.hidden_field :format
   = f.text_field :format, class: "form-control", disabled: true
-- if @setting.known_formats[@setting.details.format.to_sym]
+- if @setting.details.format
   - @setting.known_formats[@setting.details.format.to_sym].each do |key|
     %label= key
     = f.hidden_field key

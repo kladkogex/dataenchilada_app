@@ -1,11 +1,12 @@
 class Agent < ActiveRecord::Base
+
   belongs_to :agent_type
   has_one :source
   has_many :outputs
   has_many :syncs
 
   validates :title, presence: true, uniqueness: true
-  validates :tag, presence: true, uniqueness: true
+  validates :tag, presence: false, uniqueness: true
 
 
   ### status, state
@@ -15,6 +16,10 @@ class Agent < ActiveRecord::Base
   scope :w_not_deleted, -> { where('status != ?', statuses[:removed]) }
   #scope :w_active, -> { where('status = ?', STATUS_ACTIVE) }
   #scope :w_active, -> { active }
+
+  # callbacks
+  after_create :after_create
+
 
   ### get
 
@@ -26,12 +31,16 @@ class Agent < ActiveRecord::Base
     where(id: id).first
   end
 
+  def base_dir
+    File.join(Rails.root, "data/agents/#{conf_name}")
+  end
+
   def config_path
-    File.join(Rails.root, "data/agents/#{conf_name}", "agent.conf")
+    File.join(base_dir, "agent.conf")
   end
 
   def log_path
-    File.join(Rails.root, "data/agents/#{conf_name}", "agent.log")
+    File.join(base_dir, "agent.log")
   end
 
   def config
@@ -47,4 +56,10 @@ class Agent < ActiveRecord::Base
       f.write(content)
     end
   end
+
+  def after_create
+    self.tag = conf_name
+    self.save!
+  end
+
 end

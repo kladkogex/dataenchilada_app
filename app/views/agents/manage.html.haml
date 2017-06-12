@@ -13,10 +13,11 @@
 %br
 Manage:
 
-=link_to 'Run', command_agent_path(agent: @agent, cmd: 'run'), method: :post, class: 'btn btn-primary'
+-#=link_to 'Run', command_agent_path(agent: @agent, cmd: 'run'), method: :post, class: 'btn btn-primary'
 =link_to 'Start', command_agent_path(agent: @agent, cmd: 'start'), method: :post, class: 'btn btn-primary'
 =link_to 'Stop', command_agent_path(agent: @agent, cmd: 'stop'), method: :post, class: 'btn btn-primary'
 =link_to 'Restart', command_agent_path(agent: @agent, cmd: 'restart'), method: :post, class: 'btn btn-primary'
+=link_to 'Delete', command_agent_path(agent: @agent, cmd: 'delete'), method: :post, class: 'btn btn-primary'
 %hr
 .row
   .col-lg-6.col-xs-12

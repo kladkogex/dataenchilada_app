@@ -47,7 +47,12 @@ class AgentsController < ApplicationController
     respond_to do |format|
       if @res
         format.html {
-          redirect_to manage_agent_path(@agent), notice: 'Command sent'
+          if @cmd == "delete"
+            redirect_to agents_path, notice: "agent #{@agent.title} was deleted"
+          else
+            redirect_to manage_agent_path(@agent), notice: 'Command sent'
+          end
+
         }
         format.json { return_json(res) }
       else

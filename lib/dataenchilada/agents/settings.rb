@@ -3,6 +3,7 @@ module Dataenchilada::Agents
 
     DIR_LOGS = "/var/log/fluentd"
     DIR_PIDS = "/etc/fluentd/pids"
+    #DIR_SUPERVISOR_CONF = "/tmp"
     DIR_SUPERVISOR_CONF = "/etc/supervisor/conf.d"
 
     def self.pid_file(agent)

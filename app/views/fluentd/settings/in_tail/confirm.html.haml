@@ -2,7 +2,7 @@
   = t(".page_title")
 = form_for(@setting, as: "agent", url: finish_daemon_setting_in_tail_path) do |f|
   = hidden_field_tag "agent[title]", @agent_params['title']
-  = hidden_field_tag "agent[tag]", @agent_params['tag']
+  -#= hidden_field_tag "agent[tag]", @agent_params['tag']
   .tab-content
     #source.tab-pane.fade.in.active
       %h1.page-header

@@ -130,6 +130,8 @@ GEM
     fluent-plugin-netflow-enchanced (1.0.0.rc1)
       bindata (~> 2.1)
       fluentd (>= 0.14.10, < 2)
+    fluent-plugin-record-reformer (0.9.0)
+      fluentd
     fluent-plugin-retag (0.0.2)
       fluentd
     fluent-plugin-rss (0.0.1)
@@ -354,6 +356,7 @@ DEPENDENCIES
   fluent-plugin-kafka
   fluent-plugin-mixpanel-enchanced
   fluent-plugin-netflow-enchanced
+  fluent-plugin-record-reformer
   fluent-plugin-retag
   fluent-plugin-rss
   fluent-plugin-sql

@@ -3,7 +3,8 @@ module OutputConcern
 
   def get_outputs
     outputs = []
-    output_params.each do |key, data|
+    blabla = output_params
+    blabla.each do |key, data|
       if data['enabled'] == 'true'
         output = Output::OUTPUT_TYPES[key].constantize.new
         output.details = Output::OUTPUT_TYPES[key].constantize::DETAILS_CLASS.new(Output::OUTPUT_TYPES[key].constantize.initial_params)
@@ -17,7 +18,8 @@ module OutputConcern
   private
 
   def output_params
-    params.require('agent').require('outputs')
+    #params.require('agent').require('outputs')
+    params.require(:agent).permit!
   end
 
 end
