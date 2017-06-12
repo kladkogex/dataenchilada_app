@@ -25,9 +25,9 @@ module SettingConcern
     source = target_class.new
     @agent.name = source.plugin_name
     @agent.agent_type = AgentType.find_by(name: 'fluentd')
-    details = target_class::DETAILS_CLASS.new(setting_params)
+    details = target_class::DETAILS_CLASS.new(setting_params['source'])
 
-    get_outputs
+    #get_outputs
 
     unless @agent.valid? && details.valid? && get_outputs.present?
       @agent.source = source
@@ -51,17 +51,39 @@ module SettingConcern
     #     return render "shared/settings/edit"
     #   end
     # end
-    redirect_to agents_path
+    # run agent
+    @res = Dataenchilada::Agents::Manager.do_command(@agent, "run")
+
+    #redirect_to agents_path
+
+    # result
+    respond_to do |format|
+      if @res
+        format.html {
+          #redirect_to manage_agent_path(@agent), notice: 'Command sent'
+          redirect_to agents_path, notice: 'Command sent'
+        }
+        format.json { return_json(res) }
+      else
+        format.html {
+          flash[:error] = "Something went wrong"
+          render :manage
+        }
+        format.json { return_json(@res)  }
+      end
+
+    end
+
   end
 
   private
 
   def agent_params
-    params.require('agent').permit(:title, :tag)
+    params.require(:agent).permit(:title, :tag)
   end
 
   def setting_params
-    params.require('agent').require('source').permit(*target_class.const_get(:KEYS))
+    params.require(:agent).permit!#.require('source').permit(*target_class.const_get(:KEYS))
   end
 
   def target_plugin_name
@@ -71,4 +93,5 @@ module SettingConcern
   def plugin_setting_form_action_url(*args)
     send("finish_daemon_setting_#{target_plugin_name}_path", *args)
   end
+
 end

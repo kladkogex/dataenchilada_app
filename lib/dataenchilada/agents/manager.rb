@@ -1,7 +1,7 @@
 module Dataenchilada::Agents
   class Manager
 
-    COMMANDS = ['run', 'start', 'stop', 'restart', 'delete']
+    COMMANDS = ['start', 'stop', 'restart', 'delete']#'run',
 
     ###
     def self.logger
@@ -160,7 +160,7 @@ module Dataenchilada::Agents
       # get path to file
       sv_filename = ::Dataenchilada::Agents::Settings::sv_file(agent)
       # delete file
-      #File.delete(sv_filename)
+      File.delete(sv_filename)
       ### remove directory_agent_name from /data/agents
       FileUtils.remove_dir(agent.base_dir, true)
       ### change status to removed
