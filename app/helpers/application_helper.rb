@@ -11,6 +11,11 @@ module ApplicationHelper
                        'not_installed', 'disconnected'].include? status
   end
 
+  def is_agents_page
+    (current_page?(agents_path) || current_page?(new_agent_path)|| current_page?(manage_agent_path(id: params[:id] || 1)) ||
+    current_page?(edit_config_agent_path(id: params[:id] || 1)))
+  end
+
   def has_td_agent_system?
     File.exist?("/etc/init.d/td-agent") || File.exist?("/opt/td-agent/embedded/bin/fluentd")
   end

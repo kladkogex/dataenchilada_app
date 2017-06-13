@@ -39,7 +39,7 @@
                       =t('fluentd.show.page_title')
 
           = link_to  agents_path, class:'undec' do
-            -selected = (current_page?(agents_path) || current_page?(new_agent_path)|| current_page?(manage_agent_path(id: params[:id] || 1))) ? 'current' : ''
+            -selected = is_agents_page ? 'current' : ''
             .div{class: selected}
               .install_step.side_menu_element(ng-class="pageSelected == 'clusters' ? 'current_step' : ''" data-div="team_clusters")
                 .fl-cont.gx-fl-center

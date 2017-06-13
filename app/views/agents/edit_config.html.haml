@@ -1,8 +1,36 @@
-- page_title "Edit config for agent: #{@agent.title}"
+.sidebar-header
+  .fl-wrap.fl-grow
+    .fl-cont
+      .fl-wrap.padd_ri_sm
+        %h2.sb-text.sb-h1-text.gr Edit config for agent
+      .fl-wrap
+        %h2.sb-text.sb-h1-text=@agent.title
 
-= form_tag(update_config_agent_path(@agent), method: :post) do
-  .form-group
-    = text_area_tag "config", @agent.config, class: "form-control", rows: 40, class: "js-fluentd-config-editor"
-  %p.text.text-danger= t('terms.notice_restart_for_config_edit', brand: fluentd_ui_brand)
-  = submit_tag t("terms.update"), class: "btn btn-primary"
-  -#= submit_tag t("terms.configtest"), class: "btn btn-default", name: "dryrun"
+    .clearfix
+    %p.sb-p-text.gr
+      Add page description here.
+
+.app_wrap.border.marg_bott_md
+  .fl-cont.gx-fl-center.padd_md
+    .fl-wrap.padd_ri_10
+      .grey_bgg{style:'background-color: #585858; border-radius: 50%;  padding: 5px; height: 28px; width: 28px; '}
+        .div{style:'margin-top: 3px;'}
+          =inline_svg "icons/build.svg", class: "sm-icon white-svg fx-sm-icon"
+    .fl-wrap.fl-grow
+      %p.card-h.bold{style:'color: #585858'} Config
+  .padd_md.marg_left_10
+
+    = form_tag(update_config_agent_path(@agent), method: :post) do
+      .form-group
+        = text_area_tag "config", @agent.config, class: "form-control", rows: 40, class: "js-fluentd-config-editor"
+
+      .padd_top_md.padd_bott_md
+        .fl-cont.gx-fl-center
+          .fl-wrap{style:'min-width: 36px;'}
+            =inline_svg "icons/warning.svg", class:"lg-icon orange-svg"
+          .fl-wrap.padd_left_md
+            %p.gx-p.no_marg{style:"line-height: 1.4 !important;"}
+              = t('terms.notice_restart_for_config_edit', brand: fluentd_ui_brand)
+
+      = submit_tag t("terms.update"), class: "undec mdc-button gex-btn-new"
+      -#= submit_tag t("terms.configtest"), class: "btn btn-default", name: "dryrun"
