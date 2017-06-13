@@ -30,11 +30,12 @@
                 = f_source.input key.to_sym, :input_html => { :value => v, class: "form-control"}
                 - if @agent.source.try(:fields_descriptions).present?
                   %small.form-text.text-muted= @agent.source.fields_descriptions[key]
-      %a.btn.btn-primary.scroll-top.go-to-output{data: {toggle: :tab}, href: '#outputs'} Next
+      %a.btn.btn-primary.scroll-top{data: {toggle: :tab}, href: '#outputs'} Next
 
-    = render 'shared/settings/outputs', f: f
+    #outputs.tab-pane.fade
+      = render 'shared/settings/outputs', f: f
 
--#= render 'shared/settings/common_settings_page', action: plugin_setting_form_action_url(@fluentd), action_type: 'add'
+  -#= render 'shared/settings/common_settings_page', action: plugin_setting_form_action_url(@fluentd), action_type: 'add'
 -#= form_for(@agent, url: plugin_setting_form_action_url, html: {class: "ignore-rails-error-div"}) do |form|
   .tab-content
     #source.tab-pane.fade.in.active

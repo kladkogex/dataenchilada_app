@@ -180,6 +180,10 @@ GEM
     i18n_generators (1.2.1)
       mechanize
       rails (>= 3.0.0)
+    inline_svg (0.11.1)
+      activesupport (>= 4.0)
+      loofah (>= 2.0)
+      nokogiri (~> 1.6)
     ione (1.2.4)
     java-properties (0.2.0)
     jbuilder (2.6.3)
@@ -365,6 +369,7 @@ DEPENDENCIES
   fluentd-ui!
   font-awesome-rails
   i18n_generators (= 1.2.1)
+  inline_svg (= 0.11.1)
   java-properties
   mysql2 (~> 0.3.21)
   pry
