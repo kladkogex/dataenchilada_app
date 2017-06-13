@@ -55,7 +55,8 @@
             %td.padd_top_md
               .fl-cont
                 .fl-wrap
-                  .gx-bage.gx-bage-lg{class:'lite-gr-bage'}
+                  %h4.no_marg=@agent.tag
+                  -#.gx-bage.gx-bage-lg.lite-gr-bage
                     .fl-cont.fl-center
                       .fl-wrap.marg_left_sm.marg_ri_sm
                         %h6.no_marg.one-liner{style:'color: #585858;'}=@agent.tag
@@ -120,7 +121,7 @@
                 Delete
 
 .row
-  .col-md-6
+  .col-lg-6.col-md-12
     .app_wrap.border.marg_bott_md
       .fl-cont.gx-fl-center.padd_md
         .fl-wrap.padd_ri_10
@@ -130,26 +131,37 @@
         .fl-wrap.fl-grow
           %p.card-h.bold{style:'color: #585858'} Log
         .fl-wrap
-          .hand_cursor
-            =inline_svg "icons/restart.svg", class: "md-icon gex-svg"
+          = link_to raw_log_agent_path(@agent), class: "undec" do
+            .mdc-button.btn-lite-blue
+              .fl-cont.gx-fl-center
+                .fl-wrap.padd_ri_10
+                  =inline_svg "icons/download.svg", class: "sm-icon gex-svg"
+                .fl-wrap{style:'padding-top:1px;'}
+                  Download logs
+
       .padd_md.marg_left_10
         .padd_bott_md
-          -#= preserve do
+          = preserve do
             = render partial: "shared/vue/fluent_log", locals: { log_path: @agent.log_path }
-  .col-md-6
+  .col-lg-6.col-md-12
     .app_wrap.border.marg_bott_md
       .fl-cont.gx-fl-center.padd_md
         .fl-wrap.padd_ri_10
           .grey_bgg{style:'background-color: #585858; border-radius: 50%;  padding: 5px; height: 28px; width: 28px; '}
             .div{style:'margin-top: 3px;'}
               =inline_svg "icons/build.svg", class: "sm-icon white-svg fx-sm-icon"
-        .fl-wrap
+        .fl-wrap.fl-grow
           %p.card-h.bold{style:'color: #585858'} Config
+        .fl-wrap
+          = link_to edit_config_agent_path(@agent), class:'undec' do
+            .mdc-button.btn-lite-blue
+              Edit
 
       .padd_md.marg_left_10
         .padd_bott_md
-          = preserve do
-            = @agent.config
+          %pre.new-pre
+            = preserve do
+              = @agent.config
 
 -#.old
   %h1 Agent: #{@agent.title}
