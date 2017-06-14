@@ -24,7 +24,7 @@ module Dataenchilada::Agents
       install(agent)
 
       # start
-      start(agent)
+      #start(agent)
 
     end
 
@@ -104,7 +104,7 @@ module Dataenchilada::Agents
 
 
       # install with supervisor
-      install_service_supervisor(agent)
+      #install_service_supervisor(agent)
 
 
       #
