@@ -1,9 +1,62 @@
-%h1 Agents
-=link_to 'Add new +', new_agent_path, class: 'btn btn-lg btn-success'
-%br
-%br
 
-%table.table
+.sidebar-header
+  .fl-wrap.fl-grow
+    %h2.sb-text.sb-h1-text Agents
+    .clearfix
+    %p.sb-p-text.gr
+      Use this window to manage agents or add new.
+  .fl-wrap
+    =link_to 'Add new', new_agent_path, class: 'undec mdc-button gex-btn-new'
+
+
+
+
+.app_wrap.border.marg_bott_md(ng-if="loaded && !isAppsEmpty"){:style=>"border-bottom: 0px"}
+  .grey_bg.padd_left_md.padd_ri_md.padd_top_15.padd_bott_15
+    .row.no_marg
+      .col-md-3.col-sm-4.col-xs-4
+        %p.no_marg{style:"font-size: 16px;"} Agent
+      .col-md-2.col-sm-4.col-xs-6.no_padd
+        %p.no_marg{style:"font-size: 16px;"} Status
+      .col-md-3.col-sm-4.col-xs-6.no_padd
+        %p.no_marg{style:"font-size: 16px;"} Type
+      .col-md-3.col-sm-4.col-xs-6.no_padd
+        %p.no_marg{style:"font-size: 16px;"} Tag
+
+
+  - @items.each do |item|
+    .row.bord_bott.table-row.gr-hover-el.no_marg
+      =link_to manage_agent_path(item) do
+        .col-md-3.col-sm-4.col-xs-4.padd_top_md.padd_bott_md
+          .marg_left_md
+            %p.gx-p.no_marg.bold=item.title
+        .col-md-2.col-sm-4.col-xs-6.no_padd.padd_top_md.padd_bott_md
+          .fl-cont.gx-fl-center
+            .fl-wrap.padd_ri_10
+              =inline_svg 'icons/circle.svg', class: "#{get_status_color(item.status)}-svg sm-icon"
+            .fl-wrap
+              %p.gx-p.no_marg.gr=item.status
+        .col-md-3.col-sm-4.col-xs-6.no_padd.padd_top_md.padd_bott_md
+          .fl-cont.fl-center.padd_left_10
+            .fl-wrap.padd_ri_10
+              =inline_svg "icons/sources/#{item.name}.svg", class:"sm-icon lite-gr-svg"
+            .fl-wrap
+              %p.gx-p.gr.no_marg=item.name
+        .col-md-3.col-sm-4.col-xs-6.no_padd.padd_top_md.padd_bott_md
+          %p.gx-p.gr.no_marg= item.tag
+
+        .col-md-1.col-sm-4.col-xs-6.no_padd
+          -#.pull-right.padd_ri_md.row-buttons
+            .fl-cont.fl-h-center{style:"height: 60px;"}
+              .fl-wrap
+                =inline_svg "icons/edit.svg", class:'sm-icon lite-gr-svg'
+            -#.mdl-tooltip.mdl-tooltip--large{:for => "{{app.id}}set"}
+              Configuration
+
+
+
+
+-#%table.table
   %tr
     %th Agent
     %th Type
@@ -22,6 +75,6 @@
       %td
         = item.status
       %td
-        -#=link_to 'Edit', '#', class: 'btn btn-sm btn-primary'
-        -#=link_to 'Config', '#', class: 'btn btn-sm btn-primary'
+        =link_to 'Edit', '#', class: 'btn btn-sm btn-primary'
+        =link_to 'Config', '#', class: 'btn btn-sm btn-primary'
         =link_to 'Manage', manage_agent_path(item), class: 'btn btn-sm btn-primary'
