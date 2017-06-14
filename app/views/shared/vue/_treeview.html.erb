@@ -40,17 +40,21 @@
 
 
     <div class="fl-cont fl-center">
+
       <div class="fl-wrap fl-grow">
+        <p class=" text text-danger bold no_marg">
+          <%=t('fluentd.settings.in_tail.notice_for_permission', user: fluentd_run_user)%>
+        </p>
+      </div>
+
+
+
+      <div class="fl-wrap ">
         <p class="padd_top_md padd_bott_md">
           <%= submit_tag submit_button, class: "undec mdc-button gex-btn-new", "v-attr" => "disabled: selectedIsDir", "v-class" => "btn-disable: selectedIsDir" %>
         </p>
       </div>
 
-      <div class="fl-wrap">
-        <p class=" text text-danger bold no_marg">
-          <%=t('fluentd.settings.in_tail.notice_for_permission', user: fluentd_run_user)%>
-        </p>
-      </div>
 
 
     </div>
