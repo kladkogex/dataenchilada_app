@@ -1,0 +1,37 @@
+// pages header
+
+$header-text-col: #585858;
+
+.sidebar-header{
+  padding-bottom: 25px;
+
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+
+}
+
+
+.sb-text{
+  font-weight: 600;
+  color: $header-text-col;
+  margin: 0px !important;
+}
+
+.sb-h1-text{
+  font-size: 21pt !important;
+  line-height: 1.1 !important;
+  width: 100%;
+}
+
+.sb-h2-text{
+  font-size: 16pt !important;
+}
+
+
+.sb-p-text{
+  font-size: 10pt;
+  margin-bottom: 0 !important;
+  width: 100%;
+  line-height: 23px;
+}

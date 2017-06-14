@@ -1,0 +1,78 @@
+select:disabled{
+  background-color: #eaeaea;
+}
+
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control{
+  background-color: #eaeaea;
+}
+
+
+
+input[type="password"] {
+  display: block;
+  width: 100%;
+  height: 50px;
+  padding: 10px 15px;
+  font-size: 15px;
+  color: #434343;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid rgba(212, 212, 212, 0.6);
+  border-radius: 0;
+  box-shadow: none;
+  transition: none !important;
+}
+
+
+
+
+
+.new-input, .new-textarea, .new-input-with-icon {
+  line-height: 1.42857143;
+  border: 1px solid rgba(212, 212, 212, 0.7) !important;
+  padding: 8px 15px !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  color: #434343 !important;
+  background-color: #fff;
+  background-image: none !important;
+  font-size: 15px;
+  border-radius: 0;
+  width: 100%;
+}
+
+.new-input, .new-input-with-icon{
+  height: 45px !important;
+}
+
+.new-input:focus, .new-textarea:focus{
+  border-color:  #1d87e4 !important;
+  outline-color:  #1d87e4;
+}
+
+.new-input:disabled, .new-textarea:disabled, .new-input-with-icon-dis, .new-input-with-icon input:disabled {
+  cursor: default;
+  background-color: #ececec;
+  color: grey !important;
+}
+
+input.new-input::-ms-input-placeholder, textarea.new-textarea::-ms-input-placeholder, .new-input-with-icon input::-ms-input-placeholder {
+  color: #999;
+}
+
+input.new-input:-ms-input-placeholder, textarea.new-textarea:-ms-input-placeholder, .new-input-with-icon input:-ms-input-placeholder {
+  color: #999 !important;
+}
+
+.new-input, .new-input-with-icon{
+  height: 45px !important;
+}
+
+
+.emb-input{
+  background-color: rgba(255, 255, 255, 0.65);
+  padding: 0px 12px;
+  border: none;
+  box-shadow: none;
+  height: 24px;
+}
