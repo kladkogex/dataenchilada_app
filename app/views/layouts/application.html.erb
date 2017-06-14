@@ -58,8 +58,16 @@
 
     <script>
         $( document ).ready(function() {
-            mdc.ripple.MDCRipple.attachTo(document.querySelector('.mdc-button'));
-            mdc.ripple.MDCRipple.attachTo(document.querySelector('.lite-gx-border'));
+
+            var mdlButton = document.querySelector('.mdc-button');
+            if(mdlButton){
+                mdc.ripple.MDCRipple.attachTo(mdlButton);
+            }
+
+            var border = document.querySelector('.lite-gx-border');
+            if(border){
+                mdc.ripple.MDCRipple.attachTo(border);
+            }
         });
     </script>
 
