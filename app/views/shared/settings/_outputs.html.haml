@@ -9,19 +9,34 @@
 
   = f.simple_fields_for :outputs do |f_output|
     - Output::OUTPUT_TYPES.each do |key, value|
-      .well.well-sm
+      .padd_md.lite-gx-border.fl-cont.marg_bott_md.gx-fl-center
         = f_output.simple_fields_for key do |out_details|
-          %h4{"data-toggle" => "collapse", "href" => "##{key}-options"}
-            = out_details.input :enabled, as: :boolean, checked_value: true, unchecked_value: false, label: key
-          .collapse{id: "#{key}-options"}
-            = out_details.input Output::STREAM_FIELD_NAMES[key], :input_html => {class: "output-name form-control"}
+          .div{style:'width: 100%'}
+            .fl-cont.gx-fl-center.checker{style:'width: 100%;',  "data-toggle" => "collapse", "href" => "##{key}-options"}
+              .fl-wrap.padd_ri_md
+                .gex-bg.check.grey_bg.hand_cursor{style:' border-radius: 50%;  padding: 5px; height: 28px; width: 28px;'}
+                  .div{style:'margin-top: 3px;'}
+                    =inline_svg "icons/done.svg", class: "sm-icon white-svg fx-sm-icon"
+                    .hidden
+                      = out_details.input :enabled, as: :boolean, checked_value: true, unchecked_value: false
+              .fl-wrap.fl-grow
+                %p.no_marg.bold{style:'font-size: 20px;  line-height: 20px; color: #565656;'}=key.capitalize
+                -#%p{"data-toggle" => "collapse", "href" => "##{key}-options"} adfshsfhg
+            .collapse{id: "#{key}-options"}
+              .fl-cont.padd_top_md.padd_left_md.padd_ri_md
+                .fl-wrap.fl-grow
+                  = out_details.input Output::STREAM_FIELD_NAMES[key], :input_html => {class: "output-name new-input", style: 'width: 100%;'}
 
-  = f.button :submit, class:"btn btn-primary", :value=>"Save", "data-btn"=>"source-save", :data => { :disable_with => "Validating..." }
+  = f.button :submit, class:"undec mdc-button gex-btn-new", :value=>"Save", "data-btn"=>"source-save", :data => { :disable_with => "Validating..." }
 
 :javascript
-  $('h4').click(function() {
-    var checkbox = $(this).find('input.boolean');
+  $('.checker').click(function() {
+    var checkbox = $(this).find('input');
+    var checkbox_icon = $(this).find('.check');
     checkbox.prop("checked", !checkbox.prop("checked"));
+    checkbox_icon.toggleClass('checked');
+
+    //console.log($(this));
   });
   $('.go-to-output').click(function(){
     $('.output-name').val($('#agent_tag').val());
