@@ -26,6 +26,10 @@ h1,h2,h3,h4,h5,h6,ul,b,text,p,label,i{
   line-height: 20px;
 }
 
+.h-txt{
+  width: 100%;
+}
+
 .card-h{
   margin: 0px !important;
   font-size: 20px !important;
@@ -35,4 +39,12 @@ h1,h2,h3,h4,h5,h6,ul,b,text,p,label,i{
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+
+
+
+label{
+  margin-bottom: 10px !important;
+  font-weight: 600 !important;
 }

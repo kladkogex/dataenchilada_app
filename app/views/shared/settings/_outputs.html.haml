@@ -1,8 +1,11 @@
 #outputs.tab-pane.fade
-  %h1.page-header
+  -#%h1.page-header
     = "Choose outputs for your stream"
     -#.well
     -#  = raw t("fluentd.settings.#{target_plugin_name}.option_guide")
+  =render 'shared/sidebar_header', main: "Choose outputs for your stream", gray: '' , decsription: 'todo'
+
+
 
   = f.simple_fields_for :outputs do |f_output|
     - Output::OUTPUT_TYPES.each do |key, value|
