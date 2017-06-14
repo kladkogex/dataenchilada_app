@@ -179,9 +179,9 @@
 /// well
 
 .gx-well{
-  box-shadow: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
   border: none;
-  background-color: #ececec;
+  background-color: rgba(236, 236, 236, 0.6);
   font-family: 'Source Sans Pro';
   color: #4a4a4a;
   font-size: 11pt;
