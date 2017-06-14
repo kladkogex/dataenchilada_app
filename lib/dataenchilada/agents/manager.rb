@@ -171,7 +171,7 @@ module Dataenchilada::Agents
       File.delete(sv_filename)
       ### remove directory_agent_name from /data/agents
       FileUtils.remove_dir(agent.base_dir, true)
-      # delete details for agent if agent.name == "twitter"
+      # delete details for twitter agent
       if agent.name == "twitter"
         agent.source.details.destroy
       end
