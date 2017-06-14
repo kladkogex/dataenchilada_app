@@ -110,6 +110,10 @@
 
 
 
+.mdc-button:disabled, fieldset:disabled .mdc-button{
+  background-color: #d8d8d8 !important;
+}
+
 
 //// new
 

@@ -7,7 +7,9 @@ select:disabled{
   background-color: #eaeaea;
 }
 
-
+.new-input.disabled{
+  background-color: #eaeaea;
+}
 
 input[type="password"] {
   display: block;
@@ -75,4 +77,11 @@ input.new-input:-ms-input-placeholder, textarea.new-textarea:-ms-input-placehold
   border: none;
   box-shadow: none;
   height: 24px;
+}
+
+
+.tree{
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  background-color: #ffffff !important;
+  border: 1px solid rgba(212, 212, 212, 0.7) !important;
 }

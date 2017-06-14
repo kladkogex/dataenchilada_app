@@ -4,7 +4,7 @@
 <%= form_tag(action, method: :post) do %>
     <div class="form-group string optional agent_title">
       <label class="control-label string optional" for="agent_title">Name of Agent</label>
-      <input class="new-input string optional form-control" type="text" value="My agent name" name="agent[title]" id="agent_title">
+      <input class="new-input string optional" type="text" value="My agent name" name="agent[title]" id="agent_title">
       <%#
       <label class="control-label string optional" for="agent_tag">Tag</label>
       <input class="new-input string optional form-control" type="text" value="type_expected_tail_tag" name="agent[tag]" id="agent_tag">
@@ -12,9 +12,10 @@
     </div>
   <div id="treeview" initialPath="/var/log">
     <label class="control-label string optional" for="path_file">Path to file</label>
-    <pre>{{ path }}</pre>
+    <div class="new-input disabled">{{ path }}</div>
     <input type="hidden" name="<%= name %>" v-model="path" />
-    <div class="dirs">
+
+    <div class="dirs padd_top_md padd_bott_md">
       <span v-repeat="currentDirs">
         <span v-if="$index > 0">
           <%= icon('fa-caret-right') %>
@@ -31,9 +32,29 @@
      </span>
    </div>
 
-   <pre v-if="preview" class="preview">{{ preview }}</pre>
-   <p>
-     <%= submit_tag submit_button, class: "btn btn-lg btn-primary pull-right", "v-attr" => "disabled: selectedIsDir", "v-class" => "btn-disable: selectedIsDir" %>
-   </p>
+    <div v-if="preview" class="padd_top_md marg_top_10">
+      <h3 class="bold no_marg">Preview </h3>
+
+      <pre  class="preview new-pre">{{ preview }}</pre>
+    </div>
+
+
+    <div class="fl-cont fl-center">
+      <div class="fl-wrap fl-grow">
+        <p class="padd_top_md padd_bott_md">
+          <%= submit_tag submit_button, class: "undec mdc-button gex-btn-new", "v-attr" => "disabled: selectedIsDir", "v-class" => "btn-disable: selectedIsDir" %>
+        </p>
+      </div>
+
+      <div class="fl-wrap">
+        <p class=" text text-danger bold no_marg">
+          <%=t('fluentd.settings.in_tail.notice_for_permission', user: fluentd_run_user)%>
+        </p>
+      </div>
+
+
+    </div>
+
+
   </div>
 <% end %>
