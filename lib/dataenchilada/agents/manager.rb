@@ -101,6 +101,14 @@ module Dataenchilada::Agents
 
       logger.error "Config Ok. Agent: #{agent.conf_name}"
 
+      if agent.name == "netflow"
+        # get system props
+        sys_prop = Dataenchilada::Agents::Configurator.get_system_props
+        elastic_host = sys_prop[:elasticsearch_host]
+        elastic_port = sys_prop[:elasticsearch_port] || 9200
+        # create elasticsearch index
+        Dataenchilada::Agents::CreateIndexElasticForNetflow.index_create(agent.tag, elastic_host, elastic_port)
+      end
 
 
       # install with supervisor

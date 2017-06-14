@@ -41,6 +41,11 @@ gem 'simple_form'
 
 gem 'java-properties'
 
+gem 'elasticsearch', git: 'git://github.com/elasticsearch/elasticsearch-ruby.git'
+gem 'elasticsearch-model', '0.1.9'
+gem 'elasticsearch-rails', '0.1.9'
+gem 'elasticsearch-dsl', git: 'git://github.com/elasticsearch/elasticsearch-ruby.git'
+
 
 group :development do
   gem 'i18n_generators', '1.2.1'
