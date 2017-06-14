@@ -7,8 +7,8 @@ module Dataenchilada::Agents
 
     def self.index_create(index_name, elastic_host, elastic_port)
 
-      index = index_name || "petrovich"
-      type = index_name || "petrovich"
+      index = index_name
+      type = index_name
 
       # set client
       client = Elasticsearch::Client.new trace: true, host: elastic_host, port: elastic_port
