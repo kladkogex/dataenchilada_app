@@ -12,6 +12,15 @@ class ApplicationController < ActionController::Base
   before_action :set_locale
   # before_action :notice_new_fluentd_ui_available
 
+
+
+  def set_agents_tab
+    @page_selected = 'agents'
+  end
+
+
+
+
   private
 
   def current_user

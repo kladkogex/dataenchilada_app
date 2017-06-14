@@ -13,7 +13,7 @@ module ApplicationHelper
 
   def is_agents_page
     (current_page?(agents_path) || current_page?(new_agent_path)|| current_page?(manage_agent_path(id: params[:id] || 1)) ||
-        current_page?(edit_config_agent_path(id: params[:id] || 1)))
+        current_page?(edit_config_agent_path(id: params[:id] || 1)) || @page_selected == 'agents')
   end
 
   def has_td_agent_system?
