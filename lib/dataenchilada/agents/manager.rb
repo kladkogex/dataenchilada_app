@@ -173,7 +173,7 @@ module Dataenchilada::Agents
       FileUtils.remove_dir(agent.base_dir, true)
       # delete details for twitter agent
       if agent.name == "twitter"
-        agent.source.details.destroy
+        agent.source.details.destroy if agent.source.details
       end
       ### change status to removed
       agent.finish_remove!
