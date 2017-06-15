@@ -1,6 +1,21 @@
 # coding: utf-8
 
 module ApplicationHelper
+
+  # gx
+  def get_status_color(status)
+    return 'green'   if ['active', 'running', 'joined', 'installed'].include? status
+    return 'orange'   if ['installing', 'starting', 'stopping', 'removing', 'uninstalling', 'restarting'].include? status
+    return 'yellow'   if ['removed', 'uninstalled', 'stopped', 'deleted'].include? status
+    return 'red'   if ['install_error', 'start_error', 'restart_error', 'stop_error', 'remove_error', 'uninstall_error',
+                       'not_installed', 'disconnected'].include? status
+  end
+
+  def is_agents_page
+    (current_page?(agents_path) || current_page?(new_agent_path)|| current_page?(manage_agent_path(id: params[:id] || 1)) ||
+        current_page?(edit_config_agent_path(id: params[:id] || 1)) || @page_selected == 'agents')
+  end
+
   def has_td_agent_system?
     File.exist?("/etc/init.d/td-agent") || File.exist?("/opt/td-agent/embedded/bin/fluentd")
   end
