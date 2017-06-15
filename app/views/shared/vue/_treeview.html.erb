@@ -4,7 +4,7 @@
 <%= form_tag(action, method: :post) do %>
     <div class="form-group string optional agent_title">
       <label class="control-label string optional" for="agent_title">Name of Agent</label>
-      <input class="new-input string optional" type="text" value="My agent name" name="agent[title]" id="agent_title">
+      <input class="new-input string optional" type="text" name="agent[title]" id="agent_title" required>
       <%#
       <label class="control-label string optional" for="agent_tag">Tag</label>
       <input class="new-input string optional form-control" type="text" value="type_expected_tail_tag" name="agent[tag]" id="agent_tag">
