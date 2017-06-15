@@ -14,11 +14,11 @@
 .app_wrap.border.marg_bott_md
   .fl-cont.gx-fl-center.padd_md
     .fl-wrap.padd_ri_10
-      .grey_bgg{style:'background-color: #585858; border-radius: 50%;  padding: 5px; height: 28px; width: 28px; '}
-        .div{style:'margin-top: 3px;'}
+      .card-h-icon
+        .svg-wrap
           =inline_svg "icons/info.svg", class: "sm-icon white-svg fx-sm-icon"
     .fl-wrap
-      %p.card-h.bold{style:'color: #585858'} Info
+      %p.card-h.bold Info
 
   .padd_md.marg_left_10
     .padd_bott_md
@@ -49,7 +49,7 @@
                 .fl-wrap
                   %h4.no_marg=@agent.name
 
-          %tr
+          -#%tr
             %td.padd_ri_big.padd_top_md
               %h4.no_marg.gr Tag:
             %td.padd_top_md
@@ -65,11 +65,11 @@
 .app_wrap.border.marg_bott_md
   .fl-cont.gx-fl-center.padd_md
     .fl-wrap.padd_ri_10
-      .grey_bgg{style:'background-color: #585858; border-radius: 50%;  padding: 5px; height: 28px; width: 28px; '}
-        .div{style:'margin-top: 3px;'}
+      .card-h-icon
+        .svg-wrap
           =inline_svg "icons/star.svg", class: "sm-icon white-svg fx-sm-icon"
     .fl-wrap
-      %p.card-h.bold{style:'color: #585858'} Manage
+      %p.card-h.bold Manage
 
   .padd_md.marg_left_10
     .padd_bott_md.fl-cont
@@ -125,11 +125,11 @@
     .app_wrap.border.marg_bott_md
       .fl-cont.gx-fl-center.padd_md
         .fl-wrap.padd_ri_10
-          .grey_bgg{style:'background-color: #585858; border-radius: 50%;  padding: 5px; height: 28px; width: 28px; '}
-            .div{style:'margin-top: 3px;'}
+          .card-h-icon
+            .svg-wrap
               =inline_svg "icons/logs.svg", class: "sm-icon white-svg fx-sm-icon"
         .fl-wrap.fl-grow
-          %p.card-h.bold{style:'color: #585858'} Log
+          %p.card-h.bold Log
         .fl-wrap
           = link_to raw_log_agent_path(@agent), class: "undec" do
             .mdc-button.btn-lite-blue
@@ -147,11 +147,11 @@
     .app_wrap.border.marg_bott_md
       .fl-cont.gx-fl-center.padd_md
         .fl-wrap.padd_ri_10
-          .grey_bgg{style:'background-color: #585858; border-radius: 50%;  padding: 5px; height: 28px; width: 28px; '}
-            .div{style:'margin-top: 3px;'}
+          .card-h-icon
+            .svg-wrap
               =inline_svg "icons/build.svg", class: "sm-icon white-svg fx-sm-icon"
         .fl-wrap.fl-grow
-          %p.card-h.bold{style:'color: #585858'} Config
+          %p.card-h.bold Config
         .fl-wrap
           = link_to edit_config_agent_path(@agent), class:'undec' do
             .mdc-button.btn-lite-blue
