@@ -1,6 +1,7 @@
 class Fluentd::Settings::InTailController < ApplicationController
   before_action :login_required
   # before_action :find_fluentd
+  before_action :set_agents_tab
 
   include OutputConcern
 

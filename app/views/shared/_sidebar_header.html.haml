@@ -1,0 +1,11 @@
+.sidebar-header
+  .fl-wrap.fl-grow
+    .fl-cont
+      -if gray!=''
+        .fl-wrap.padd_ri_sm
+          %h2.sb-text.sb-h1-text.gr=gray
+      .fl-wrap
+        %h2.sb-text.sb-h1-text=main
+    .clearfix
+    %p.sb-p-text.gr
+      =decsription || 'No page description'

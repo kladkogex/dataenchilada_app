@@ -1,24 +1,41 @@
 - content_for(:page_title) do
   = t(".page_title")
-= form_for(@setting, as: "agent", url: finish_daemon_setting_in_tail_path) do |f|
-  = hidden_field_tag "agent[title]", @agent_params['title']
-  -#= hidden_field_tag "agent[tag]", @agent_params['tag']
-  .tab-content
-    #source.tab-pane.fade.in.active
-      %h1.page-header
-        = t(".page_title")
+
+.gx-form-md
+  = form_for(@setting, as: "agent", url: finish_daemon_setting_in_tail_path) do |f|
+    = hidden_field_tag "agent[title]", @agent_params['title']
+    -#= hidden_field_tag "agent[tag]", @agent_params['tag']
+    .tab-content
+      #source.tab-pane.fade.in.active
+        =render 'shared/sidebar_header', main: t(".page_title"), gray: '' , decsription: 'Add page description, plz'
+        -#%h1.page-header
+          = t(".page_title")
 
 
-      -#= link_to t('fluentd.settings.in_tail.restart_from_first'), daemon_setting_in_tail_path(@fluentd)
+        -#= link_to t('fluentd.settings.in_tail.restart_from_first'), daemon_setting_in_tail_path(@fluentd)
 
 
-      = f.fields_for :details do |details|
-        = render partial: "form", locals: { f: details }
+        = f.fields_for :details do |details|
+          = render partial: "form", locals: { f: details }
 
-      %pre= @setting.to_conf(@agent_params['tag'])
+        .padd_top_md.padd_bott_md
+          %pre.new-pre= @setting.to_conf(@agent_params['tag'])
 
-      %p
-        = link_to t('terms.beginning'), daemon_setting_in_tail_path, class: "btn btn-lg btn-primary"
-        = f.submit t('terms.prev'),   class: "btn btn-lg btn-default", name: "back"
-        %a.btn.btn-lg.btn-primary.pull-right.scroll-top.go-to-output{data: {toggle: :tab}, href: '#outputs'} Next
-    = render 'shared/settings/outputs', f: f
+
+        .fl-cont.padd_top_md
+          .fl-wrap.padd_ri_15
+            = link_to t('terms.beginning'), daemon_setting_in_tail_path, class: "undec mdc-button btn-lite-blue"
+          .fl-wrap.fl-grow
+            = f.submit t('terms.prev'), class: "undec mdc-button btn-lite-blue", name: "back"
+          .fl-wrap
+            %a.undec.mdc-button.gex-btn-new.go-to-output{data: {toggle: :tab}, href: '#outputs'} Next
+            -#= f.submit t('terms.next'), class: "undec mdc-button gex-btn-new"
+
+
+        -#%p
+          = link_to t('terms.beginning'), daemon_setting_in_tail_path, class: "btn btn-lg btn-primary"
+          = f.submit t('terms.prev'),   class: "btn btn-lg btn-default", name: "back"
+          %a.btn.btn-lg.btn-primary.pull-right.scroll-top.go-to-output{data: {toggle: :tab}, href: '#outputs'} Next
+
+
+      = render 'shared/settings/outputs', f: f

@@ -25,7 +25,7 @@
               self.fetchLogs();
               var $log = $(".log", self.$el);
               $log.scrollTop($log.innerHeight());
-            }, 1000);
+            }, 15000);
           } else {
             clearInterval(timer);
           }

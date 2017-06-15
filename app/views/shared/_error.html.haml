@@ -1,3 +1,19 @@
-%p.error
+-#%p.error
   = flash[:notice]
+-if flash[:notice]
+  #flash
+    .lite-gr-bg.padd_15.padd_left_md.marg_bott_15.fl-cont.fl-h-center
+      .fl-wrap.fl-grow
+        %p.no_marg.bold.white
+          =flash[:notice]
+      #hide_flash.fl-wrap.hand-cursor
+        =inline_svg "icons/close.svg", class: 'white-svg sm-icon'
 
+:javascript
+  $(document).ready(function(){
+
+    $("#hide_flash").click(function(){
+        $("#flash").hide(1000);
+    });
+
+  });

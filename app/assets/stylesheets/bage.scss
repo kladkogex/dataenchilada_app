@@ -1,0 +1,60 @@
+@import "colors";
+
+  .gx-bage {
+    //min-width: 127px;
+    background-color: #575456;
+    padding: 3px 10px;
+    color: white;
+    border-radius: 4px;
+
+    h6 {
+      margin: 0 !important;
+      color: white;
+      font-size: 10pt;
+      font-weight: 600;
+    }
+
+  }
+
+  .gx-bage-lg{
+    padding: 8px 12px;
+  }
+
+
+  .gx-bage.lite-gr-bage {
+    background-color: #e4e4e4;
+  }
+
+
+  .gx-bage.trace-bage {
+    background-color: $gx-grey-bg;
+  }
+
+  .gx-bage.debug-bage {
+    background-color: $gx-dark-grey-bg;
+  }
+
+  .gx-bage.info-bage {
+    background-color: $gx-ok-color;
+  }
+
+  .gx-bage.warning-bage {
+    background-color: $gx-warn-color;
+  }
+
+  .gx-bage.error-bage {
+    background-color: $gx-error-color;
+  }
+
+  .gx-bage.critical-bage {
+    background-color: $gx-critical-color;
+  }
+
+
+  .gx-bage.purple-bage {
+    background-color: rgba(82, 79, 202, 0.9);
+  }
+
+  .gx-bage.cyan-bage {
+    background-color: rgba(27, 137, 156, 0.9);
+  }

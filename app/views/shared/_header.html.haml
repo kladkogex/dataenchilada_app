@@ -1,0 +1,152 @@
+%header.header
+  .containerr.fl-center.fl-cont{style:"height: 100%;"}
+    .fl-wrap.fl-grow.padd_left_10
+      = link_to fluentd_ui_logo, root_path, class: "navbar-brandd fluentd-ui-logo"
+
+      -#=link_to  'ffff' do
+        =image_tag "logos/main.png", class:"header_logo"
+    .fl-wrap
+      .padd_left_md.hidden-sm-up
+        .fl-cont
+          .navbar-toggle
+            %div{"data-target" => "#myNavbar", "data-toggle" => "collapse"}
+              %img.dropdown_icon{:src => "http://galactic.staging.wpengine.com/wp-content/uploads/menu_collapse.png", :style => " cursor: pointer;"}
+
+      .padd_left_md.hidden-sm-down
+        .fl-wrap.gr-hover-el
+          = link_to sessions_path, method: :delete, style:'height: 64px;', class:'fl-h-center', id:'logout' do
+            .padd_left_md.padd_ri_md
+              = inline_svg 'icons/logout.svg', class: 'red-svg'
+          -#.mdl-tooltip.mdl-tooltip--large{:for => "logout"}
+            Logout
+
+            -#%a{:href => "http://hub.galacticexchange.io/users/new"}
+              .gx_btn.gx_btn_blue.mdl-button.mdl-js-button.mdl-js-ripple-effect{style:'font-size: 13px;    text-transform: none !important; padding: 0px 35px;'}
+                Get it free
+  -#.div
+    #product_details.bord_bott{style:"box-shadow: rgba(119, 119, 119, 0.14902) 0px 8px 6px -6px; display: none !important; border-top: solid 1px rgba(212, 212, 212, 0.6);  background-color: #ffffff;"}
+      .fl-cont.container
+        .fl-wrap.fl-grow
+        .fl-wrap.padd_left_md.padd_ri_md.gr-hover-el
+          =link_to "!!!" do
+            .fl-cont.fl-center
+              .fl-wrap.padd_ri_10
+                =image_tag 'icons/cubes.svg', style:'opacity: 0.6'
+              .fl-wrap
+                %h6.header-link-in
+                  Platform Components
+        .fl-wrap.padd_left_md.padd_ri_md.gr-hover-el
+          =link_to '!!!' do
+            .fl-cont.fl-center
+              .fl-wrap.padd_ri_10
+                =image_tag 'icons/compare.svg', style:'opacity: 0.6'
+              .fl-wrap
+                %h6.header-link-in Pricing and Editions Comparison
+        .fl-wrap.fl-grow
+        -#.fl-wrap{style:'padding-right: 142px;'}
+    #more_details.bord_bott{style:"box-shadow: rgba(119, 119, 119, 0.14902) 0px 8px 6px -6px; display: none !important; border-top: solid 1px rgba(212, 212, 212, 0.6); background-color: #ffffff;"}
+      .fl-cont.container
+        .fl-wrap.fl-grow
+        .fl-wrap.padd_left_md.padd_ri_md.gr-hover-el
+          =link_to 'fdf' do
+            .fl-cont.fl-center
+              .fl-wrap.padd_ri_10
+                =image_tag 'icons/library.svg', style:'opacity: 0.6'
+              .fl-wrap
+                %h6.header-link-in Blog
+
+        .fl-wrap.padd_left_md.padd_ri_md.gr-hover-el
+          =link_to 'fdf' do
+            .fl-cont.fl-center
+              .fl-wrap.padd_ri_10
+                =image_tag 'icons/docs_bl.svg', style:'opacity: 0.6'
+              .fl-wrap
+                %h6.header-link-in News
+        .fl-wrap.padd_left_md.padd_ri_md.gr-hover-el
+          =link_to 'fdf' do
+            .fl-cont.fl-center
+              .fl-wrap.padd_ri_10
+                =image_tag 'icons/video_bl.svg', style:'opacity: 0.6'
+              .fl-wrap
+                %h6.header-link-in Resourses
+        .fl-wrap.padd_left_md.padd_ri_md.gr-hover-el
+          =link_to 'fdf' do
+            .fl-cont.fl-center
+              .fl-wrap.padd_ri_10
+                =image_tag 'icons/documentation.svg', style:'opacity: 0.6'
+              .fl-wrap
+                %h6.header-link-in Docs
+        .fl-wrap.padd_left_md.padd_ri_md.gr-hover-el.hidden-lg-up
+          =link_to 'fdf' do
+            .fl-cont.fl-center
+              .fl-wrap.padd_ri_10
+                =image_tag 'icons/download.svg', style:'opacity: 0.6'
+              .fl-wrap
+                %h6.header-link-in Download ClusterGX
+        .fl-wrap.fl-grow
+
+      .hidden-lg-up
+        .fl-cont.container
+          .fl-wrap.fl-grow
+          .fl-wrap.padd_left_md.padd_ri_md.gr-hover-el
+            =link_to 'fdf' do
+              .fl-cont.fl-center
+                .fl-wrap.padd_ri_10
+                  =image_tag 'icons/contacts.svg', style:'opacity: 0.6'
+                .fl-wrap
+                  %h6.header-link-in Contact
+          .fl-wrap.padd_left_md.padd_ri_md.gr-hover-el
+            =link_to 'dg' do
+              .fl-cont.fl-center
+                .fl-wrap.padd_ri_10
+                  =image_tag 'icons/partners.svg', style:'opacity: 0.6'
+                .fl-wrap
+                  %h6.header-link-in Partners
+          .fl-wrap.fl-grow
+
+:javascript
+  $( document ).ready(function() {
+    $('.dropdown').hover(function() {
+    $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(200);
+  }, function() {
+    $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(200);
+  });
+
+    $('#product').hover(function() {
+      $('#product_details').stop(true, true).delay(100).fadeIn(100);
+      $('#product').addClass('header-link-active').delay(100);
+    }, function() {
+      $('#product_details').stop(true, true).delay(100).fadeOut(100);
+      $('#product').removeClass('header-link-active').delay(100);
+    });
+
+    $('#product_details').hover(function() {
+      $('#product_details').stop(true, true).delay(100).fadeIn(100);
+       $('#product').addClass('header-link-active').delay(100);
+    }, function() {
+      $('#product_details').stop(true, true).delay(100).fadeOut(100);
+      $('#product').removeClass('header-link-active').delay(100);
+    });
+
+
+
+    $('#more').hover(function() {
+      $('#more_details').stop(true, true).delay(100).fadeIn(100);
+      $('#more').addClass('header-link-active').delay(100);
+    }, function() {
+      $('#more_details').stop(true, true).delay(100).fadeOut(100);
+      $('#more').removeClass('header-link-active').delay(100);
+    });
+
+    $('#more_details').hover(function() {
+      $('#more_details').stop(true, true).delay(100).fadeIn(100);
+      $('#more').addClass('header-link-active').delay(100);
+    }, function() {
+      $('#more_details').stop(true, true).delay(100).fadeOut(100);
+      $('#more').removeClass('header-link-active').delay(100);
+    });
+
+
+
+
+  });

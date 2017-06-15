@@ -1,13 +1,38 @@
-.login-panel.panel.panel-default
-  .panel-heading
-    %h3.panel-title
-      = t('messages.please_sign_in')
-  .panel-body
-    = render partial: "shared/error"
-    = form_for(:session, url: sessions_path) do |f|
-      .form-group
-        = f.text_field :name, placeholder: t('terms.name'), class: "form-control"
-      .form-group
-        = f.password_field :password, placeholder: t('terms.password'), class: "form-control"
 
-      = submit_tag t("terms.sign_in"), class: "btn btn-success"
+
+
+
+.gx-login-page.fl-cont.fl-center.padd_md{style:"height: 100vh; margin-top: -50px;"}
+  .fl-wrap{style:"flex-grow: 4"}
+  .fl-wrap{style:"flex-grotw: 1; width: 400px; "}
+    .gx-border-stt.padd_md{style:'width: 100%;'}
+      .text-center.padd_top_md
+        =link_to root_path do
+          = image_tag 'logo/data_enchilada_logo.png',:style=> "width: 100%; padding-bottom: 25px; max-width: 280px;"
+      .div
+        .padd_bott_10.padd_top_10
+          = render partial: "shared/error"
+        = form_for(:session, url: sessions_path) do |f|
+          .form-group
+            = f.text_field :name, placeholder: t('terms.name'), class: "new-input", autofocus: "autofocus"
+          .form-group
+            = f.password_field :password, placeholder: t('terms.password'), class: "new-input"
+          .padd_top_10
+            -#= submit_tag t("terms.sign_in"), class: "mdc-button mdc-button--raised gx-btn", style:'width: 100%;'
+
+
+            %button.mdc-button.mdc-button--raissed.gx-btn(type="submit" name="commit" value="Sign in"){style:'    height: 45px; width: 100%;'}
+              .fl-cont.fl-h-center
+                .fl-wrap.fl-grow
+                .fl-wrap.rpadd_ri_10{style:'font-size: 13pt;'}
+                  =t("terms.sign_in")
+                -#.fl-wrap
+                  =inline_svg "icons/login.svg", class: "white-svg sm-icon"
+                .fl-wrap.fl-grow
+  .fl-wrap{style:"flex-grow: 4"}
+
+
+
+
+
+
