@@ -8,7 +8,7 @@
         .well.gx-well
           = raw t("fluentd.settings.#{target_plugin_name}.option_guide")
 
-      = f.input :title,  required: true, value: '', label: 'Name of Agent', input_html: {value: '', class: "new-input"}
+      = f.input :title,  required: true, value: '', label: 'Name of Agent', input_html: {value: nil, class: "new-input"}
       = f.input :tag, label: 'Tag', input_html: {class: "new-input"}
 
       = f.simple_fields_for :source do |f_source|
