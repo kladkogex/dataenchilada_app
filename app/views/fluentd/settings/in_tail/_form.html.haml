@@ -4,40 +4,69 @@
 .form-group
   = f.label :path
   = f.hidden_field :path
-  = f.text_field :path, class: "form-control", disabled: true
+  = f.text_field :path, class: "new-input", disabled: true
 .form-group
   = f.label :format
   = f.hidden_field :format
-  = f.text_field :format, class: "form-control", disabled: true
-- if @setting.details.format
-  - @setting.known_formats[@setting.details.format.to_sym].each do |key|
-    %label= key
-    = f.hidden_field key
-    = @setting.send(key)
-    %br
-- else
-  %label= @setting.details.format
-  = f.hidden_field :regexp
-  = @setting.details.regexp
--#.form-group
--#  = f.label :tag
--#  = f.text_field :tag, class: "form-control"
-.form-group
-  = f.check_box :read_from_head
-  = f.label :read_from_head
-.well.well-sm
-  %h4{"data-toggle" => "collapse", "href" => "#advanced-setting"}
-    = icon('fa-caret-down')
-    = t('terms.advanced_setting')
-  #advanced-setting.collapse
-    .form-group
-      = f.label :rotate_wait
-      = f.text_field :rotate_wait, class: "form-control"
-    .form-group
-      = f.label :pos_file
-      = f.text_field :pos_file, class: "form-control"
-    .form-group
-      = f.label :refresh_interval
-      %small.form-text.text-muted default is 60 sec (optional)
-      = f.text_field :refresh_interval, class: "form-control"
+  = f.text_field :format, class: "new-input", disabled: true
+.padd_left_md
+  - if @setting.details.format
+    - @setting.known_formats[@setting.details.format.to_sym].each do |key|
+      %label= key
+      = f.hidden_field key
+      = f.text_field key, class: "new-input", disabled: true
+      = @setting.send(key)
+      %br
+  - else
+    %label= @setting.details.format
+    = f.hidden_field :regexp
+    = f.text_field :regexp, class: "new-input", disabled: true
+    = @setting.details.regexp
+  -#.form-group
+  -#  = f.label :tag
+  -#  = f.text_field :tag, class: "form-control"
+.form-group.padd_top_md
+  -#= f.inspect
+  -#.mdc-form-field
+    .mdc-checkbox
+      %input#setting_details_attributes_read_from_head.mdc-checkbox__native-control{type: "checkbox", name:'setting[details_attributes][read_from_head]'}
+      .mdc-checkbox__background
+        %svg.mdc-checkbox__checkmark{:viewbox => "0 0 24 24"}
+          %path.mdc-checkbox__checkmark__path{:d => "M1.73,12.91 8.1,19.28 22.79,4.59", :fill => "none", :stroke => "white"}
+        .mdc-checkbox__mixedmark
+    %label.no_marg{style:'    font-size: 14px;', for: "setting_details_attributes_read_from_head"} Read from head
+
+  -#= f.input :read_from_head, :as => :boolean, :wrapper => :checkbox
+  .mdc-form-field
+    .mdc-checkbox
+      = f.check_box(:read_from_head, class:'mdc-checkbox__native-control')
+      .mdc-checkbox__background
+        %svg.mdc-checkbox__checkmark{:viewbox => "0 0 24 24"}
+          %path.mdc-checkbox__checkmark__path{:d => "M1.73,12.91 8.1,19.28 22.79,4.59", :fill => "none", :stroke => "white"}
+        .mdc-checkbox__mixedmark
+
+  -#= f.check_box :read_from_head
+  = f.label :read_from_head, class:'no_marg'
+
+
+.fl-cont.fl-center.marg_bott_md.padd_top_md{style:"justify-content: flex-start;"}
+  .fl-wrap.fl-growr
+    %h3.h-txt.bold.no_marg.marg_bott_sm Advanced settings
+    .clearfix
+    %h6.gr.no_marg  Click on the arrow to set advanced settings.
+  .fl-wrap.padd_left_big
+    %button.mdc-fab.mdc-fab--mini.lite-blue{style:" box-shadow: none;", "data-toggle" => "collapse", "href" => "#advanced-setting"}
+      =inline_svg 'icons/down.svg', class: 'gex-svg round-btn-icon'
+
+#advanced-setting.collapse
+  .form-group
+    = f.label :rotate_wait
+    = f.text_field :rotate_wait, class: "new-input"
+  .form-group
+    = f.label :pos_file
+    = f.text_field :pos_file, class: "new-input"
+  .form-group
+    = f.label :refresh_interval
+    %small.form-text.text-muted default is 60 sec (optional)
+    = f.text_field :refresh_interval, class: "new-input"
 

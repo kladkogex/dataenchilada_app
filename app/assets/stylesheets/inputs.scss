@@ -85,3 +85,18 @@ input.new-input:-ms-input-placeholder, textarea.new-textarea:-ms-input-placehold
   background-color: #ffffff !important;
   border: 1px solid rgba(212, 212, 212, 0.7) !important;
 }
+
+
+
+.mdc-checkbox__background{
+  //background-color: #1d87e4;
+  // border-color: #1d87e4;
+}
+
+
+.mdc-checkbox__native-control:checked~.mdc-checkbox__background{
+  background-color: #1d87e4 !important;
+   border-color: #1d87e4 !important;
+  //border-color: var(--mdc-theme-primary,#1d87e4) !important;
+ // background-color: var(--mdc-theme-primary,#1d87e4) !important;
+}
