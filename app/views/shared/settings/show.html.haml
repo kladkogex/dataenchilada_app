@@ -44,7 +44,7 @@
                 = f_source.input key.to_sym, :input_html => { :value => v, class: "new-input"}
                 - if @agent.source.try(:fields_descriptions).present?
                   %small.form-text.text-muted= @agent.source.fields_descriptions[key]
-      .padd_top_md
+      .padd_top_md.pull-right
         %a.undec.mdc-button.gex-btn-new.scroll-top.go-to-output{data: {toggle: :tab}, href: '#outputs'} Next
 
     = render 'shared/settings/outputs', f: f

@@ -26,8 +26,8 @@
               .fl-cont.padd_top_md.padd_left_md.padd_ri_md
                 .fl-wrap.fl-grow
                   = out_details.input Output::STREAM_FIELD_NAMES[key], :input_html => {class: "output-name new-input", style: 'width: 100%;'}
-
-  = f.button :submit, class:"undec mdc-button gex-btn-new", :value=>"Save", "data-btn"=>"source-save", :data => { :disable_with => "Validating..." }
+  .pull-right
+    = f.button :submit, class:"undec mdc-button gex-btn-new", :value=>"Save", "data-btn"=>"source-save", :data => { :disable_with => "Validating..." }
 
 :javascript
   $('.checker').click(function() {
