@@ -14,7 +14,7 @@
 .app_wrap.border.marg_bott_md(ng-if="loaded && !isAppsEmpty"){:style=>"border-bottom: 0px"}
   .grey_bg.padd_left_md.padd_ri_md.padd_top_15.padd_bott_15
     .row.no_marg
-      .col-md-3.col-sm-4.col-xs-4
+      .col-lg-3.col-md-4.col-sm-4.col-xs-4
         %p.no_marg{style:"font-size: 16px;"} Agent
       .col-md-3.col-sm-4.col-xs-6.no_padd
         %p.no_marg{style:"font-size: 16px;"} Status
@@ -27,7 +27,7 @@
   - @items.each do |item|
     .row.bord_bott.table-row.gr-hover-el.no_marg
       =link_to manage_agent_path(item) do
-        .col-md-3.col-sm-4.col-xs-4.padd_top_md.padd_bott_md
+        .col-lg-3.col-md-4.col-sm-4.col-xs-4.padd_top_md.padd_bott_md
           .marg_left_md
             %p.gx-p.no_marg.bold=item.title
         .col-md-3.col-sm-4.col-xs-6.no_padd.padd_top_md.padd_bott_md
