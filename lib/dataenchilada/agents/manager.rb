@@ -24,7 +24,7 @@ module Dataenchilada::Agents
       install(agent)
 
       # start
-      start(agent)
+      #start(agent)
 
     end
 
@@ -112,7 +112,7 @@ module Dataenchilada::Agents
 
 
       # install with supervisor
-      install_service_supervisor(agent)
+      #install_service_supervisor(agent)
 
 
       #
@@ -163,12 +163,12 @@ module Dataenchilada::Agents
       require 'fileutils'
       agent.begin_remove!
       # stop supervisor agent
-      stop(agent)
+      #stop(agent)
       ### remove supervisor config from /etc/supervisor/conf.d/
       # get path to file
       sv_filename = ::Dataenchilada::Agents::Settings::sv_file(agent)
       # delete file
-      File.delete(sv_filename)
+      #File.delete(sv_filename)
       ### remove directory_agent_name from /data/agents
       FileUtils.remove_dir(agent.base_dir, true)
       # delete details for twitter agent
