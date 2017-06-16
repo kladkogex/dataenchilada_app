@@ -1,12 +1,5 @@
 -# page_title t('.page_title')
-
-
-.sidebar-header
-  .fl-wrap.fl-grow
-    %h2.sb-text.sb-h1-text=t('.page_title')
-    .clearfix
-    %p.sb-p-text.gr
-      Add page description here.
+=render 'shared/sidebar_header', main: 'Sources', gray: '', decsription: 'Choose the source type.'
 
 .row
   - settings_types_with_icons.each do |type, params|

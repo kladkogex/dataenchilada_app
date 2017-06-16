@@ -35,12 +35,17 @@ class Agent < ActiveRecord::Base
     File.join(Rails.root, "data/agents/#{conf_name}")
   end
 
+  def log_prefix
+    "/var/log"
+  end
+
   def config_path
     File.join(base_dir, "agent.conf")
   end
 
   def log_path
-    File.join(base_dir, "agent.log")
+    #File.join(base_dir, "agent.log")
+    File.join(log_prefix, "data_enchilada_agent_#{conf_name}.out.log")
   end
 
   def config

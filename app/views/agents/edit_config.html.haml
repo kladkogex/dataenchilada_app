@@ -12,11 +12,11 @@
 .app_wrap.border.marg_bott_md
   .fl-cont.gx-fl-center.padd_md
     .fl-wrap.padd_ri_10
-      .grey_bgg{style:'background-color: #585858; border-radius: 50%;  padding: 5px; height: 28px; width: 28px; '}
-        .div{style:'margin-top: 3px;'}
+      .card-h-icon
+        .svg-wrap
           =inline_svg "icons/build.svg", class: "sm-icon white-svg fx-sm-icon"
     .fl-wrap.fl-grow
-      %p.card-h.bold{style:'color: #585858'} Config
+      %p.card-h.bold Config
   .padd_md.marg_left_10
 
     = form_tag(update_config_agent_path(@agent), method: :post) do

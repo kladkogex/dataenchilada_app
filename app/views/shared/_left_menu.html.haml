@@ -14,8 +14,7 @@
                   %span.icon-bar
             .col-xs-10.no_padd{:style=>"text-align: left;"}
               %h3.step_text.side_menu_h{:style=>"color: #434343"}
-                Profile
-
+                Workspace
 
     #target.container-fluid.no_padd.no_marg
       #myNavbar.collapse.navbar-collapse.no_padd.no_marg
@@ -24,41 +23,36 @@
             .padd_bott_mdz.install_step
               .flex-container-all
                 .flex-wrap{style:'margin: 20px 0px 20px 0px;'}
-                  %h3.step_text.side_menu_h  Workspace
+                  %h3.left-menu-h  Workspace
+
+          -selected = current_page?(daemon_path) ? 'current' : ''
+          = link_to daemon_path, class: "left-menu-el left-menu-#{selected}" do
+            .fl-cont.gx-fl-center
+              .fl-wrap.padd_ri_sm
+                = inline_svg "icons/dashboard.svg"
+              .fl-wrap
+                %h3=t('fluentd.show.page_title')
 
 
-          = link_to daemon_path, class:'undec' do
-            -selected = current_page?(daemon_path) ? 'current' : ''
-            .div{class: selected}
-              .install_step.side_menu_element(ng-class="pageSelected == 'clusters' ? 'current_step' : ''" data-div="team_clusters")
-                .fl-cont.gx-fl-center
-                  .fl-wrap
-                    = inline_svg "icons/dashboard.svg", class: "workspace_icon {{pageSelected == 'clusters' ? 'workspace_icon_current' : ''}}"
-                  .fl-wrap
-                    %h3.step_text.step_text_icon.side_menu_text.no_marg_top(ng-class="pageSelected == 'clusters' ? 'current_step_text' : ''")
-                      =t('fluentd.show.page_title')
+          -selected = is_agents_page ? 'current' : ''
+          = link_to  agents_path, class: "left-menu-el left-menu-#{selected}" do
+            .fl-cont.gx-fl-center
+              .fl-wrap.padd_ri_sm
+                = inline_svg "icons/agents.svg"
+              .fl-wrap
+                %h3=t('agents.page_title')
 
-          = link_to  agents_path, class:'undec' do
-            -selected = is_agents_page ? 'current' : ''
-            .div{class: selected}
-              .install_step.side_menu_element(ng-class="pageSelected == 'clusters' ? 'current_step' : ''" data-div="team_clusters")
-                .fl-cont.gx-fl-center
-                  .fl-wrap
-                    = inline_svg "icons/agents.svg", class: "workspace_icon {{pageSelected == 'clusters' ? 'workspace_icon_current' : ''}}"
-                  .fl-wrap
-                    %h3.step_text.step_text_icon.side_menu_text.no_marg_top(ng-class="pageSelected == 'clusters' ? 'current_step_text' : ''")
-                      =t('agents.page_title')
 
           .install_step.side_menu_ln
-            %h3.step_text.side_menu_h.uppercase{style:'margin: 20px 0px 20px 0px;'}=t('terms.misc')
-          = link_to user_path, class: 'undec' do
-            -selected = current_page?(user_path) ? 'current' : ''
-            .div{class: selected}
-              .install_step.side_menu_element
-                .fl-cont.gx-fl-center
-                  .fl-wrap
-                    = inline_svg "icons/key.svg", class: "workspace_icon"
-                  .fl-wrap
-                    %h3.step_text.step_text_icon.side_menu_text.no_marg_top
-                      =t('users.show.page_title')
+            %h3.left-menu-h=t('terms.misc')
 
+          -selected = current_page?(user_path) ? 'current' : ''
+          = link_to user_path, class: "left-menu-el left-menu-#{selected}" do
+            .fl-cont.gx-fl-center
+              .fl-wrap.padd_ri_sm
+                = inline_svg "icons/key.svg"
+              .fl-wrap
+                %h3=t('users.show.page_title')
+
+.div{style:'position: absolute; bottom: 20px; left: 20px;'}
+  .gx-bage.lite-gr-bage.gr Beta
