@@ -26,27 +26,29 @@
   -#  = f.label :tag
   -#  = f.text_field :tag, class: "form-control"
 .form-group.padd_top_md
-  -#= f.inspect
-  -#.mdc-form-field
-    .mdc-checkbox
-      %input#setting_details_attributes_read_from_head.mdc-checkbox__native-control{type: "checkbox", name:'setting[details_attributes][read_from_head]'}
-      .mdc-checkbox__background
-        %svg.mdc-checkbox__checkmark{:viewbox => "0 0 24 24"}
-          %path.mdc-checkbox__checkmark__path{:d => "M1.73,12.91 8.1,19.28 22.79,4.59", :fill => "none", :stroke => "white"}
-        .mdc-checkbox__mixedmark
-    %label.no_marg{style:'    font-size: 14px;', for: "setting_details_attributes_read_from_head"} Read from head
 
-  -#= f.input :read_from_head, :as => :boolean, :wrapper => :checkbox
-  .mdc-form-field
-    .mdc-checkbox
-      = f.check_box(:read_from_head, class:'mdc-checkbox__native-control')
-      .mdc-checkbox__background
-        %svg.mdc-checkbox__checkmark{:viewbox => "0 0 24 24"}
-          %path.mdc-checkbox__checkmark__path{:d => "M1.73,12.91 8.1,19.28 22.79,4.59", :fill => "none", :stroke => "white"}
-        .mdc-checkbox__mixedmark
 
-  -#= f.check_box :read_from_head
-  = f.label :read_from_head, class:'no_marg'
+  .div.padd_md{style:'background-color: rgba(236, 236, 236, 0.6); border-radius: 4px;'}
+    .fl-cont.fl-h-center
+      .fl-wrap.fl-grow.fl-center
+
+        .mdc-form-field
+          .mdc-checkbox
+            = f.check_box(:read_from_head, class:'mdc-checkbox__native-control')
+            .mdc-checkbox__background
+              %svg.mdc-checkbox__checkmark{:viewbox => "0 0 24 24"}
+                %path.mdc-checkbox__checkmark__path{:d => "M1.73,12.91 8.1,19.28 22.79,4.59", :fill => "none", :stroke => "white"}
+              .mdc-checkbox__mixedmark
+
+        -#= f.check_box :read_from_head
+        = f.label :read_from_head, class:'no_marg'
+      .fl-wrap.padd_ri_md
+        .fl-cont.gx-fl-center
+          .fl-wrap{style:'min-width: 36px;'}
+            =inline_svg "icons/help.svg", class:"md-icon lite-gr-svg"
+          .fl-wrap
+            %p.gx-p.no_marg.gr{style:"line-height: 1.4 !important;"}
+              Start to read the logs from the head of file, not bottom.
 
 
 .fl-cont.fl-center.marg_bott_md.padd_top_md{style:"justify-content: flex-start;"}
@@ -59,10 +61,10 @@
       =inline_svg 'icons/down.svg', class: 'gex-svg round-btn-icon'
 
 #advanced-setting.collapse
-  .form-group
+  -#.form-group
     = f.label :rotate_wait
     = f.text_field :rotate_wait, class: "new-input"
-  .form-group
+  -#.form-group
     = f.label :pos_file
     = f.text_field :pos_file, class: "new-input"
   .form-group
