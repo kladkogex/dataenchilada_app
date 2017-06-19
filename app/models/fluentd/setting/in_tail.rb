@@ -50,6 +50,7 @@ class Fluentd
           :apache2
         when %r|/var/log|
           :none
+          #:syslog
         else
           :regexp
         end
