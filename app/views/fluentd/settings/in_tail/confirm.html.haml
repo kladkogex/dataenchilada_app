@@ -14,14 +14,15 @@
 
         -#= link_to t('fluentd.settings.in_tail.restart_from_first'), daemon_setting_in_tail_path(@fluentd)
 
-
-        -#= f.fields_for :details do |details|
-          = render partial: "form", locals: { f: details }
+        .hidden
+          = f.fields_for :details do |details|
+            = render partial: "form", locals: { f: details }
 
         %h4.bold.no_marg_bott Confirm your configuration:
 
         .padd_top_md
-          %pre.new-pre= @setting.to_conf(@agent_params['tag'])
+          -#%pre.new-pre= @setting.to_conf(@agent_params['tag'])
+          %pre.new-pre= @setting.to_conf("default")
 
 
         .fl-cont.padd_top_md

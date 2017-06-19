@@ -54,7 +54,8 @@ class Fluentd::Settings::InTailController < ApplicationController
     # end
 
     unless details.valid? && get_outputs_for_local.present?
-      return render "after_format"
+      return render "show"#, @setting: @setting
+      #return render "after_format"
     end
 
     @agent.save!
@@ -98,7 +99,8 @@ class Fluentd::Settings::InTailController < ApplicationController
   private
 
   def agent_params
-    params.require('agent').permit(:title)
+    #params.require('agent').permit(:title)
+    params.require(:agent).permit(:title)
   end
 
   def setting_params
