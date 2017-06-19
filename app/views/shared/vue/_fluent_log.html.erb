@@ -51,9 +51,12 @@
   </div>
 
   <div>
-    <pre v-if="isPresentedLogs"><!-- be careful indent -->
-      <div class="log"><span v-repeat="logs">{{ $value }}
-      </span></div>
+    <pre v-if="isPresentedLogs" style="overflow-x: hidden;  white-space: pre-wrap;"><!-- be careful indent -->
+      <div style="overflow: initial; margin: -55px;" class="log">
+        <d  v-repeat="logs">
+          {{ $value }}
+      </d>
+      </div>
     </pre>
     <div style="height: 76px;" v-if="!isPresentedLogs">
       <pre class="new-pre"  v-if="!isPresentedLogs && !processing">[log is empty]

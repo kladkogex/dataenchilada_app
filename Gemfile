@@ -15,6 +15,7 @@ gem 'rails', '4.2.8'
 gem "pry"
 gem "pry-rails"
 gem 'mysql2', '~> 0.3.21'
+GEM 'pg'
 
 
 gem 'font-awesome-rails'

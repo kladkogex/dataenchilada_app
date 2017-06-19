@@ -47,13 +47,14 @@
           this.processing = true;
           var self = this;
           new Promise(function(resolve, reject) {
-            $.getJSON(self.logUrl + "?limit=" + self.limit, resolve).fail(reject);
+            $.getJSON('log_tail?limit='+ self.limit, resolve).fail(reject);
           }).then(function(logs){
             self.logs = logs;
             setTimeout(function(){
               self.processing = false;
             }, 256); // delay to reduce flicking loading icon
           })["catch"](function(error){
+              //self.logs = error.responseText;
             self.processing = false;
           });
         }

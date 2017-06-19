@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       post 'command'
       get 'raw_log'
       get 'edit_config'
+      get 'log_tail'
       post 'update_config'
     end
   end

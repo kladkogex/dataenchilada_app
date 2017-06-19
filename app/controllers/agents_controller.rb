@@ -1,12 +1,15 @@
 class AgentsController < ApplicationController
-  before_action :init_agent, only: [:show, :manage, :command, :raw_log, :edit_config, :update_config]
+  before_action :init_agent, only: [:show, :manage, :command, :raw_log, :edit_config, :update_config, :log_tail]
 
 
   def index
-
     @items = Agent.w_not_deleted.order("created_at desc").all
+  end
 
-
+  def log_tail
+    limit = (params[:limit] || 10).to_i
+    @logs = file_tail(@agent.log_path, limit) if @agent
+    render json: @logs
   end
 
   def show
