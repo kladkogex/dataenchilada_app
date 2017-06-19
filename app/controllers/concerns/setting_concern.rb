@@ -14,7 +14,7 @@ module SettingConcern
     # @setting = target_class.new
     @agent = Agent.new
     @agent.title = 'My agent name'
-    @agent.tag = target_class.default_tag
+    #@agent.tag = target_class.default_tag
     @agent.source = target_class.new
     @agent.source.details = target_class::DETAILS_CLASS.new(target_class.initial_params)
     render "shared/settings/show"

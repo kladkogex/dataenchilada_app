@@ -22,9 +22,9 @@ class Fluentd
       # attr_accessor(*KEYS)
       #
 
-      def self.default_tag
-        'twitter_nasa'
-      end
+      # def self.default_tag
+      #   'twitter_nasa'
+      # end
 
       def self.initial_params
         {
