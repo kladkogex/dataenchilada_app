@@ -225,8 +225,7 @@ en:
           page_title: http Input Plugin
       in_netflow:
         option_guide: |
-          Input plugin that acts as Netflow v5/v9 collector.<br />
-          Please see refer to the <a target="_blank" href="https://github.com/repeatedly/fluent-plugin-netflow">Netflow Input Plugin</a> documentation page.
+          Collect Netwlow v5/v9.
         show:
           page_title: Netflow Input Plugin
       in_mixpanel:
