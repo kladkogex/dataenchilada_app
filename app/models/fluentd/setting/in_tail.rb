@@ -49,7 +49,7 @@ class Fluentd
         when /apache/
           :apache2
         when %r|/var/log|
-          :syslog
+          :none
         else
           :regexp
         end

@@ -15,20 +15,23 @@
         -#= link_to t('fluentd.settings.in_tail.restart_from_first'), daemon_setting_in_tail_path(@fluentd)
 
 
-        = f.fields_for :details do |details|
+        -#= f.fields_for :details do |details|
           = render partial: "form", locals: { f: details }
 
-        .padd_top_md.padd_bott_md
+        %h4.bold.no_marg_bott Confirm your configuration:
+
+        .padd_top_md
           %pre.new-pre= @setting.to_conf(@agent_params['tag'])
 
 
         .fl-cont.padd_top_md
-          .fl-wrap.padd_ri_15
+          -#.fl-wrap.padd_ri_15
             = link_to t('terms.beginning'), daemon_setting_in_tail_path, class: "undec mdc-button btn-lite-blue"
           .fl-wrap.fl-grow
-            = f.submit t('terms.prev'), class: "undec mdc-button btn-lite-blue", name: "back"
+          .fl-wrap.padd_ri_15
+            = f.submit 'Previous step', class: "undec mdc-button btn-lite-blue", name: "back"
           .fl-wrap
-            %a.undec.mdc-button.gex-btn-new.go-to-output{data: {toggle: :tab}, href: '#outputs'} Next
+            %a.undec.mdc-button.gex-btn-new.go-to-output{data: {toggle: :tab}, href: '#outputs'} Confirm
             -#= f.submit t('terms.next'), class: "undec mdc-button gex-btn-new"
 
 
