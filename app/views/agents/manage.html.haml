@@ -161,7 +161,7 @@
   .padd_md.marg_left_10
     .padd_bott_md
       = preserve do
-        = render partial: "shared/vue/fluent_log", locals: { log_path: @agent.log_path }
+        = render partial: "shared/vue/fluent_log", locals: { log_path: @agent.app_log_path }
 
 
 -#.old
