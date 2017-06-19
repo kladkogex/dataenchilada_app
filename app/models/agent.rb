@@ -44,8 +44,8 @@ class Agent < ActiveRecord::Base
   end
 
   def log_path
-    #File.join(base_dir, "agent.log")
-    File.join(log_prefix, "data_enchilada_agent_#{conf_name}.out.log")
+    File.join(base_dir, "agent.log")
+    #File.join(log_prefix, "data_enchilada_agent_#{conf_name}.out.log")
   end
 
   def config
