@@ -247,6 +247,8 @@ en:
         show:
           page_title: Http Mixpanel Input
       in_twitter:
+        help_info: |
+          We assume that you already have created a Twitter app. Otherwise please visit <a target="_blank" href="https://apps.twitter.com/">apps.twitter.com</a>  to obtain the following keys.
         option_guide: |
           Process tweets with Twitter Streaming API.
         show:

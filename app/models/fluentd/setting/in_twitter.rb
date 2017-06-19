@@ -43,23 +43,47 @@ class Fluentd
 
       def fields_descriptions
         {
-            consumer_key: '* YOUR_CONSUMER_KEY (required)',
-            consumer_secret: '* YOUR_CONSUMER_SECRET (required)',
-            access_token: '* YOUR_CONSUMER_SECRET (required)',
-            access_token_secret: '* YOUR_CONSUMER_SECRET (required)',
+            #consumer_key: '* YOUR_CONSUMER_KEY (required)',
+            #consumer_secret: '* YOUR_CONSUMER_SECRET (required)',
+            #access_token: '* YOUR_CONSUMER_SECRET (required)',
+            #access_token_secret: '* YOUR_CONSUMER_SECRET (required)',
             # tag: '* for example input.twitter.sampling (required)',
             timeline: '* tracking or sampling or location or userstream (required)',
-            keyword: 'keyword has priority than follow_ids (optional)',
-            follow_ids: '"14252,53235" - integers, not screen names (optional)',
-            locations: '"31.110283, 129.431631, 45.619283, 145.510175" - bounding boxes; first pair specifies longitude/latitude of southwest corner (optional)',
-            lang: 'ja,en (optional)',
-            output_format: 'nest or flat or simple[default] (optional)'
+            keyword: 'Comma-separated words to search for.',
+            follow_ids: 'Comma-separated ids of users to follow; e.g 4855821694, 11348282',
+            locations: 'Bounding boxes: first pair specifies longitude/latitude of southwest corner; e.g. 50.199056, 35.018921, 48.981299, 37.413940',
+            #lang: 'ja,en (optional)',
+            #output_format: 'nest or flat or simple[default] (optional)'
         }
       end
 
+      def fields_types
+        {
+            output_format: {type: 'dropdown', values: ['simple', 'nest', 'flat']},
+            timeline: {type: 'dropdown', values: ['tracking', 'sampling', 'location', 'userstream']},
+            #lang: {type: 'hidden'}
+        }
+      end
+
+      def fields_titles
+        {
+            timeline: 'Timeline',
+            keyword: 'Keywords',
+            follow_ids: 'Follow IDs',
+            locations: 'Location',
+            lang: 'Language',
+            output_format: 'Output format',
+            consumer_key: 'Consumer key',
+            consumer_secret: 'Consumer secret',
+            access_token: 'Access token',
+            access_token_secret: 'Access token secret'
+        }
+      end
+
+
       def common_options
         [
-            :consumer_key, :consumer_secret, :access_token, :access_token_secret, :keyword
+            :keyword, :consumer_key, :consumer_secret, :access_token, :access_token_secret
         ]
       end
 

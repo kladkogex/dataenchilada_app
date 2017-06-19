@@ -100,3 +100,13 @@ input.new-input:-ms-input-placeholder, textarea.new-textarea:-ms-input-placehold
   //border-color: var(--mdc-theme-primary,#1d87e4) !important;
  // background-color: var(--mdc-theme-primary,#1d87e4) !important;
 }
+
+
+
+
+
+.gx-form-md{
+  abbr{
+    display: none;
+  }
+}
