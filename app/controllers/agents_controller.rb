@@ -25,7 +25,7 @@ class AgentsController < ApplicationController
   end
 
   def raw_log
-    send_data @agent.log, type: "application/octet-stream", filename: File.basename(@agent.app_log_path)
+    send_data @agent.app_log, type: "application/octet-stream", filename: File.basename(@agent.app_log_path)
   end
 
   def edit_config

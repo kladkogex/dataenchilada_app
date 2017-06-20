@@ -60,6 +60,10 @@ class Agent < ActiveRecord::Base
     File.read log_path rescue ''
   end
 
+  def app_log
+    File.read app_log_path rescue ''
+  end
+
   def update_config content
     File.open(config_path, 'w') do |f|
       f.write(content)
