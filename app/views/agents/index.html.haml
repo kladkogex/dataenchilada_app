@@ -23,10 +23,11 @@
 
 -if @items && @items.length != 0
   .app_wrap.border.marg_bott_md{:style=>"border-bottom: 0px"}
-    .grey_bg.padd_left_md.padd_ri_md.padd_top_15.padd_bott_15
+    .grey_bg.padd_top_15.padd_bott_15
       .row.no_marg
         .col-lg-3.col-md-4.col-sm-4.col-xs-4
-          %p.no_marg{style:"font-size: 16px;"} Agent
+          .marg_left_md
+            %p.no_marg{style:"font-size: 16px;"} Agent
         .col-md-3.col-sm-4.col-xs-6.no_padd
           %p.no_marg{style:"font-size: 16px;"} Status
         .col-md-3.col-sm-4.col-xs-6.no_padd
@@ -48,7 +49,7 @@
               .fl-wrap
                 %p.gx-p.no_marg.gr=fx_status(item.status)
           .col-md-3.col-sm-4.col-xs-6.no_padd.padd_top_md.padd_bott_md
-            .fl-cont.fl-center.padd_left_10
+            .fl-cont.fl-center
               .fl-wrap.padd_ri_10
                 =inline_svg "icons/sources/#{item.name}.svg", class:"sm-icon lite-gr-svg"
               .fl-wrap
