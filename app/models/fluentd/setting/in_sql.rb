@@ -1,5 +1,20 @@
 class Fluentd
   module Setting
+
+    #
+    SourceField = Struct.new(:id, :name, :title, :description, :default_val, :type, :advanced) do
+      def to_hash_full
+        {
+            id: id,
+            name: name,
+            title: title,
+            description: description,
+            version: version,
+            default: default,
+        }
+      end
+    end
+
     class InSql < Source
 
       relate_to_details
@@ -9,6 +24,22 @@ class Fluentd
       has_many :tables, foreign_key: "source_id", class_name: TABLES_CLASS
       # include ActiveModel::Model
       include Common
+
+
+      # todo
+      FIELDS = [
+        [1, :host, 'Host', nil, nil, { type: 'text' }, false],
+        [2, :port, 'Port', nil, nil, { type: 'text' }, false],
+        [3, :database, 'Database', nil, nil, { type: 'text' }, false],
+        [4, :adapter, 'Adapter', nil, nil, { type: 'dropdown', values: ['mysql', 'pg'] }, false],
+        [5, :username, 'Username', nil, nil, { type: 'text' }, false],
+        [6, :password, 'Password', nil, nil, { type: 'text' }, false],
+        [7, :select_interval, 'Select interval', nil, nil, { type: 'text' }, true],
+        [8, :select_limit, 'Select limit', nil, nil, { type: 'text' }, true],
+        [9, :state_file, 'State file', nil, nil, { type: 'hidden' }, true],
+        [10, :table, 'Table', nil, nil, { type: 'obj' }, true],
+      ].freeze
+
 
       KEYS = [
           :host,
