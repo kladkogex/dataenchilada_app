@@ -11,6 +11,15 @@ module ApplicationHelper
                        'not_installed', 'disconnected'].include? status
   end
 
+  def fx_status(status)
+    case(status)
+      when 'active'
+        return 'ON'
+      else
+        return status
+    end
+  end
+
   def is_agents_page
     (current_page?(agents_path) || current_page?(new_agent_path)|| current_page?(manage_agent_path(id: params[:id] || 1)) ||
         current_page?(edit_config_agent_path(id: params[:id] || 1)) || @page_selected == 'agents')
