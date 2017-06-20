@@ -5,10 +5,10 @@
   - settings_types_with_icons.each do |type, params|
     = link_to send("daemon_setting_in_#{type}_path", @fluentd) do
       .col-lg-3.col-md-12
-        .padd_md.hand_cursor.lite-gx-border.fl-cont.marg_bott_md.gx-fl-center
+        .padd_left_md.padd_ri_md.padd_top_15.padd_bott_15.hand_cursor.lite-gx-border.fl-cont.marg_bott_md.gx-fl-center
           .fl-wrap
-            .div.gx-grad{style:'border-radius: 50%; padding: 10px; height: 38px;', id:"#{type}_icon_wrap", class: "#{type}-bg"}
-              =inline_svg "icons/sources/#{type}.svg", class: "sm-icon white-svg"
+            .div.gx-grad{style:'border-radius: 50%; padding: 15px; height: 54px;', id:"#{type}_icon_wrap", class: "#{type}-bg"}
+              =inline_svg "icons/sources/#{type}.svg", class: "md-icon white-svg"
           .fl-wrap.fl-grow.padd_left_md.padd_ri_md
             %p.no_marg.bold{style:'font-size: 20px;  line-height: 20px; color: #565656;'}= t("fluentd.common.setup_in_#{type}")
             -#=type
