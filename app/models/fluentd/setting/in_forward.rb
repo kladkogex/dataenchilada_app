@@ -35,6 +35,22 @@ class Fluentd
         ]
       end
 
+      def fields_descriptions
+        {
+            linger_timeout: 'The timeout time used to set linger option. The default is 0.',
+            chunk_size_limit: 'The size limit of the the received chunk. If the chunk size is larger than this value, then the received chunk is dropped. The default is nil (no limit).',
+            chunk_size_warn_limit: 'If the chunk size is larger than this value, a warning message will be sent. The default is nil (no warning).'
+        }
+      end
+
+
+      def fields_types
+        {
+           log_level: { type:'hidden' }
+        }
+      end
+
+
       def self.default_tag
         'type_expected_forward_tag'
       end
