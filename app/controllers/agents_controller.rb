@@ -8,7 +8,7 @@ class AgentsController < ApplicationController
 
   def log_tail
     limit = (params[:limit] || 10).to_i
-    @logs = file_tail(@agent.log_path, limit) if @agent
+    @logs = file_tail(@agent.app_log_path, limit) if @agent
     render json: @logs
   end
 
@@ -25,7 +25,7 @@ class AgentsController < ApplicationController
   end
 
   def raw_log
-    send_data @agent.log, type: "application/octet-stream", filename: File.basename(@agent.log_path)
+    send_data @agent.log, type: "application/octet-stream", filename: File.basename(@agent.app_log_path)
   end
 
   def edit_config
