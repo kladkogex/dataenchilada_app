@@ -108,9 +108,6 @@
               .fl-wrap{style:'padding-top:1px;'}
                 Stop
 
-
-
-
       .fl-wrap.padd_ri_10
         =link_to command_agent_path(agent: @agent, cmd: 'delete'), method: :post, class: 'undec', data: { confirm: "Are you sure you want to delete agent?"} do
           .mdc-button.btn-lite-blue{style:'background-color: rgba(228, 29, 29, 0.13) !important; color: #e41d35 !important; '}

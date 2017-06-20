@@ -21,18 +21,31 @@
         - # NOTE: plugin_setting_form_action_url is defined at SettingConcern
         -#= form_for(@setting, url: action, html: {class: "ignore-rails-error-div"}) do |f|
 
-        .row
-          .col-xs-4
-            %h2= "Main DB settings"
+        .roww
+          .col-xs-44
+            %h3.bold Database
+
             = f.simple_fields_for :source do |f_source|
               - @agent.source.common_options.each do |key|
-                - v = @agent.source.details.attributes[key.to_s]
-                = f_source.input key.to_sym, :input_html => { :value => v, class: "form-control"}
-                - if @agent.source.try(:fields_descriptions).present?
-                  %small.form-text.text-muted= @agent.source.fields_descriptions[key]
-                -#= field(f, key)
+                =render 'shared/form/agent_conf_field', agent: @agent, key: key, f_source: f_source
+
               - if @agent.source.advanced_options.present?
-                .well.well-sm
+                .fl-cont.fl-center.padd_top_30.padd_bott_30{style:"justify-content: flex-start;"}
+                  .fl-wrap.fl-growr
+                    %h3.h-txt.bold.no_marg.marg_bott_sm Advanced settings
+                    .clearfix
+                    %h6.gr.no_marg  Click on the arrow to set advanced settings.
+                  .fl-wrap.padd_left_big
+                    %button.mdc-fab.mdc-fab--mini.lite-blue{style:" box-shadow: none;", "data-toggle" => "collapse", "href" => "#advanced-setting"}
+                      =inline_svg 'icons/down.svg', class: 'gex-svg round-btn-icon'
+
+                #advanced-setting.collapse
+                  .padd_bott_md
+                    - @agent.source.advanced_options.each do |key|
+                      =render 'shared/form/agent_conf_field', agent: @agent, key: key, f_source: f_source
+
+
+                -#.well.well-sm
                   %h4{"data-toggle" => "collapse", "href" => "#advanced-setting"}
                     = icon('fa-caret-down')
                     = t('terms.advanced_setting')
@@ -51,8 +64,10 @@
                   -#  %small.form-text.text-muted
                   -#    = @setting.fields_descriptions[:all_tables]
           -#.col-xs-8#tables-column{style: ("display: none" if @setting.all_tables)}
-          .col-xs-8#tables-column
-            %h2= t('.tracked_tables')
+
+          .col-xs-88#tables-column
+            .padd_bott_10
+              %h3.bold Tables
             -#.col-xs-12.well
             -#  %button#add-table.btn.btn-avg.btn-success= t('.add_table')
             -#  %small.form-text.text-muted.pull-right

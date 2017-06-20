@@ -53,15 +53,15 @@ class Fluentd
 
       def fields_descriptions
         {
-            host: '* RDBMS host (required)',
-            port: 'RDBMS port (optional)',
-            database: '* RDBMS database name (required)',
-            adapter: '* RDBMS driver name. You should install corresponding gem before start (mysql2 gem for mysql2 adapter, pg gem for postgresql adapter, etc. (required)',
-            username: '* RDBMS login user name (required)',
-            password: '* RDBMS login password (required)',
+            #host: '* RDBMS host (required)',
+            #port: 'RDBMS port (optional)',
+            #database: '* RDBMS database name (required)',
+            #adapter: '* RDBMS driver name. You should install corresponding gem before start (mysql2 gem for mysql2 adapter, pg gem for postgresql adapter, etc. (required)',
+            #username: '* RDBMS login user name (required)',
+            #password: '* RDBMS login password (required)',
             # tag_prefix: 'prefix of tags of events. actual tag will be this_tag_prefix.tables_tag (optional, but recommended)',
-            select_interval: 'interval to run SQLs (optional)',
-            select_limit: 'LIMIT of number of rows for each SQL (optional)',
+            select_interval: 'interval to run SQL queries',
+            select_limit: 'LIMIT of number of rows for each SQL',
             state_file: '* path to a file to store last rows (required)',
             # all_tables: 'reads all tables instead of configuring each tables in &lt;table&gt; sections (optional)',
         }
@@ -86,6 +86,15 @@ class Fluentd
             :state_file
         ]
       end
+
+
+      def fields_types
+        {
+            adapter: {type: 'dropdown', values: ['mysql', 'pg']},
+            state_file: {type: 'hidden'}
+        }
+      end
+
 
       def table=(value)
         @tables = value.map do |t|

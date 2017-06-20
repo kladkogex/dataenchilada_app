@@ -25,6 +25,17 @@ module ApplicationHelper
         current_page?(edit_config_agent_path(id: params[:id] || 1)) || @page_selected == 'agents')
   end
 
+
+  #
+  def get_agent_field_prop(agent, type, key)
+    if agent.source.try(type).present? && !agent.source.fields_types[key].nil?
+      agent.source.fields_types[key]
+    else
+      nil
+    end
+  end
+
+
   def has_td_agent_system?
     File.exist?("/etc/init.d/td-agent") || File.exist?("/opt/td-agent/embedded/bin/fluentd")
   end

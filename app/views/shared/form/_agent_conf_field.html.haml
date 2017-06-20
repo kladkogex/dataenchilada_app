@@ -1,0 +1,16 @@
+-field_label = get_agent_field_prop(agent, :fields_titles, key)
+-field_type = get_agent_field_prop(agent, :fields_types, key)
+- v = agent.source.details.attributes[key.to_s]
+
+.padd_top_30{class:"#{field_type ? field_type[:type] : ''}"}
+  .fl-cont{style:'min-height: 16px;'}
+    .fl-wrap.fl-grow
+    - if agent.source.try(:fields_descriptions).present?
+      .fl-wrap.marg_ri_10
+        %small.form-text.text-muted= @agent.source.fields_descriptions[key]
+  .div{style:'margin-top: -20px;'}
+    - if field_type
+      -if field_type[:type] == 'dropdown'
+        = f_source.input key.to_sym, :label => field_label, :collection => field_type[:values], selected: field_type[:values][0]
+    -else
+      = f_source.input key.to_sym, :label => field_label, :placeholder => key.to_s, :input_html => { :value => v, class: "new-input"}
