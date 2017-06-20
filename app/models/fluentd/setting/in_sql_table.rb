@@ -8,12 +8,23 @@ class Fluentd
       def fields_descriptions
         {
           # tag: 'tag name of events (optional; default value is table name)',
-          table: '* RDBM table name',
-          update_column_val: '* see above description',
-          time_column: "(optional): if this option is set, this plugin uses this column's value as the the event's time. Otherwise it uses current time.",
-          primary_key: "(optional): if you want to get data from the table which doesn't have primary key like PostgreSQL's View, set this parameter."
+          #table: '* RDBM table name',
+          #update_column_val: '* see above description',
+          time_column: "Use this filed as the event time. Otherwise current time is used.",
+          primary_key: "If update_column is not set, primary key will be used."
         }
       end
+
+      def fields_titles
+        {
+            table: 'Table name',
+            update_column_val: 'Update column',
+            time_column: 'Time column',
+            primary_key: 'Primary key'
+        }
+      end
+
+
     end
   end
 end

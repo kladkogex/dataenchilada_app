@@ -79,7 +79,7 @@
 
         - if @section_id.present?
           = hidden_field_tag :id, @section_id
-        .pull-right
+        .pull-right.padd_top_md
           %a.undec.mdc-button.gex-btn-new.scroll-top.go-to-output{data: {toggle: :tab}, href: '#outputs'} Next
         -#= f.submit t('fluentd.common.finish'), class: "btn btn-lg btn-primary pull-left"
       = render 'shared/settings/outputs', f: f
