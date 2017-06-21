@@ -50,19 +50,30 @@ class Fluentd
 
       def fields_descriptions
         {
-            brokers: '<broker1_host>:<broker1_port>,<broker2_host>:<broker2_port>,..',
-            topics: "<listening topics(separate with comma',')>",
-            format: '<input text type (text|json|ltsv|msgpack)> :default => json',
-            message_key: '<key (Optional, for text format only, default is message)>',
+            brokers: 'The list of comma-separated seed brokers, with their host and port information.',
+            topics: "Comma-separated list of topics",
+            #format: '<input text type (text|json|ltsv|msgpack)> :default => json',
+            message_key: 'Optional, for text format only, default is message>',
             add_prefix: '<tag prefix (Optional)>',
             add_suffix: '<tag suffix (Optional)>',
             offset_zookeeper: '<zookeer node list (<zookeeper1_host>:<zookeeper1_port>,<zookeeper2_host>:<zookeeper2_port>,..)>',
             offset_zk_root_node: "'<offset path in zookeeper> default => '/fluent-plugin-kafka'",
-            max_bytes: '(integer) :default => nil (Use default of ruby-kafka)',
-            max_wait_time: '(integer) :default => nil (Use default of ruby-kafka)',
-            min_bytes: '(integer) :default => nil (Use default of ruby-kafka)'
+            #max_bytes: '(integer) :default => nil (Use default of ruby-kafka)',
+            #max_wait_time: '(integer) :default => nil (Use default of ruby-kafka)',
+            #min_bytes: '(integer) :default => nil (Use default of ruby-kafka)'
         }
       end
+
+      def fields_types
+        {
+            format: {type: 'dropdown', values: ['text', 'json', 'ltsv', 'msgpack']},
+            add_prefix: {type: 'hidden'},
+            add_suffix: {type: 'hidden'},
+            offset_zookeeper: {type: 'hidden'},
+            offset_zk_root_node: {type: 'hidden'},
+        }
+      end
+
 
       def self.default_tag
         'type_expected_kafka_tag'

@@ -46,6 +46,15 @@ class Fluentd
         }
       end
 
+
+      def fields_types
+        {
+            log_level: {type: 'hidden'},
+            format: {type: 'hidden'}
+        }
+      end
+
+
       def self.default_tag
         'type_expected_http_tag'
       end

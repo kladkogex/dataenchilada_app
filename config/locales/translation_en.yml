@@ -218,11 +218,9 @@ en:
           page_title: Monitoring Agent (monitor_agent)
       in_http:
         option_guide: |
-          Retrieve records from http POST.<br />
-          The URL path becomes the tag of the Fluentd event log and the POSTed body element becomes the record itself.<br />
-          Please see refer to the <a target="_blank" href="http://docs.fluentd.org/articles/in_http">http Input Plugin</a> documentation page.
+          Retrieve records from http POST.
         show:
-          page_title: http Input Plugin
+          page_title: HTTP Input Plugin
       in_netflow:
         option_guide: |
           Collect Netwlow v5/v9.
@@ -254,7 +252,7 @@ en:
           page_title: Twitter Input Plugin
       in_kafka:
         option_guide: |
-          A fluentd plugin to both consume and produce data for Apache Kafka. See <a target="_blank" href="https://github.com/fluent/fluent-plugin-kafka">documentation</a> for more information.
+          Configure plugin.
         show:
           page_title: Kafka Input Plugin
       in_sql:

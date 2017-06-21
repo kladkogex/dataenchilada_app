@@ -15,13 +15,14 @@
       = f.simple_fields_for :source do |f_source|
 
         - @agent.source.common_options.each do |key|
-          - v = @agent.source.details.attributes[key.to_s]
+          =render 'shared/form/agent_conf_field', agent: @agent, key: key, f_source: f_source
+          -# v = @agent.source.details.attributes[key.to_s]
 
-          - if @agent.source.try(:fields_titles).present? && !@agent.source.fields_titles[key].nil?
+          -# if @agent.source.try(:fields_titles).present? && !@agent.source.fields_titles[key].nil?
             -label = @agent.source.fields_titles[key]
 
 
-          .padd_top_30
+          -#.padd_top_30
 
             .fl-cont{style:'min-height: 16px;'}
               .fl-wrap.fl-grow
@@ -44,12 +45,13 @@
 
           #advanced-setting.collapse
             - @agent.source.advanced_options.each do |key|
-              - v = @agent.source.details.attributes[key.to_s]
+              =render 'shared/form/agent_conf_field', agent: @agent, key: key, f_source: f_source
+              -# v = @agent.source.details.attributes[key.to_s]
 
-              - if @agent.source.try(:fields_titles).present? && !@agent.source.fields_titles[key].nil?
+              -# if @agent.source.try(:fields_titles).present? && !@agent.source.fields_titles[key].nil?
                 -label = @agent.source.fields_titles[key]
 
-              .padd_top_30
+              -#.padd_top_30
                 .fl-cont{style:'min-height: 16px;'}
                   .fl-wrap.fl-grow
                   - if @agent.source.try(:fields_descriptions).present?

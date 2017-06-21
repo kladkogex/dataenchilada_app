@@ -28,8 +28,8 @@ module ApplicationHelper
 
   #
   def get_agent_field_prop(agent, type, key)
-    if agent.source.try(type).present? && !agent.source.fields_types[key].nil?
-      agent.source.fields_types[key]
+    if agent.source.try(type).present? && !agent.source.send(type)[key].nil?
+      agent.source.send(type)[key]
     else
       nil
     end
