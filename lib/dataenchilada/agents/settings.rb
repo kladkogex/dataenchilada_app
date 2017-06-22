@@ -33,8 +33,15 @@ module Dataenchilada::Agents
       #"/tmp/#{sv_name}.conf"
 
       File.join(DIR_SUPERVISOR_CONF, "#{sv_name}.conf")
+    end
 
+    def self.sv_file_flume(agent)
+      sv_name = "data_enchilada_agent_#{agent.conf_name}_flume"
 
+      # DEBUG
+      #"/tmp/#{sv_name}.conf"
+
+      File.join(DIR_SUPERVISOR_CONF, "#{sv_name}.conf")
     end
 
 

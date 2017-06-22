@@ -1,1 +1,13 @@
-config here
+  @type forward
+  send_timeout 60s
+  recover_wait 10s
+  heartbeat_interval 1s
+  phi_threshold 16
+  hard_timeout 60s
+
+  <server>
+    name <%=output.details.table_name%>
+    host <%=output.details.master_host%>
+    port <%=output.details.master_port%>
+    #weight 60
+  </server>

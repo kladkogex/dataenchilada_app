@@ -43,6 +43,11 @@ class Agent < ActiveRecord::Base
     File.join(base_dir, "agent.conf")
   end
 
+  # for flume
+  def flume_config_path
+    File.join(base_dir, "flume.conf")
+  end
+
   def log_path
     File.join(base_dir, "agent.log")
     #File.join(log_prefix, "data_enchilada_agent_#{conf_name}.out.log")

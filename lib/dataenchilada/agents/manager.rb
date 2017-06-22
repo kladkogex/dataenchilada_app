@@ -79,6 +79,16 @@ module Dataenchilada::Agents
     ### install
 
     def self.install(agent)
+      # for flume to kudu
+      agent.outputs.each do |t|
+        if t.type == "Fluentd::Setting::OutKudu"
+          # generate config
+          flume_conf = Dataenchilada::Agents::Configurator.flume_generate_config(agent, t.id)
+          #install with supervisor
+          install_service_supervisor_flume(agent)
+        end
+      end
+
       # generate config
       res_config = Dataenchilada::Agents::Configurator.generate_config(agent)
 
@@ -109,6 +119,7 @@ module Dataenchilada::Agents
         # create elasticsearch index
         Dataenchilada::Agents::CreateIndexElasticForNetflow.index_create(agent.tag, elastic_host, elastic_port)
       end
+
 
 
       # install with supervisor
@@ -153,6 +164,39 @@ module Dataenchilada::Agents
         logger.error "Cannot restart supervisor"
       end
 
+      true
+    end
+
+
+    def self.install_service_supervisor_flume(agent)
+      require 'erb'
+      s_tpl = File.read(File.join(Rails.root, "data/templates/flume/supervisor/supervisor.conf.erb"))
+
+      cmd = build_cmd_run_flume(agent)
+      tpl_vars = OpenStruct.new(agent: agent, cmd: cmd)
+
+      result = ERB.new(s_tpl).result(tpl_vars.instance_eval { binding })
+
+      sv_filename = ::Dataenchilada::Agents::Settings::sv_file_flume(agent)
+
+      logger.debug "Try to write to file: #{sv_filename}"
+      logger.debug "Content: #{result}"
+
+      File.open(sv_filename,'w') do |f|
+        f.write(result)
+      end
+
+      logger.info "Created sv file: #{sv_filename}"
+
+      # reload supervisor
+      begin
+        #cmd = "service supervisor stop; service supervisor start"
+        cmd = "supervisorctl reread; supervisorctl update"
+        res = Dataenchilada::System::Commands::exec(cmd, true)
+        logger.debug "Restart supervisor. Output: #{res[1]}"
+      rescue => e
+        logger.error "Cannot restart supervisor"
+      end
 
       true
     end
@@ -171,10 +215,15 @@ module Dataenchilada::Agents
       File.delete(sv_filename)
       ### remove directory_agent_name from /data/agents
       FileUtils.remove_dir(agent.base_dir, true)
-      # delete details for twitter agent
+      # delete input details for twitter agent
       if agent.name == "twitter"
         agent.source.details.destroy if agent.source.details
       end
+      # delete output details for kudu
+      agent.outputs.each do |t|
+        t.details.destroy if t.type == "Fluentd::Setting::OutKudu"
+      end
+
       ### change status to removed
       agent.finish_remove!
     end
@@ -191,6 +240,12 @@ module Dataenchilada::Agents
 
       # run
       %Q(fluentd #{opts_args})
+    end
+
+    # for flume to kudu
+    def self.build_cmd_run_flume(agent)
+      # run
+      %Q(flume-ng agent -n #{agent.tag} -c #{agent.base_dir} -f #{agent.flume_config_path})
     end
 
 

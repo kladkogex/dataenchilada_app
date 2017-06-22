@@ -8,7 +8,10 @@ module OutputConcern
       if data['enabled'] == 'true'
         output = Output::OUTPUT_TYPES[key].constantize.new
         output.details = Output::OUTPUT_TYPES[key].constantize::DETAILS_CLASS.new(Output::OUTPUT_TYPES[key].constantize.initial_params)
-        output.details.send("#{Output::STREAM_FIELD_NAMES[key]}=", data[Output::STREAM_FIELD_NAMES[key]])
+        #output.details.send("#{Output::STREAM_FIELD_NAMES[key]}=", data[Output::STREAM_FIELD_NAMES[key]])
+        Output::STREAM_FIELD_NAMES[key].each do |value|
+          output.details.send("#{value}=", data[value])
+        end
         outputs << output
       end
     end
@@ -22,7 +25,10 @@ module OutputConcern
       if data['enabled'] == 'true'
         output = Output::OUTPUT_TYPES[key].constantize.new
         output.details = Output::OUTPUT_TYPES[key].constantize::DETAILS_CLASS.new(Output::OUTPUT_TYPES[key].constantize.initial_params)
-        output.details.send("#{Output::STREAM_FIELD_NAMES[key]}=", data[Output::STREAM_FIELD_NAMES[key]])
+        Output::STREAM_FIELD_NAMES[key].each do |value|
+          output.details.send("#{value}=", data[value])
+        end
+
         outputs << output
       end
     end

@@ -49,6 +49,7 @@ module Dataenchilada::Agents
                   :dst_mask => {:type => 'long', :index => :not_analyzed},
                   :host => {:type => 'string', :index => :not_analyzed},
                   :process_time => {:type => 'date', :index => :not_analyzed},
+                  :processed_at => {:type => 'date', :index => :not_analyzed},
               }
           }
       }

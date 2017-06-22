@@ -6,6 +6,36 @@ module Dataenchilada::Agents
       Rails.logger
     end
 
+
+    def self.flume_generate_config(agent, output_id)
+      f_out = agent.flume_config_path
+
+      kudu_details = Fluentd::Setting::Detail::OutKuduDetail.where(:output_id => output_id).first
+
+      d = File.dirname(f_out)
+      FileUtils.mkdir_p(d) unless Dir.exists?(d)
+
+      #
+      f_tpl = File.join(Rails.root, "data/templates/flume/output/", "kudu.erb")
+
+      tpl_vars = {
+          :agent_name => agent.tag,
+          :flume_sink_port => kudu_details.flume_sink_port,
+          :master_addresses => kudu_details.master_addresses,
+          :table_name => kudu_details.table_name,
+      }
+
+      content = process_erb_file(f_tpl, tpl_vars)
+
+
+      File.open(f_out, 'w') do |f|
+        f.write(content)
+      end
+
+      true
+    end
+
+
     ### main method
 
     def self.generate_config(agent)

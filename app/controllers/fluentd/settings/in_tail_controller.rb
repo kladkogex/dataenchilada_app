@@ -53,16 +53,17 @@ class Fluentd::Settings::InTailController < ApplicationController
     #   return render :after_format
     # end
 
-    unless details.valid? && get_outputs_for_local.present?
-      return render "show"#, @setting: @setting
-      #return render "after_format"
+    outputs = get_outputs_for_local
+
+    unless details.valid? && outputs.present?
+      return render "show"
     end
 
     @agent.save!
     @agent.source = source
     @agent.source.details = details
     @agent.source.details.save!
-    @agent.outputs = get_outputs_for_local
+    @agent.outputs = outputs
 
     # run agent
     @res = Dataenchilada::Agents::Manager.do_command(@agent, "run")

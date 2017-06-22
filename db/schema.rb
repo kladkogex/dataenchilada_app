@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170504071466) do
+ActiveRecord::Schema.define(version: 20170620123032) do
 
   create_table "agent_types", force: :cascade do |t|
     t.string  "name",   limit: 255
@@ -185,13 +185,16 @@ ActiveRecord::Schema.define(version: 20170504071466) do
   end
 
   create_table "out_kudu_details", force: :cascade do |t|
-    t.integer "source_id",             limit: 4
+    t.integer "output_id",             limit: 4
     t.string  "master_addresses",      limit: 255
     t.string  "table_name",            limit: 255
     t.string  "producer",              limit: 255
     t.string  "batchSize",             limit: 255
     t.string  "timeout_millis",        limit: 255
     t.string  "ignore_duplicate_rows", limit: 255
+    t.integer "flume_sink_port",       limit: 4
+    t.string  "master_host",           limit: 255
+    t.string  "master_port",           limit: 255
   end
 
   create_table "out_webhdfs_details", force: :cascade do |t|

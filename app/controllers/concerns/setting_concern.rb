@@ -29,7 +29,9 @@ module SettingConcern
 
     #get_outputs
 
-    unless @agent.valid? && details.valid? && get_outputs.present?
+    outputs = get_outputs
+
+    unless @agent.valid? && details.valid? && outputs.present?
       @agent.source = source
       @agent.source.details = details
 
@@ -40,7 +42,7 @@ module SettingConcern
     @agent.source = source
     @agent.source.details = details
     @agent.source.details.save!
-    @agent.outputs = get_outputs
+    @agent.outputs = outputs
 
     # @fluentd.agent.config_append @setting.to_config
     # if @fluentd.agent.running?
