@@ -53,12 +53,20 @@ class Agent < ActiveRecord::Base
     #File.join(log_prefix, "data_enchilada_agent_#{conf_name}.out.log")
   end
 
+  def app_log_path
+    File.join(log_prefix, "data_enchilada_agent_#{conf_name}.out.log")
+  end
+
   def config
     File.read config_path rescue ''
   end
 
   def log
     File.read log_path rescue ''
+  end
+
+  def app_log
+    File.read app_log_path rescue ''
   end
 
   def update_config content

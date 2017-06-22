@@ -11,10 +11,30 @@ module ApplicationHelper
                        'not_installed', 'disconnected'].include? status
   end
 
+  def fx_status(status)
+    case(status)
+      when 'active'
+        return 'ON'
+      else
+        return status
+    end
+  end
+
   def is_agents_page
     (current_page?(agents_path) || current_page?(new_agent_path)|| current_page?(manage_agent_path(id: params[:id] || 1)) ||
         current_page?(edit_config_agent_path(id: params[:id] || 1)) || @page_selected == 'agents')
   end
+
+
+  #
+  def get_agent_field_prop(agent, type, key)
+    if agent.source.try(type).present? && !agent.source.send(type)[key].nil?
+      agent.source.send(type)[key]
+    else
+      nil
+    end
+  end
+
 
   def has_td_agent_system?
     File.exist?("/etc/init.d/td-agent") || File.exist?("/opt/td-agent/embedded/bin/fluentd")

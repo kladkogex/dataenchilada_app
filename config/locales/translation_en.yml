@@ -122,6 +122,7 @@ en:
       setup_in_http_mixpanel: Mixpanel input
       setup_in_forward: Remote Machines
       setup_in_netflow: Netflow
+      setup_in_kafka: Kafka
       setup_out_td: Treasure Data
       setup_out_mongo: MongoDB
       setup_out_stdout: stdout (log)
@@ -217,15 +218,12 @@ en:
           page_title: Monitoring Agent (monitor_agent)
       in_http:
         option_guide: |
-          Retrieve records from http POST.<br />
-          The URL path becomes the tag of the Fluentd event log and the POSTed body element becomes the record itself.<br />
-          Please see refer to the <a target="_blank" href="http://docs.fluentd.org/articles/in_http">http Input Plugin</a> documentation page.
+          Retrieve records from http POST.
         show:
-          page_title: http Input Plugin
+          page_title: HTTP Input Plugin
       in_netflow:
         option_guide: |
-          Input plugin that acts as Netflow v5/v9 collector.<br />
-          Please see refer to the <a target="_blank" href="https://github.com/repeatedly/fluent-plugin-netflow">Netflow Input Plugin</a> documentation page.
+          Collect Netwlow v5/v9.
         show:
           page_title: Netflow Input Plugin
       in_mixpanel:
@@ -246,13 +244,15 @@ en:
         show:
           page_title: Http Mixpanel Input
       in_twitter:
+        help_info: |
+          We assume that you already have created a Twitter app. Otherwise please visit <a target="_blank" href="https://apps.twitter.com/">apps.twitter.com</a>  to obtain the following keys.
         option_guide: |
-          Input plugin to process tweets with Twitter Streaming API
+          Process tweets with Twitter Streaming API.
         show:
           page_title: Twitter Input Plugin
       in_kafka:
         option_guide: |
-          A fluentd plugin to both consume and produce data for Apache Kafka. See <a target="_blank" href="https://github.com/fluent/fluent-plugin-kafka">documentation</a> for more information.
+          Configure plugin.
         show:
           page_title: Kafka Input Plugin
       in_sql:
@@ -269,9 +269,8 @@ en:
       in_forward:
         option_guide: |
           Listen to a TCP socket to receive the event stream and an UDP socket to receive heartbeat messages.
-          Please see refer to the <a target="_blank" href="http://docs.fluentd.org/articles/in_forward">forward Input Plugin</a> documentation page.
         show:
-          page_title: Another Machine
+          page_title: Remote Machine
       in_tail_option_guide: |
           For each config parameter, please refer to the <a href="http://docs.fluentd.org/articles/in_tail" target="_blank">Tail input plugin</a> documentation page.
       in_tail:

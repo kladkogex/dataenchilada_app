@@ -20,6 +20,18 @@ class Fluentd
         }
       end
 
+      def fields_descriptions
+        {
+          switched_times_from_uptime: 'Store system uptime for first_switched and last_switched instead of ISO8601-formatted absolute time'
+        }
+      end
+
+      def fields_types
+        {
+            switched_times_from_uptime: {type: 'dropdown', values: ['yes', 'no']},
+        }
+      end
+
       def self.default_tag
         'type_expected_netflow_tag'
       end

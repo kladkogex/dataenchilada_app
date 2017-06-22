@@ -1,4 +1,46 @@
-.col-xs-4.table-block
+.app_wrap.border.marg_bott_md
+  .fl-cont.gx-fl-center.padd_md
+    .fl-wrap.padd_ri_10
+      .card-h-icon
+        .svg-wrap
+          =inline_svg "icons/grid.svg", class: "sm-icon white-svg fx-sm-icon"
+    .fl-wrap.fl-grow
+      %p.card-h.bold
+        = t('.table')
+        %span=index+1
+
+    .fl-wrap
+      .mdc-button.cmn-btn.btn-lite-red.remove-table-block{style: ("display: none" if table_count == 1)}
+        .fl-cont.gx-fl-center
+          .fl-wrap.padd_ri_10
+            =inline_svg "icons/delete.svg", class: "sm-icon red-svg"
+          .fl-wrap{style:'padding-top:1px;'}
+            = t('.remove')
+
+  .padd_md.marg_left_10.no_padd_top
+    - table.class::KEYS.each do |key|
+      .form-group
+        .padd_top_30
+          .fl-cont{style:'min-height: 16px;'}
+            .fl-wrap.fl-grow
+            .fl-wrap.marg_ri_10
+              %small.form-text.text-muted=table.fields_descriptions[key]
+          .div{style:'margin-top: -20px;'}
+            = label_tag "table_#{index}_#{key}", table.fields_titles[key]
+            = text_field_tag "tables[][#{key}]", table[key], id: "table_#{index}_#{key}", class: 'new-input'
+
+        -#.old
+          -#= label_tag "table_#{index}_#{key}", key.to_s.humanize
+          = label_tag "table_#{index}_#{key}", table.fields_titles[key]
+          = text_field_tag "tables[][#{key}]", table[key], id: "table_#{index}_#{key}", class: 'new-input'
+          = "<small class='form-text text-muted'>#{table.fields_descriptions[key]}</small>".html_safe
+    -#.row
+      %button.btn.btn-danger.center-block.bnt-small.remove-table-block{style: ("display: none" if table_count != 1)}= t('.remove')
+
+
+
+
+-#.col-xs-4.table-block
   .well
     %h4
       = t('.table')
