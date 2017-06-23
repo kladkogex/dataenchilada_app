@@ -18,7 +18,6 @@ module Dataenchilada::Agents
       return send(cmd.to_sym, agent)
     end
 
-
     def self.run(agent)
       # install
       install(agent)
@@ -31,6 +30,13 @@ module Dataenchilada::Agents
 
     def self.start(agent)
       agent.begin_start!
+
+      if agent_outputs_is_kudu?(agent)
+        # start with flume supervisor
+        sv_name = "data_enchilada_agent_#{agent.conf_name}_flume"
+        cmd = "supervisorctl start #{sv_name}"
+        res = Dataenchilada::System::Commands::exec(cmd)
+      end
 
       # start with supervisor
       sv_name = ::Dataenchilada::Agents::Settings::sv_service_name(agent)
@@ -45,11 +51,17 @@ module Dataenchilada::Agents
     def self.stop(agent)
       agent.begin_stop!
 
+      if agent_outputs_is_kudu?(agent)
+        # start with flume supervisor
+        sv_name = "data_enchilada_agent_#{agent.conf_name}_flume"
+        cmd = "supervisorctl stop #{sv_name}"
+        res = Dataenchilada::System::Commands::exec(cmd)
+      end
+
       # with supervisor
       sv_name = ::Dataenchilada::Agents::Settings::sv_service_name(agent)
       cmd = "supervisorctl stop #{sv_name}"
       res = Dataenchilada::System::Commands::exec(cmd)
-
 
       agent.finish_stop!
 
@@ -58,6 +70,18 @@ module Dataenchilada::Agents
 
     def self.restart(agent)
       agent.begin_restart!
+
+      if agent_outputs_is_kudu?(agent)
+        # stop with flume supervisor
+        sv_name = "data_enchilada_agent_#{agent.conf_name}_flume"
+        cmd = "supervisorctl stop #{sv_name}"
+        res = Dataenchilada::System::Commands::exec(cmd)
+
+        # start with flume supervisor
+        cmd = "supervisorctl start #{sv_name}"
+        res = Dataenchilada::System::Commands::exec(cmd)
+      end
+
 
       # with supervisor
       sv_name = ::Dataenchilada::Agents::Settings::sv_service_name(agent)
@@ -84,7 +108,7 @@ module Dataenchilada::Agents
         if t.type == "Fluentd::Setting::OutKudu"
           # generate config
           flume_conf = Dataenchilada::Agents::Configurator.flume_generate_config(agent, t.id)
-          #install with supervisor
+          # install with supervisor
           install_service_supervisor_flume(agent)
         end
       end
@@ -275,6 +299,17 @@ module Dataenchilada::Agents
       argv << " -o #{agent.log_path || opts[:log_file] || lib.log_file(agent)}"
       argv
     end
+
+    def self.agent_outputs_is_kudu?(agent)
+      # delete output details for kudu
+      agent.outputs.each do |t|
+        if t.type == "Fluentd::Setting::OutKudu"
+          return true
+        end
+      end
+      false
+    end
+
 
   end
 end
