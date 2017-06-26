@@ -23,7 +23,7 @@ module Dataenchilada::Agents
       install(agent)
 
       # start
-      start(agent)
+      start(agent) if !Rails.env.development?
 
     end
 
@@ -109,7 +109,7 @@ module Dataenchilada::Agents
           # generate config
           flume_conf = Dataenchilada::Agents::Configurator.flume_generate_config(agent, t.id)
           # install with supervisor
-          install_service_supervisor_flume(agent)
+          install_service_supervisor_flume(agent) if !Rails.env.development?
         end
       end
 
@@ -147,7 +147,7 @@ module Dataenchilada::Agents
 
 
       # install with supervisor
-      install_service_supervisor(agent)
+      install_service_supervisor(agent) if !Rails.env.development?
 
 
       #
@@ -231,12 +231,12 @@ module Dataenchilada::Agents
       require 'fileutils'
       agent.begin_remove!
       # stop supervisor agent
-      stop(agent)
+      stop(agent) if !Rails.env.development?
       ### remove supervisor config from /etc/supervisor/conf.d/
       # get path to file
       sv_filename = ::Dataenchilada::Agents::Settings::sv_file(agent)
       # delete file
-      File.delete(sv_filename)
+      File.delete(sv_filename) if File.exist?(sv_filename)
       ### remove directory_agent_name from /data/agents
       FileUtils.remove_dir(agent.base_dir, true)
       # delete input details for twitter agent
