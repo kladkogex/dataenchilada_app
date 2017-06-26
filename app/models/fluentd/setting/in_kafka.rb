@@ -23,8 +23,11 @@ class Fluentd
       # attr_accessor(*KEYS)
 
       def self.initial_params
+        sys_prop = Dataenchilada::Agents::Configurator.get_system_props
+        #
         {
-            brokers: "#{Fluentd::KAFKA_SERVER}:2181",
+            brokers: "#{sys_prop[:kafka_host]}:#{sys_prop[:kafka_port]}",
+            #brokers: "#{Fluentd::KAFKA_SERVER}:2181",
             format: 'json'
         }
       end
