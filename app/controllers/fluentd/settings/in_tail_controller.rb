@@ -81,7 +81,8 @@ class Fluentd::Settings::InTailController < ApplicationController
       else
         format.html {
           flash[:error] = "Something went wrong"
-          render :manage
+          render "show"
+          #render :manage
         }
         format.json { return_json(@res)  }
       end

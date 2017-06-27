@@ -69,7 +69,8 @@ module SettingConcern
       else
         format.html {
           flash[:error] = "Something went wrong"
-          render :manage
+          render "shared/settings/show"
+          #render :manage
         }
         format.json { return_json(@res)  }
       end
