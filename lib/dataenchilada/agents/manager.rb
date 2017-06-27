@@ -23,7 +23,7 @@ module Dataenchilada::Agents
       install(agent)
 
       # start
-      start(agent) if !Rails.env.development?
+      start(agent)
 
     end
 
@@ -109,7 +109,7 @@ module Dataenchilada::Agents
           # generate config
           flume_conf = Dataenchilada::Agents::Configurator.flume_generate_config(agent, t.id)
           # install with supervisor
-          install_service_supervisor_flume(agent) if !Rails.env.development?
+          install_service_supervisor_flume(agent)
         end
       end
 
@@ -147,7 +147,7 @@ module Dataenchilada::Agents
 
 
       # install with supervisor
-      install_service_supervisor(agent) if !Rails.env.development?
+      install_service_supervisor(agent)
 
 
       #
@@ -231,7 +231,7 @@ module Dataenchilada::Agents
       require 'fileutils'
       agent.begin_remove!
       # stop supervisor agent
-      stop(agent) if !Rails.env.development?
+      stop(agent)
       ### remove supervisor config from /etc/supervisor/conf.d/
       # get path to file
       sv_filename = ::Dataenchilada::Agents::Settings::sv_file(agent)
