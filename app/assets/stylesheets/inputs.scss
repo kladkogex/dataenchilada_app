@@ -1,3 +1,18 @@
+
+
+.help-block{
+  font-size: 10pt;
+}
+
+.has-error .help-block, .has-error .control-label, .has-error .radio, .has-error .checkbox, .has-error .radio-inline, .has-error .checkbox-inline{
+  color: rgb(222, 72, 63);
+}
+
+
+
+
+
+
 select:disabled{
   background-color: #eaeaea;
 }
