@@ -69,7 +69,7 @@ class Fluentd
 
       def fields_types
         {
-            format: {type: 'dropdown', values: ['text', 'json', 'ltsv', 'msgpack']},
+            format: {type: 'dropdown', values: ['json', 'text', 'ltsv', 'msgpack']},
             add_prefix: {type: 'hidden'},
             add_suffix: {type: 'hidden'},
             offset_zookeeper: {type: 'hidden'},
