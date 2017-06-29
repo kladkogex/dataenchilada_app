@@ -1,9 +1,5 @@
 <%=source%>
 
-<match fluent.*>
-  @type stdout
-</match>
-
 <match <%=tag%>>
   @type record_reformer
   tag reformed.${tag}
@@ -23,3 +19,4 @@
   </store>
   <% end %>
 </match>
+#
