@@ -131,6 +131,9 @@ GEM
       elasticsearch
       excon
       fluentd (>= 0.10.43)
+    fluent-plugin-flume (0.2.0)
+      fluentd (>= 0.10.43)
+      thrift (~> 0.9.0)
     fluent-plugin-kafka (0.5.5)
       fluentd (>= 0.10.58, < 2)
       ltsv
@@ -331,6 +334,7 @@ GEM
       ref
     thor (0.19.4)
     thread_safe (0.3.6)
+    thrift (0.9.3.0)
     tilt (1.4.1)
     timers (1.1.0)
     twitter (6.1.0)
@@ -373,6 +377,7 @@ DEPENDENCIES
   elasticsearch-rails (= 0.1.9)
   fluent-plugin-cassandra-driver
   fluent-plugin-elasticsearch
+  fluent-plugin-flume
   fluent-plugin-kafka
   fluent-plugin-mixpanel-enchanced
   fluent-plugin-netflow-enchanced
