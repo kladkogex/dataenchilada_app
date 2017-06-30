@@ -1,5 +1,20 @@
 @import "colors";
 
+  .error-msg{
+    background-color: #ec7373;
+    padding: 15px 25px;
+    max-width: 900px;
+    font-size: 11pt;
+    border-radius: 3px;
+    margin-bottom: 20px;
+    min-height: 20px;
+
+    .text-danger{
+      color: white;
+      line-height: 1.9;
+    }
+  }
+
   .gx-bage {
     //min-width: 127px;
     background-color: #575456;
