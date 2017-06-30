@@ -1,6 +1,7 @@
 [program:data_enchilada_agent_<%=agent.conf_name%>_flume]
 directory=/var/www/apps/data_enchilada
-command=/usr/local/flume/bin/flume-ng agent -n <%=agent.tag%> -c <%=agent.base_dir%> -f <%=agent.flume_config_path%>
+#command=/usr/local/flume/bin/flume-ng agent -n <%=agent.tag%> -c <%=agent.base_dir%> -f <%=agent.flume_config_path%>
+command=/usr/local/flume/bin/flume-ng agent -n <%=agent.tag%> -c /usr/local/flume/conf -f <%=agent.flume_config_path%> -Dflume.log.dir=<%=agent.base_dir%>
 autorestart=true
 redirect_stderr=true
 stderr_logfile=/var/log/data_enchilada_agent_<%=agent.conf_name%>_flume.err.log

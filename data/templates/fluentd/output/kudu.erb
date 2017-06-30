@@ -1,4 +1,4 @@
-  @type forward
+  @type flume
   send_timeout 60s
   recover_wait 10s
   heartbeat_interval 1s
@@ -7,7 +7,7 @@
 
   <server>
     name <%=output.details.table_name%>
-    host <%=output.details.master_host%>
-    port <%=output.details.master_port%>
-    #weight 60
+    host localhost
+    port <%=output.details.flume_sink_port%>
+    weight 60
   </server>

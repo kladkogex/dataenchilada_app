@@ -1,17 +1,19 @@
 <%=agent_name%>.sources  = source1
 <%=agent_name%>.channels = channel1
 <%=agent_name%>.sinks = sink1
+#
 <%=agent_name%>.sources.source1.type = thrift
 <%=agent_name%>.sources.source1.bind = localhost
-#todo different port for each flume
 <%=agent_name%>.sources.source1.port = <%=flume_sink_port%>
 <%=agent_name%>.sources.source1.channels = channel1
+#
 <%=agent_name%>.channels.channel1.type = memory
 <%=agent_name%>.channels.channel1.capacity = 10000
 <%=agent_name%>.channels.channel1.transactionCapacity = 1000
+#
 #agent.sinks.sink1.type = logger
-<%=agent_name%>.sinks.sink1.channel = channel1
 <%=agent_name%>.sinks.sink1.type = org.apache.kudu.flume.sink.KuduSink
+<%=agent_name%>.sinks.sink1.channel = channel1
 <%=agent_name%>.sinks.sink1.masterAddresses = <%=master_addresses%>
 <%=agent_name%>.sinks.sink1.tableName = <%=table_name%>
 <%=agent_name%>.sinks.sink1.batchSize = 50

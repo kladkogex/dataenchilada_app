@@ -236,7 +236,8 @@ module Dataenchilada::Agents
       # get path to file
       sv_filename = ::Dataenchilada::Agents::Settings::sv_file(agent)
       # delete file
-      File.delete(sv_filename) if File.exist?(sv_filename)
+      FileUtils.rm(sv_filename)
+      #File.delete(sv_filename) if File.exist?(sv_filename)
       ### remove directory_agent_name from /data/agents
       FileUtils.remove_dir(agent.base_dir, true)
       # delete input details for twitter agent
@@ -245,7 +246,12 @@ module Dataenchilada::Agents
       end
       # delete output details for kudu
       agent.outputs.each do |t|
-        t.details.destroy if t.type == "Fluentd::Setting::OutKudu"
+        if t.type == "Fluentd::Setting::OutKudu"
+          t.details.destroy
+          # remove supervisor config from /etc/supervisor/conf.d/
+          sv_filename_flume = ::Dataenchilada::Agents::Settings::sv_file_flume(agent)
+          FileUtils.rm(sv_filename_flume)
+        end
       end
 
       ### change status to removed
