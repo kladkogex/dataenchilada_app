@@ -28,7 +28,7 @@ gem 'fluent-plugin-kafka'
 gem 'fluent-plugin-retag'
 gem 'fluent-plugin-rss'
 gem 'zookeeper'
-
+gem 'fluent-plugin-flume'
 gem 'fluent-plugin-mixpanel-enchanced'
 gem 'fluent-plugin-elasticsearch'
 gem 'fluent-plugin-webhdfs'
