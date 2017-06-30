@@ -1,0 +1,7 @@
+[program:data_enchilada_agent_<%=agent.conf_name%>_flume]
+directory=/var/www/apps/data_enchilada
+command=/usr/local/flume/bin/flume-ng agent -n <%=agent.tag%> -c <%=agent.base_dir%> -f <%=agent.flume_config_path%>
+autorestart=true
+redirect_stderr=true
+stderr_logfile=/var/log/data_enchilada_agent_<%=agent.conf_name%>_flume.err.log
+stdout_logfile=/var/log/data_enchilada_agent_<%=agent.conf_name%>_flume.out.log
