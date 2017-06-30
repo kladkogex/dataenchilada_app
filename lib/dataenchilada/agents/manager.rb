@@ -240,7 +240,7 @@ module Dataenchilada::Agents
       ### remove directory_agent_name from /data/agents
       FileUtils.remove_dir(agent.base_dir, true)
       # delete input details for twitter agent
-      if agent.name == "twitter"
+      if agent.name == "twitter" || agent.name == "forward"
         agent.source.details.destroy if agent.source.details
       end
       # delete output details for kudu

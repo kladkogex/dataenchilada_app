@@ -28,6 +28,7 @@ class Fluentd
       end
 
       include Common
+      relate_to_details
 
       KEYS = [
         :match,
