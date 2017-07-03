@@ -38,7 +38,8 @@ class Output < ActiveRecord::Base
       'elasticsearch' => ['index_name'],
       'cassandra' => ['keyspace'],
       'webhdfs' => ['path'],
-      'forward' => ['server'],
+      #'forward' => ['server'],
+      'forward' => ['server_name', 'server_host', 'server_port', ],
       'file' => ['path'],
       'kudu' => ['table_name'],
   }

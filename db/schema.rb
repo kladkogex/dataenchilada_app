@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170620123032) do
+ActiveRecord::Schema.define(version: 20170629143034) do
 
   create_table "agent_types", force: :cascade do |t|
     t.string  "name",   limit: 255
@@ -157,17 +157,17 @@ ActiveRecord::Schema.define(version: 20170620123032) do
   end
 
   create_table "out_forward_details", force: :cascade do |t|
-    t.integer "source_id",     limit: 4
-    t.string  "brokers",       limit: 255
-    t.string  "topics",        limit: 255
-    t.string  "format",        limit: 255
-    t.string  "phi_threshold", limit: 255
-    t.string  "add_prefix",    limit: 255
-    t.string  "hard_timeout",  limit: 255
-    t.string  "server_name",   limit: 255
-    t.string  "server_host",   limit: 255
-    t.string  "server_port",   limit: 255
-    t.string  "server_weight", limit: 255
+    t.integer "output_id",          limit: 4
+    t.string  "send_timeout",       limit: 255
+    t.string  "recover_wait",       limit: 255
+    t.string  "heartbeat_interval", limit: 255
+    t.string  "phi_threshold",      limit: 255
+    t.string  "add_prefix",         limit: 255
+    t.string  "hard_timeout",       limit: 255
+    t.string  "server_name",        limit: 255
+    t.string  "server_host",        limit: 255
+    t.string  "server_port",        limit: 255
+    t.string  "server_weight",      limit: 255
   end
 
   create_table "out_kafka_details", force: :cascade do |t|
