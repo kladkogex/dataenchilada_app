@@ -19,7 +19,7 @@ module Dataenchilada::Agents
       # mapping index
       client.indices.put_mapping index: index, type: type, body: {
           "#{type}" => {
-              dynamic: 'strict',
+              dynamic: true,
               properties: {
                   :version => {:type => 'long', :index => :not_analyzed},
                   :uptime => {:type => 'long', :index => :not_analyzed},
