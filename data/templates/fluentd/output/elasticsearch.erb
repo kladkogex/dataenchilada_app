@@ -1,5 +1,7 @@
 @type elasticsearch
 host <%=servers['elasticsearch']['host']%>
 port <%=servers['elasticsearch']['port']%>
-index_name <%=props['index_name']%>
-type_name <%=props['type_name']%>
+#index_name <%=props['index_name']%>
+#type_name <%=props['type_name']%>
+index_name <%=output.details.index_name%>
+type_name <%=output.details.type_name%>
