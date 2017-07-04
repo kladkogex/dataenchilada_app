@@ -10,13 +10,29 @@
   </record>
 </match>
 
-<match reformed.<%=tag%>>
-  @type copy
+<% if agent.source.plugin_name == "forward"%>
 
-  <% outputs.each do |output| %>
-  <store>
-    <%=output%>
-  </store>
-  <% end %>
-</match>
-#
+    <match *.**>
+      @type copy
+
+      <% outputs.each do |output| %>
+          <store>
+            <%=output%>
+          </store>
+      <% end %>
+    </match>
+
+<% else %>
+
+    <match reformed.<%=tag%>>
+      @type copy
+
+      <% outputs.each do |output| %>
+          <store>
+            <%=output%>
+          </store>
+      <% end %>
+    </match>
+
+<% end %>
+

@@ -75,6 +75,7 @@ module Dataenchilada::Agents
       f_tpl = filename_template_agent(agent.agent_type.name)
 
       tpl_vars = {
+          agent: agent,
           tag: data['tag'],
           source: data['source'],
           outputs: data['outputs'],
