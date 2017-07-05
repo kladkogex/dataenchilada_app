@@ -5,16 +5,18 @@ module Dataenchilada::Agents
     require 'elasticsearch/dsl'
     include Elasticsearch::DSL
 
-    def self.index_create(index_name, elastic_host, elastic_port)
+    def self.index_create(index_name, type_name, elastic_host, elastic_port)
 
       index = index_name
-      type = index_name
+      type = type_name
 
       # set client
       client = Elasticsearch::Client.new trace: true, host: elastic_host, port: elastic_port
 
+      # check index exists
+      exists = client.indices.exists? index: index
       # create new index
-      client.indices.create index: index, type: type
+      client.indices.create index: index, type: type unless exists
 
       # mapping index
       client.indices.put_mapping index: index, type: type, body: {

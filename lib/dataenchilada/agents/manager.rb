@@ -135,15 +135,14 @@ module Dataenchilada::Agents
 
       logger.error "Config Ok. Agent: #{agent.conf_name}"
 
+      # create mapping index in es for netflow if elasticsearch output
       if agent.name == "netflow"
-        # get system props
-        sys_prop = Dataenchilada::Agents::Configurator.get_system_props
-        elastic_host = sys_prop[:elasticsearch_host]
-        elastic_port = sys_prop[:elasticsearch_port] || 9200
-        # create elasticsearch index
-        Dataenchilada::Agents::CreateIndexElasticForNetflow.index_create(agent.tag, elastic_host, elastic_port)
+        agent.outputs.each do |t|
+          if t.type == "Fluentd::Setting::OutElasticsearch"
+            create_index_if_elastic_output(t)
+          end
+        end
       end
-
 
 
       # install with supervisor
@@ -314,6 +313,19 @@ module Dataenchilada::Agents
         end
       end
       false
+    end
+
+
+    def self.create_index_if_elastic_output(output)
+      #
+      index_name = output.details.index_name
+      type_name =  output.details.type_name
+      # get system props
+      sys_prop = Dataenchilada::Agents::Configurator.get_system_props
+      elastic_host = sys_prop[:elasticsearch_host]
+      elastic_port = sys_prop[:elasticsearch_port] || 9200
+      # create elasticsearch index
+      Dataenchilada::Agents::CreateIndexElasticForNetflow.index_create(index_name, type_name, elastic_host, elastic_port)
     end
 
 
