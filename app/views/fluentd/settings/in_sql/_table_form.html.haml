@@ -1,16 +1,21 @@
-.app_wrap.border.marg_bott_md
+.app_wrap.border.marg_bott_md.table-block
   .fl-cont.gx-fl-center.padd_md
     .fl-wrap.padd_ri_10
       .card-h-icon
         .svg-wrap
           =inline_svg "icons/grid.svg", class: "sm-icon white-svg fx-sm-icon"
     .fl-wrap.fl-grow
-      %p.card-h.bold
+      %h4.card-h.bold
         = t('.table')
         %span=index+1
 
     .fl-wrap
-      .mdc-button.cmn-btn.btn-lite-red.remove-table-block{style: ("display: none" if table_count == 1)}
+
+      .mdc-fab.material-icons.mdc-fab--mini.mdc-fab--plain.btn-lite-red.remove-table-block{style: ("display: none" if table_count == 1)}
+        %span.mdc-fab__icon
+          =inline_svg "icons/delete.svg", class: "sm-icon red-svg"
+
+      -#.mdc-button.cmn-btn.btn-lite-red.remove-table-block{style: ("display: none" if table_count == 1)}
         .fl-cont.gx-fl-center
           .fl-wrap.padd_ri_10
             =inline_svg "icons/delete.svg", class: "sm-icon red-svg"
@@ -29,13 +34,21 @@
             = label_tag "table_#{index}_#{key}", table.fields_titles[key]
             = text_field_tag "tables[][#{key}]", table[key], id: "table_#{index}_#{key}", class: 'new-input'
 
-        -#.old
-          -#= label_tag "table_#{index}_#{key}", key.to_s.humanize
-          = label_tag "table_#{index}_#{key}", table.fields_titles[key]
-          = text_field_tag "tables[][#{key}]", table[key], id: "table_#{index}_#{key}", class: 'new-input'
-          = "<small class='form-text text-muted'>#{table.fields_descriptions[key]}</small>".html_safe
-    -#.row
-      %button.btn.btn-danger.center-block.bnt-small.remove-table-block{style: ("display: none" if table_count != 1)}= t('.remove')
+
+:javascript
+  $( document ).ready(function() {
+    console.log( "ready!" );
+  });
+
+
+
+-#.old
+  -#= label_tag "table_#{index}_#{key}", key.to_s.humanize
+  = label_tag "table_#{index}_#{key}", table.fields_titles[key]
+  = text_field_tag "tables[][#{key}]", table[key], id: "table_#{index}_#{key}", class: 'new-input'
+  = "<small class='form-text text-muted'>#{table.fields_descriptions[key]}</small>".html_safe
+-#.row
+  %button.btn.btn-danger.center-block.bnt-small.remove-table-block{style: ("display: none" if table_count != 1)}= t('.remove')
 
 
 
