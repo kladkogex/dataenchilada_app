@@ -122,7 +122,7 @@ class Fluentd
       def fields_types
         {
             adapter: {type: 'dropdown', values: ['mysql', 'pg']},
-            state_file: {type: 'hidden'}
+            #state_file: {type: 'hidden'}
         }
       end
 

@@ -157,6 +157,12 @@ module Dataenchilada::Agents
       }
     end
 
+    def self.build_source_props_sql(source)
+      {
+          "state_file" => "/tmp/sql_state"
+      }
+    end
+
 
     ### output props
 

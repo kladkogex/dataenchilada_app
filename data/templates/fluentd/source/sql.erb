@@ -7,10 +7,12 @@
   password <%=source.details.password%>
   <%= "select_interval #{source.details.select_interval}" if source.details.select_interval.present? %>
   <%= "select_limit #{source.details.select_limit}" if source.details.select_limit.present? %>
+  <%= "state_file #{source.details.state_file}" if source.details.state_file.present? %>
 
   <% source.tables.each do |table| %>
     <table>
-      tag <%=tag%>
+      #tag <%=tag%>
+      tag <%=table.table%>
       table <%=table.table%>
       update_column <%=table.update_column_val%>
       <%= "time_column #{table.time_column}" if table.time_column.present? %>

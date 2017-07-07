@@ -26,12 +26,33 @@ class Fluentd::Settings::InSqlController < ApplicationController
     # @agent.source.details = target_class::DETAILS_CLASS.new(setting_params)
     # binding.pry
     # @agent.outputs = get_outputs
-    tables = target_class::TABLES_CLASS.new(tables_params)
 
-    unless @agent.valid? && details.valid? && get_outputs.present?
+    tables = []
+
+    tabless = params[:tables]
+    if tabless.is_a? Array
+      tabless.each do |t|
+        table = target_class::TABLES_CLASS.new.tap do |tab|
+          tab.primary_key = t[:primary_key]
+          tab.time_column = t[:time_column]
+          tab.update_column_val = t[:update_column_val]
+          tab.table = t[:table]
+        end
+        tables << table
+      end
+    end
+
+    #tables = tables_params
+
+    #tables = target_class::TABLES_CLASS.new(tables_params)
+
+    outputs = get_outputs
+
+    unless @agent.valid? && details.valid? && outputs.present?
       @agent.source = source
       @agent.source.details = details
-      @agent.source.tables = [tables]
+      #@agent.source.tables = [tables]
+      @agent.source.tables = tables
 
       return render "fluentd/settings/in_sql/show"
     end
@@ -40,8 +61,9 @@ class Fluentd::Settings::InSqlController < ApplicationController
     @agent.source = source
     @agent.source.details = details
     @agent.source.details.save!
-    @agent.source.tables = [tables]
-    @agent.outputs = get_outputs
+    #@agent.source.tables = [tables]
+    @agent.source.tables = tables
+    @agent.outputs = outputs
 
 
     # @setting = target_class.new(setting_params)
@@ -57,7 +79,31 @@ class Fluentd::Settings::InSqlController < ApplicationController
     #   end
     # end
     # redirect_to source_daemon_setting_path(@fluentd)
-    redirect_to agents_path
+    #redirect_to agents_path
+
+    # run agent
+    @res = Dataenchilada::Agents::Manager.do_command(@agent, "run")
+
+    #redirect_to agents_path
+
+    # result
+    respond_to do |format|
+      if @res
+        format.html {
+          #redirect_to manage_agent_path(@agent), notice: 'Command sent'
+          redirect_to agents_path, notice: 'Command sent'
+        }
+        format.json { return_json(res) }
+      else
+        format.html {
+          flash[:error] = "Something went wrong"
+          render "show"
+          #render :manage
+        }
+        format.json { return_json(@res)  }
+      end
+
+    end
   end
 
   private
