@@ -22,7 +22,7 @@
         -#= form_for(@setting, url: action, html: {class: "ignore-rails-error-div"}) do |f|
 
         .roww
-          .col-xs-44
+          .col-xs-44.bord_bott.padd_bott_md
             %h3.bold Database
 
             = f.simple_fields_for :source do |f_source|
@@ -65,13 +65,23 @@
                   -#    = @setting.fields_descriptions[:all_tables]
           -#.col-xs-8#tables-column{style: ("display: none" if @setting.all_tables)}
 
-          .col-xs-88#tables-column
-            .padd_bott_10
-              %h3.bold Tables
-            .col-xs-12.well
+          #tables-column.col-xs-88.padd_top_md.marg_top_10
+            .fl-cont.fl-center.padd_bott_md.marg_bott_10
+              .fl-wrap.fl-grow
+                %h3.bold.no_marg Tables
+              .fl-wrap
+                %button#add-table.mdc-button.btn-lite-blue{style:'background-color: rgba(61, 232, 100, 0.2) !important;     color: #109c37 !important;'}
+                  .fl-cont.gx-fl-center
+                    .fl-wrap.padd_ri_10
+                      =inline_svg "icons/add_circle.svg", class: "sm-icon btn-green-svg"
+                    .fl-wrap{style:'padding-top:1px;'} Add table
+                -#%button#add-table.btn.btn-avg.btn-success= t('.add_table')
+
+            -#.col-xs-12.well
               %button#add-table.btn.btn-avg.btn-success= t('.add_table')
               %small.form-text.text-muted.pull-right
                 = t('.no_table_notice')
+
             #tables_container
               - if @agent.source.tables.present?
                 - @agent.source.tables.each_with_index do |table, index|
