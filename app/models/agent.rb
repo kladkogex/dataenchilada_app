@@ -5,7 +5,10 @@ class Agent < ActiveRecord::Base
   has_many :outputs
   has_many :syncs
 
-  validates :title, presence: true, uniqueness: true
+  validates :title, presence: true
+  # allow to set same title if agent status == 6
+  validates_uniqueness_of :title, conditions: -> { where.not(status: 6) }
+
   validates :tag, presence: false, uniqueness: true
 
 
