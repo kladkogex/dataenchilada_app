@@ -33,8 +33,29 @@ class AgentsController < ApplicationController
   end
 
   def update_config
-    @agent.update_config(params[:config])
-    redirect_to manage_agent_path(@agent)
+    @res = @agent.update_config(params[:config])
+    # result
+    respond_to do |format|
+      if @res
+        @restart = Dataenchilada::Agents::Manager.do_command(@agent, 'restart')
+        format.html {
+          if @restart
+            redirect_to manage_agent_path(@agent), notice: 'Command restart sent'
+          else
+            flash[:error] = "Command restart not sent"
+            render :manage
+          end
+        }
+        format.json { return_json(res) }
+      else
+        format.html {
+          flash[:error] = "Something went wrong"
+          render :manage
+        }
+        format.json { return_json(@res)  }
+      end
+    end
+
   end
 
   def command
@@ -53,11 +74,11 @@ class AgentsController < ApplicationController
           if @cmd == "delete"
             redirect_to agents_path, notice: "agent #{@agent.title} was deleted"
           else
-            redirect_to manage_agent_path(@agent), notice: 'Command sent'
+            redirect_to manage_agent_path(@agent), notice: "Command #{@cmd} sent"
           end
 
         }
-        format.json { return_json(res) }
+        format.json { return_json(@res) }
       else
         format.html {
           flash[:error] = "Something went wrong"
