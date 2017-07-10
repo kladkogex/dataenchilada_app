@@ -1,16 +1,17 @@
 <%=source%>
 
-<match <%=tag%>>
-  @type record_reformer
-  tag reformed.${tag}
-  enable_ruby true
-  auto_typecast true
-  <record>
-    processed_at ${Time.now.utc.strftime("%Y-%m-%dT%H:%M:%S.%LZ")}
-  </record>
-</match>
 
 <% if agent.source.plugin_name == "forward"%>
+
+    <match <%=tag%>>
+      @type record_reformer
+      tag reformed.${tag}
+      enable_ruby true
+      auto_typecast true
+      <record>
+        processed_at ${Time.now.utc.strftime("%Y-%m-%dT%H:%M:%S.%LZ")}
+      </record>
+    </match>
 
     <match *.**>
       @type copy
@@ -22,7 +23,42 @@
       <% end %>
     </match>
 
+<% elsif agent.source.plugin_name == "kafka"%>
+
+    <% agent.source.details.topics.gsub(/\s+/, "").split(',').each do |topic| %>
+      <match <%=tag%>.<%=topic%>>
+        @type record_reformer
+        tag reformed_kafka.<%=topic%>
+        enable_ruby true
+        auto_typecast true
+        <record>
+          processed_at ${Time.now.utc.strftime("%Y-%m-%dT%H:%M:%S.%LZ")}
+          source <%=topic%>
+        </record>
+      </match>
+    <% end %>
+
+    <match reformed_kafka.**>
+      @type copy
+
+      <% outputs.each do |output| %>
+          <store>
+            <%=output%>
+          </store>
+      <% end %>
+    </match>
+
 <% else %>
+
+    <match <%=tag%>>
+      @type record_reformer
+      tag reformed.${tag}
+      enable_ruby true
+      auto_typecast true
+      <record>
+        processed_at ${Time.now.utc.strftime("%Y-%m-%dT%H:%M:%S.%LZ")}
+      </record>
+    </match>
 
     <match reformed.<%=tag%>>
       @type copy
