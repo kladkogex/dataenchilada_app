@@ -25,15 +25,15 @@
   .app_wrap.border.marg_bott_md{:style=>"border-bottom: 0px"}
     .grey_bg.padd_top_15.padd_bott_15
       .row.no_marg
-        .col-lg-3.col-md-4.col-sm-4.col-xs-4
+        .col-md-3.col-sm-4.col-xs-4
           .marg_left_md
             %p.no_marg{style:"font-size: 16px;"} Agent
-        .col-md-3.col-sm-4.col-xs-6.no_padd
+        .col-md-2.col-sm-4.col-xs-6.no_padd
           %p.no_marg{style:"font-size: 16px;"} Status
-        .col-md-3.col-sm-4.col-xs-6.no_padd
-          %p.no_marg{style:"font-size: 16px;"} Type
-        .col-md-3.col-sm-4.col-xs-6.no_padd
-          %p.no_marg{style:"font-size: 16px;"} Output
+        .col-md-2.col-sm-4.col-xs-6.no_padd
+          %p.no_marg{style:"font-size: 16px;"} Input
+        .col-md-5.col-sm-4.col-xs-6.no_padd
+          %p.no_marg{style:"font-size: 16px;"} Outputs
         -#.col-md-3.col-sm-4.col-xs-6.no_padd
           %p.no_marg{style:"font-size: 16px;"} Tag
 
@@ -41,65 +41,27 @@
     - @items.each do |item|
       .row.bord_bott.table-row.gr-hover-el.no_marg
         =link_to manage_agent_path(item) do
-          .col-lg-3.col-md-4.col-sm-4.col-xs-4.padd_top_md.padd_bott_md
+          .col-md-3.col-sm-4.col-xs-4.padd_top_md.padd_bott_md
             .marg_left_md
               %p.gx-p.no_marg.bold=item.title
-          .col-md-3.col-sm-4.col-xs-6.no_padd.padd_top_md.padd_bott_md
+          .col-md-2.col-sm-4.col-xs-6.no_padd.padd_top_md.padd_bott_md
             .fl-cont.gx-fl-center
               .fl-wrap.padd_ri_10
                 =inline_svg 'icons/circle.svg', class: "#{get_status_color(item.status)}-svg sm-icon"
               .fl-wrap
                 %p.gx-p.no_marg.gr=fx_status(item.status)
-          .col-md-3.col-sm-4.col-xs-6.no_padd.padd_top_md.padd_bott_md
+          .col-md-2.col-sm-4.col-xs-6.no_padd.padd_top_md.padd_bott_md
             .fl-cont.fl-center
               .fl-wrap.padd_ri_10
                 =inline_svg "icons/sources/#{item.name}.svg", class:"sm-icon lite-gr-svg"
               .fl-wrap
                 %p.gx-p.gr.no_marg=item.name
-          .col-md-3.col-sm-4.col-xs-6.no_padd.padd_top_md.padd_bott_md
-            .fl-cont.fl-center
-              .row
-                -item.outputs.each do |t|
-                  .col-md-3
+          .col-md-5.col-sm-4.col-xs-6.no_padd.padd_top_md.padd_bott_md
+            .fl-cont.fl-center.fl-flow
+              -item.outputs.each do |t|
+                .fl-wrap.padd_ri_md
+                  .fl-cont.fl-center
                     .fl-wrap.padd_ri_10
                       =inline_svg "icons/outputs/#{t.output_type_name}.svg", class:"sm-icon lite-gr-svg"
                     .fl-wrap
                       %p.gx-p.gr.no_marg=t.output_type_name
-
-
-          -#.col-md-3.col-sm-4.col-xs-6.no_padd.padd_top_md.padd_bott_md
-            %p.gx-p.gr.no_marg= item.tag
-
-          -#.col-md-1.col-sm-4.col-xs-6.no_padd
-            -#.pull-right.padd_ri_md.row-buttons
-              .fl-cont.fl-h-center{style:"height: 60px;"}
-                .fl-wrap
-                  =inline_svg "icons/edit.svg", class:'sm-icon lite-gr-svg'
-              -#.mdl-tooltip.mdl-tooltip--large{:for => "{{app.id}}set"}
-                Configuration
-
-
-
-
--#%table.table
-  %tr
-    %th Agent
-    %th Type
-    %th Tag
-    %th Status
-    %th Commands
-
-  - @items.each do |item|
-    %tr
-      %td
-        =link_to item.title, agent_path(item)
-      %td
-        = item.name
-      %td
-        = item.tag
-      %td
-        = item.status
-      %td
-        =link_to 'Edit', '#', class: 'btn btn-sm btn-primary'
-        =link_to 'Config', '#', class: 'btn btn-sm btn-primary'
-        =link_to 'Manage', manage_agent_path(item), class: 'btn btn-sm btn-primary'
