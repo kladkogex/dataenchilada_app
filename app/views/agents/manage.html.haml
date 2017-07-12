@@ -11,8 +11,8 @@
       Use this window to manage agent.
 
 
-.app_wrap.border.marg_bott_md
-  .fl-cont.gx-fl-center.padd_md
+.app_wrap.border.marg_bott_md.padd_30
+  .fl-cont.gx-fl-center.padd_bott_md
     .fl-wrap.padd_ri_10
       .card-h-icon
         .svg-wrap
@@ -20,8 +20,8 @@
     .fl-wrap
       %p.card-h.bold Info
 
-  .padd_md.marg_left_10
-    .padd_bott_md
+  .marg_left_10
+    .padd_bott_10.padd_top_10
       %table
         %tbody
           %tr
@@ -41,7 +41,7 @@
 
           %tr
             %td.padd_ri_big.padd_top_md
-              %h4.no_marg.gr Type:
+              %h4.no_marg.gr Input:
             %td.padd_top_md
               .fl-cont.fl-center.padd_left_10
                 .fl-wrap.padd_ri_10
@@ -49,21 +49,24 @@
                 .fl-wrap
                   %h4.no_marg=@agent.name
 
-          -#%tr
+          %tr
             %td.padd_ri_big.padd_top_md
-              %h4.no_marg.gr Tag:
+              %h4.no_marg.gr Outputs:
             %td.padd_top_md
-              .fl-cont
-                .fl-wrap
-                  %h4.no_marg=@agent.tag
-                  -#.gx-bage.gx-bage-lg.lite-gr-bage
-                    .fl-cont.fl-center
-                      .fl-wrap.marg_left_sm.marg_ri_sm
-                        %h6.no_marg.one-liner{style:'color: #585858;'}=@agent.tag
+              .fl-cont.fl-center.padd_left_10
+                -@agent.outputs.each do |t|
+                  .fl-wrap.padd_ri_md
+                    .fl-cont.fl-center.fl-flow
+                      .fl-wrap.padd_ri_10
+                        =inline_svg "icons/outputs/#{t.output_type_name}.svg", class:"sm-icon lite-gr-svg"
+                      .fl-wrap
+                        %h4.no_marg=t.output_type_name
+
+  .div{style:'padding: 40px 0 30px 0;'}
+    .bord_bott
 
 
-.app_wrap.border.marg_bott_md
-  .fl-cont.gx-fl-center.padd_md
+  .fl-cont.gx-fl-center.padd_bott_md
     .fl-wrap.padd_ri_10
       .card-h-icon
         .svg-wrap
@@ -71,16 +74,9 @@
     .fl-wrap
       %p.card-h.bold Manage
 
-  .padd_md.marg_left_10
-    .padd_bott_md.fl-cont
-      .fl-wrap.padd_ri_10
-        -#=link_to command_agent_path(agent: @agent, cmd: 'run'), method: :post, class: 'undec' do
-          .mdc-button.btn-lite-blue{style:'background-color: rgba(61, 232, 100, 0.2) !important; color: #109c37 !important;'}
-            .fl-cont.gx-fl-center
-              .fl-wrap.padd_ri_10
-                =inline_svg "icons/run.svg", class: "sm-icon btn-green-svg"
-              .fl-wrap{style:'padding-top:1px;'}
-                Run
+
+  .marg_left_10.padd_top_10
+    .fl-cont.padd_bott_10.padd_top_10
       .fl-wrap.padd_ri_10
         =link_to command_agent_path(agent: @agent, cmd: 'start'), method: :post, class: 'undec' do
           .mdc-button.btn-lite-blue{style:'background-color: rgba(61, 232, 100, 0.2) !important;     color: #109c37 !important;'}
@@ -117,9 +113,11 @@
               .fl-wrap{style:'padding-top:1px;'}
                 Delete
 
+  .div{style:'padding: 40px 0 30px 0;'}
+    .bord_bott
 
-.app_wrap.border.marg_bott_md
-  .fl-cont.gx-fl-center.padd_md
+
+  .fl-cont.gx-fl-center.padd_bott_md
     .fl-wrap.padd_ri_10
       .card-h-icon
         .svg-wrap
@@ -131,15 +129,18 @@
         .mdc-button.btn-lite-blue
           Edit
 
-  .padd_md.marg_left_10
-    .padd_bott_md
+  .marg_left_10.padd_top_10
+    .padd_bott_10.padd_top_10
       %pre.new-pre
         = preserve do
           = @agent.config
 
 
-.app_wrap.border.marg_bott_md
-  .fl-cont.gx-fl-center.padd_md
+  .div{style:'padding: 40px 0 30px 0;'}
+    .bord_bott
+
+
+  .fl-cont.gx-fl-center.padd_bott_md
     .fl-wrap.padd_ri_10
       .card-h-icon
         .svg-wrap
@@ -155,45 +156,7 @@
             .fl-wrap{style:'padding-top:1px;'}
               Download logs
 
-  .padd_md.marg_left_10
-    .padd_bott_md
+  .marg_left_10
+    .padd_bott_10.padd_top_10
       = preserve do
         = render partial: "shared/vue/fluent_log", locals: { log_path: @agent.app_log_path }
-
-
--#.old
-  %h1 Agent: #{@agent.title}
-  %hr
-  %b name:
-  #{@agent.conf_name}
-  %br
-  %b status:
-  #{@agent.status}
-  %br
-  %b tag:
-  #{@agent.tag}
-
-  %br
-  %br
-  Manage:
-
-  =link_to 'Run', command_agent_path(agent: @agent, cmd: 'run'), method: :post, class: 'btn btn-primary'
-  =link_to 'Start', command_agent_path(agent: @agent, cmd: 'start'), method: :post, class: 'btn btn-primary'
-  =link_to 'Stop', command_agent_path(agent: @agent, cmd: 'stop'), method: :post, class: 'btn btn-primary'
-  =link_to 'Restart', command_agent_path(agent: @agent, cmd: 'restart'), method: :post, class: 'btn btn-primary'
-  %hr
-  .row
-    .col-lg-6.col-xs-12
-      %h2 Log
-      = link_to raw_log_agent_path(@agent), class: "btn btn-primary pull-right" do
-        = icon('fa-download')
-        = t('fluentd.common.raw_log_link')
-      = preserve do
-        = render partial: "shared/vue/fluent_log", locals: { log_path: @agent.log_path }
-    .col-lg-6.col-xs-12
-      %h2
-        Config
-        = link_to t('terms.edit'), edit_config_agent_path(@agent), class: "btn btn-default pull-right"
-      %pre
-        = preserve do
-          = @agent.config
