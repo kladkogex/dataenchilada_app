@@ -32,6 +32,8 @@
           %p.no_marg{style:"font-size: 16px;"} Status
         .col-md-3.col-sm-4.col-xs-6.no_padd
           %p.no_marg{style:"font-size: 16px;"} Type
+        .col-md-3.col-sm-4.col-xs-6.no_padd
+          %p.no_marg{style:"font-size: 16px;"} Output
         -#.col-md-3.col-sm-4.col-xs-6.no_padd
           %p.no_marg{style:"font-size: 16px;"} Tag
 
@@ -54,10 +56,21 @@
                 =inline_svg "icons/sources/#{item.name}.svg", class:"sm-icon lite-gr-svg"
               .fl-wrap
                 %p.gx-p.gr.no_marg=item.name
+          .col-md-3.col-sm-4.col-xs-6.no_padd.padd_top_md.padd_bott_md
+            .fl-cont.fl-center
+              .row
+                -item.outputs.each do |t|
+                  .col-md-3
+                    .fl-wrap.padd_ri_10
+                      =inline_svg "icons/outputs/#{t.output_type_name}.svg", class:"sm-icon lite-gr-svg"
+                    .fl-wrap
+                      %p.gx-p.gr.no_marg=t.output_type_name
+
+
           -#.col-md-3.col-sm-4.col-xs-6.no_padd.padd_top_md.padd_bott_md
             %p.gx-p.gr.no_marg= item.tag
 
-          .col-md-1.col-sm-4.col-xs-6.no_padd
+          -#.col-md-1.col-sm-4.col-xs-6.no_padd
             -#.pull-right.padd_ri_md.row-buttons
               .fl-cont.fl-h-center{style:"height: 60px;"}
                 .fl-wrap
