@@ -106,6 +106,8 @@ module Dataenchilada::Agents
       # for flume to kudu
       agent.outputs.each do |t|
         if t.type == "Fluentd::Setting::OutKudu"
+          #
+          create_kudu_table
           # generate config
           flume_conf = Dataenchilada::Agents::Configurator.flume_generate_config(agent, t.id)
           # install with supervisor
@@ -326,6 +328,16 @@ module Dataenchilada::Agents
       elastic_port = sys_prop[:elasticsearch_port] || 9200
       # create elasticsearch index
       Dataenchilada::Agents::CreateIndexElasticForNetflow.index_create(index_name, type_name, elastic_host, elastic_port)
+    end
+
+    def self.create_kudu_table#(output)
+      #
+      # get system props
+      sys_prop = Dataenchilada::Agents::Configurator.get_system_props
+      impala_host = sys_prop[:impala_host]
+      impala_port = sys_prop[:impala_port] || 21000
+      # create elasticsearch index
+      Dataenchilada::Agents::CreateKuduTable.table_create(impala_host, impala_port)
     end
 
 

@@ -37,6 +37,9 @@ gem 'fluent-plugin-cassandra-driver'
 gem 'fluent-plugin-netflow'
 gem 'fluent-plugin-record-reformer'
 
+# for impala
+gem 'sequel-impala', '~> 1.0'
+
 gem 'simple_form'
 
 gem 'java-properties'
