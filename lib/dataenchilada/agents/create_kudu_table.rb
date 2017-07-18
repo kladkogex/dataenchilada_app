@@ -7,10 +7,14 @@ module Dataenchilada::Agents
 
       connect = Impala.connect(impala_host, impala_port)
 
-      command = connect.execute('CREATE TABLE good_ip (id INT, random_field STRING)')
-      command2 = connect.execute('PARTITION BY HASH(id) PARTITIONS 2')
-      command3 = connect.execute('STORED AS KUDU')
-      command4 = connect.execute('TBLPROPERTIES ( "kudu.num_tablet_replicas" = "1", "kudu.table_name" = "good_ip", "kudu.key_columns" = "id"' )
+      command = connect.execute('
+          CREATE TABLE good_ip (id BIGINT, name STRING, PRIMARY KEY(id))
+          PARTITION BY HASH PARTITIONS 16
+          STORED AS KUDU;
+      ')
+      #command2 = connect.execute('PARTITION BY HASH(id) PARTITIONS 2')
+      #command3 = connect.execute('STORED AS KUDU')
+      #command4 = connect.execute('TBLPROPERTIES ( kudu.num_tablet_replicas = 1, kudu.table_name = good_ip, kudu.key_columns = id);')
       #
       connect.close
 

@@ -336,7 +336,7 @@ module Dataenchilada::Agents
       sys_prop = Dataenchilada::Agents::Configurator.get_system_props
       impala_host = sys_prop[:impala_host]
       impala_port = sys_prop[:impala_port] || 21000
-      # create elasticsearch index
+      # create kudu table
       Dataenchilada::Agents::CreateKuduTable.table_create(impala_host, impala_port)
     end
 
