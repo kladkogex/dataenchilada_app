@@ -43,7 +43,7 @@
             %td.padd_ri_big.padd_top_md
               %h4.no_marg.gr Input:
             %td.padd_top_md
-              .fl-cont.fl-center.padd_left_10
+              .fl-cont.fl-center
                 .fl-wrap.padd_ri_10
                   =inline_svg "icons/sources/#{@agent.name}.svg", class:"sm-icon lite-gr-svg"
                 .fl-wrap
@@ -53,7 +53,7 @@
             %td.padd_ri_big.padd_top_md
               %h4.no_marg.gr Outputs:
             %td.padd_top_md
-              .fl-cont.fl-center.padd_left_10
+              .fl-cont.fl-center
                 -@agent.outputs.each do |t|
                   .fl-wrap.padd_ri_md
                     .fl-cont.fl-center.fl-flow
