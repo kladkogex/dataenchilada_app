@@ -3,18 +3,53 @@ module Dataenchilada::Agents
 
     require 'impala'
 
-    def self.table_create(impala_host, impala_port)
+    def self.table_create(impala_host, impala_port, source_name, table_name)
 
       connect = Impala.connect(impala_host, impala_port)
 
-      command = connect.execute('
-          CREATE TABLE good_ip (id BIGINT, name STRING, PRIMARY KEY(id))
+      # create kudu table for netflow
+      if source_name == "netflow"
+        command = connect.execute("
+          CREATE TABLE #{table_name} (
+            id BIGINT,
+            version STRING,
+            uptime STRING,
+            flow_records STRING,
+            flow_seq_num STRING,
+            engine_type STRING,
+            engine_id STRING,
+            sampling_algorithm STRING,
+            sampling_interval STRING,
+            ipv4_src_addr STRING,
+            ipv4_dst_addr STRING,
+            ipv4_next_hop STRING,
+            input_snmp STRING,
+            output_snmp STRING,
+            in_pkts STRING,
+            in_bytes STRING,
+            first_switched STRING,
+            last_switched STRING,
+            l4_src_port STRING,
+            l4_dst_port STRING,
+            tcp_flags STRING,
+            protocol STRING,
+            src_tos STRING,
+            src_as STRING,
+            dst_as STRING,
+            src_mask STRING,
+            dst_mask STRING,
+            host STRING,
+            process_time DATETIME,
+            processed_at DATETIME,
+            PRIMARY KEY(id, process_time, processed_at),
+            )
           PARTITION BY HASH PARTITIONS 16
-          STORED AS KUDU;
-      ')
-      #command2 = connect.execute('PARTITION BY HASH(id) PARTITIONS 2')
-      #command3 = connect.execute('STORED AS KUDU')
-      #command4 = connect.execute('TBLPROPERTIES ( kudu.num_tablet_replicas = 1, kudu.table_name = good_ip, kudu.key_columns = id);')
+          STORED AS KUDU
+          TBLPROPERTIES ( 'kudu.num_tablet_replicas' = 1, 'kudu.table_name' = #{table_name});
+        ")
+      end
+
+
       #
       connect.close
 
@@ -71,24 +106,5 @@ end
     end
   end
 end
-        'CREATE TABLE good_ip
-        (
-        id BIGINT,
-        bytes INTEGER,
-        domain STRING,
-        dst STRING,
-        dst_port INTEGER,
-        key STRING,
-        main_domain STRING,
-        processed_at STRING,
-        src STRING,
-        src_port INTEGER,
-        PRIMARY KEY(id)
-        )
-        PARTITION BY HASH(id) PARTITIONS 2
-        STORED AS KUDU
-        TBLPROPERTIES (
-              "kudu.num_tablet_replicas" = "1",
-              "kudu.table_name" = "good_ip" )'
-      )
+
 =end
