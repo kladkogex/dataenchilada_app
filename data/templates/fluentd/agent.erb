@@ -1,7 +1,7 @@
 <%=source%>
 
 
-<% if agent.source.plugin_name == "forward"%>
+<% if agent.source.plugin_name == "forward"%> # Separately rendered because of the fact that when the 'forward' is passed the 'tag' of the one who input into the port
 
     <match <%=tag%>>
       @type record_reformer
@@ -10,6 +10,8 @@
       auto_typecast true
       <record>
         processed_at ${Time.now.utc.strftime("%Y-%m-%dT%H:%M:%S.%LZ")}
+        kudu_processed_at ${Time.now.utc.strftime("%Y-%m-%d %H:%M:%S")}
+        kudu_id ${(Time.now.utc.to_f * 1000).to_i}
       </record>
     </match>
 
@@ -34,6 +36,8 @@
         <record>
           processed_at ${Time.now.utc.strftime("%Y-%m-%dT%H:%M:%S.%LZ")}
           source <%=topic%>
+          kudu_processed_at ${Time.now.utc.strftime("%Y-%m-%d %H:%M:%S")}
+          kudu_id ${(Time.now.utc.to_f * 1000).to_i}
         </record>
       </match>
     <% end %>
@@ -57,6 +61,8 @@
       auto_typecast true
       <record>
         processed_at ${Time.now.utc.strftime("%Y-%m-%dT%H:%M:%S.%LZ")}
+        kudu_processed_at ${Time.now.utc.strftime("%Y-%m-%d %H:%M:%S")}
+        kudu_id ${(Time.now.utc.to_f * 1000).to_i}
       </record>
     </match>
 

@@ -10,11 +10,11 @@ module Dataenchilada::Agents
       # create kudu table for netflow
       if source_name == "netflow"
         command = connect.execute("
-          CREATE TABLE #{table_name}
-          (id BIGINT,
+          CREATE TABLE IF NOT EXISTS #{table_name}
+          (kudu_id BIGINT,
+          kudu_processed_at STRING,
           process_time TIMESTAMP,
           flowset_id STRING,
-          processed_at STRING,
           version STRING,
           uptime STRING,
           flow_records STRING,
@@ -27,6 +27,13 @@ module Dataenchilada::Agents
           ipv4_src_addr STRING,
           ipv4_dst_addr STRING,
           ipv4_next_hop STRING,
+          ipv4_src_mask INT,
+          ipv4_dst_mask INT,
+          ipv6_src_addr STRING,
+          ipv6_dst_addr STRING,
+          ipv6_next_hop STRING,
+          ipv6_src_mask INT,
+          ipv6_dst_mask INT,
           input_snmp INT,
           output_snmp INT,
           in_pkts INT,
@@ -45,7 +52,7 @@ module Dataenchilada::Agents
           dst_mask INT,
           host STRING,
           system STRING,
-          PRIMARY KEY(id, process_time))
+          PRIMARY KEY(kudu_id, kudu_processed_at))
           PARTITION BY HASH PARTITIONS 16
           STORED AS KUDU
           TBLPROPERTIES ( 'kudu.num_tablet_replicas' =  '1', 'kudu.table_name' = '#{table_name}');
