@@ -13,7 +13,7 @@ module Dataenchilada::Agents
           CREATE TABLE IF NOT EXISTS #{table_name}
           (kudu_id BIGINT,
           kudu_processed_at STRING,
-          process_time TIMESTAMP,
+          processed_at STRING,
           flowset_id STRING,
           version STRING,
           uptime STRING,
