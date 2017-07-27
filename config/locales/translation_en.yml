@@ -98,6 +98,10 @@ en:
     show:
       page_title: Change Password
 
+  kudu:
+    show:
+      page_title: Kudu Tables
+
   fluentd:
     common:
       start: Start
@@ -388,7 +392,7 @@ en:
   activerecord: # for rspec
     <<: *activemodel
   agents:
-    page_title: Agents
+    page_title: Ingestion Agents
     new:
       page_title: Please, choose Source
       choose: Choose

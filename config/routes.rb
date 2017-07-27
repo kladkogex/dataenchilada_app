@@ -5,7 +5,8 @@ Rails.application.routes.draw do
 
 
   #
-  root "welcome#home"
+  #root "welcome#home"
+  root "agents#index"
 
   resources :agents, only: [:index, :new, :show] do
     member do
@@ -17,6 +18,9 @@ Rails.application.routes.draw do
       post 'update_config'
     end
   end
+
+  #
+  resources :kudus
 
   resource :daemon, controller: :fluentd do
     get "log"

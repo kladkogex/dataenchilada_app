@@ -64,9 +64,37 @@ module Dataenchilada::Agents
       connect.close
 
     end
+
+    def self.get_tables(impala_host, impala_port)
+      connect = Impala.connect(impala_host, impala_port)
+      items = connect.execute("show tables")
+
+      connect.close
+      items
+    end
+
   end
 end
 =begin
+    def self.get_tables(impala_host, impala_port)
+      connect = Impala.connect(impala_host, impala_port)
+      items = connect.execute("
+          show tables;
+      ")
+
+      connect.close
+      items
+    end
+    def self.get_tables(impala_host, impala_port)
+
+      %w(asdf asdf asdf)
+    end
+
+
+
+
+
+
       # set client
       client = Elasticsearch::Client.new trace: true, host: elastic_host, port: elastic_port
 

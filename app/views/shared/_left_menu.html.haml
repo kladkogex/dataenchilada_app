@@ -23,10 +23,10 @@
             .padd_bott_mdz.install_step
               .flex-container-all
                 .flex-wrap{style:'margin: 20px 0px 20px 0px;'}
-                  %h3.left-menu-h  Workspace
+                  %h3.left-menu-h  Data
 
-          -selected = current_page?(daemon_path) ? 'current' : ''
-          = link_to daemon_path, class: "left-menu-el left-menu-#{selected}" do
+          -#-selected = current_page?(daemon_path) ? 'current' : ''
+          -#= link_to daemon_path, class: "left-menu-el left-menu-#{selected}" do
             .fl-cont.gx-fl-center
               .fl-wrap.padd_ri_sm
                 = inline_svg "icons/dashboard.svg"
@@ -42,6 +42,13 @@
               .fl-wrap
                 %h3=t('agents.page_title')
 
+          -selected = current_page?(kudus_path) ? 'current' : ''
+          = link_to kudus_path, class: "left-menu-el left-menu-#{selected}" do
+            .fl-cont.gx-fl-center
+              .fl-wrap.padd_ri_sm
+                = inline_svg "icons/dashboard.svg"
+              .fl-wrap
+                %h3=t('kudu.show.page_title')
 
           .install_step.side_menu_ln
             %h3.left-menu-h=t('terms.misc')
