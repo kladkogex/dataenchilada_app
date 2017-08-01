@@ -26,12 +26,6 @@ Rails.application.routes.draw do
   put 'edit_table/:name', to: 'kudu_tables#update', as: 'update_table'
   get 'show_table/:name', to: 'kudu_tables#show', as: 'show_table'
 
-  resources :kudu_table_columns, only: [:index, :new] do
-  end
-  get 'edit_table/:name', to: 'kudu_table_columns#edit', as: 'edit_table'
-  put 'edit_table/:name', to: 'kudu_table_columns#update', as: 'update_table'
-  get 'show_table/:name', to: 'kudu_table_columns#show', as: 'show_table'
-
   resource :daemon, controller: :fluentd do
     get "log"
     get "raw_log"
