@@ -59,7 +59,6 @@ module Dataenchilada::Agents
         ")
       end
 
-
       #
       connect.close
 
@@ -67,10 +66,32 @@ module Dataenchilada::Agents
 
     def self.get_tables(impala_host, impala_port)
       connect = Impala.connect(impala_host, impala_port)
-      items = connect.execute("show tables")
+      items = connect.query("show tables;")
 
       connect.close
       items
+    end
+
+    def self.get_columns(impala_host, impala_port, table_name)
+      connect = Impala.connect(impala_host, impala_port)
+      item = connect.query("desc #{table_name};")
+
+      connect.close
+      item
+    end
+
+    def self.create_custom_table(impala_host, impala_port, table_name)
+      connect = Impala.connect(impala_host, impala_port)
+      command = connect.execute("
+          CREATE TABLE IF NOT EXISTS #{table_name}
+          (kudu_id BIGINT,
+          kudu_processed_at STRING,
+          PRIMARY KEY(kudu_id, kudu_processed_at))
+          PARTITION BY HASH PARTITIONS 16
+          STORED AS KUDU
+          TBLPROPERTIES ( 'kudu.num_tablet_replicas' =  '1', 'kudu.table_name' = '#{table_name}');
+        ")
+      connect.close
     end
 
   end

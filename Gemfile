@@ -36,6 +36,7 @@ gem 'fluent-plugin-cassandra-driver'
 #gem 'fluent-plugin-netflow-enchanced'
 gem 'fluent-plugin-netflow'
 gem 'fluent-plugin-record-reformer'
+gem 'cocoon'
 
 # for impala
 gem 'sequel-impala', '~> 1.0'

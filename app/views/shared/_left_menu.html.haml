@@ -42,8 +42,8 @@
               .fl-wrap
                 %h3=t('agents.page_title')
 
-          -selected = current_page?(kudus_path) ? 'current' : ''
-          = link_to kudus_path, class: "left-menu-el left-menu-#{selected}" do
+          -selected = current_page?(kudus_tables_path) ? 'current' : ''
+          = link_to kudus_tables_path, class: "left-menu-el left-menu-#{selected}" do
             .fl-cont.gx-fl-center
               .fl-wrap.padd_ri_sm
                 = inline_svg "icons/dashboard.svg"

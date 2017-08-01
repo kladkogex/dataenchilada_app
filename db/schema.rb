@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170629143034) do
+ActiveRecord::Schema.define(version: 20170801092448) do
 
   create_table "agent_types", force: :cascade do |t|
     t.string  "name",   limit: 255
@@ -123,6 +123,19 @@ ActiveRecord::Schema.define(version: 20170629143034) do
     t.string  "lang",                limit: 255
     t.string  "output_format",       limit: 255
     t.string  "flatten_separator",   limit: 255
+  end
+
+  create_table "kudu_table_columns", force: :cascade do |t|
+    t.integer "table_id",    limit: 4,                   null: false
+    t.string  "name",        limit: 255,                 null: false
+    t.string  "type",        limit: 255,                 null: false
+    t.boolean "primary_key",             default: false
+  end
+
+  create_table "kudu_tables", force: :cascade do |t|
+    t.string   "name",       limit: 255, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "out_cassandra_details", force: :cascade do |t|

@@ -1,0 +1,21 @@
+.page-header
+  .row
+    .col-md-7
+      %h1
+        Kudu tables
+    .col-md-5
+      = link_to "new table", new_kudus_table_path, :class => "btn btn-sm btn-primary"
+
+%br
+%table.table.table-striped.table-bordered.table-hover
+  %tr
+    %th id
+    %th Name
+    %th Commands
+
+
+  - @items.each_with_index do |item, id|
+    %tr
+      %td= id + 1
+      %td= item['name']
+      %td= link_to 'edit', edit_table_path(name: item['name'])

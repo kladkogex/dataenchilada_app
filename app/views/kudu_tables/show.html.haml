@@ -1,0 +1,32 @@
+.page-header
+  .row
+    .col-md-7
+      %h1
+        Columns of table #{@name}
+%br
+%table.table.table-striped.table-bordered.table-hover
+  %tr
+    %th id
+    %th Name
+    %th Type
+    %th Comment
+    %th Primary Key
+    %th Nullable
+    %th Default Value
+    %th Encoding
+    %th Compression
+    %th Block Size
+
+
+  - @table_columns.each_with_index do |item, id|
+    %tr
+      %td= id + 1
+      %td= item['name']
+      %td= item['type']
+      %td= item['comment']
+      %td= item['primary_key']
+      %td= item['nullable']
+      %td= item['default_value']
+      %td= item['encoding']
+      %td= item['compression']
+      %td= item['block_size']
