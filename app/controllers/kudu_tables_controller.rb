@@ -27,8 +27,8 @@ class KuduTablesController < ApplicationController
 
     respond_to do |format|
       if res
-        columns = get_columns_and_types(table_name, columns_attributes_hash)
-        kudu_create_table(columns)
+        data = get_data_for_table(table_name, columns_attributes_hash)
+        kudu_create_table(data)
         format.html { redirect_to kudu_tables_path, notice: "table #{table_name} was created" }
         format.js   { }
       else
@@ -54,9 +54,9 @@ class KuduTablesController < ApplicationController
     Dataenchilada::Agents::CreateKuduTable.get_columns(impala_host, impala_port, table_name)
   end
 
-  def kudu_create_table(columns)
+  def kudu_create_table(data)
     impala_host, impala_port = get_impala_address
-    Dataenchilada::Agents::CreateKuduTable.create_custom_table(impala_host, impala_port, columns)
+    Dataenchilada::Agents::CreateKuduTable.create_custom_table(impala_host, impala_port, data)
   end
 
   def get_impala_address
@@ -66,7 +66,7 @@ class KuduTablesController < ApplicationController
     return [impala_host, impala_port]
   end
 
-  def get_columns_and_types(table_name, columns_attributes)
+  def get_data_for_table(table_name, columns_attributes)
     vasya = []
     columns_attributes.each do |k, v|
       vasya << [v['name'], v['type_name'].upcase]
