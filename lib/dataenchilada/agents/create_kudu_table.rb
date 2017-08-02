@@ -80,18 +80,9 @@ module Dataenchilada::Agents
       item
     end
 
-    def self.create_custom_table(impala_host, impala_port, table_name, columns)
+    def self.create_custom_table(impala_host, impala_port, columns)
       connect = Impala.connect(impala_host, impala_port)
-      command = connect.execute("
-          CREATE TABLE IF NOT EXISTS #{table_name}
-          (kudu_id BIGINT,
-          kudu_processed_at STRING,
-          #{columns}
-          PRIMARY KEY(kudu_id, kudu_processed_at))
-          PARTITION BY HASH PARTITIONS 16
-          STORED AS KUDU
-          TBLPROPERTIES ( 'kudu.num_tablet_replicas' =  '1', 'kudu.table_name' = '#{table_name}');
-        ")
+      command = connect.execute(columns)
       connect.close
     end
 

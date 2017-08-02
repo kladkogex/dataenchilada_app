@@ -28,7 +28,7 @@ class KuduTablesController < ApplicationController
     respond_to do |format|
       if res
         columns = get_columns_and_types(table_name, columns_attributes_hash)
-        kudu_create_table(table_name, columns)
+        kudu_create_table(columns)
         format.html { redirect_to kudu_tables_path, notice: "table #{table_name} was created" }
         format.js   { }
       else
@@ -54,9 +54,9 @@ class KuduTablesController < ApplicationController
     Dataenchilada::Agents::CreateKuduTable.get_columns(impala_host, impala_port, table_name)
   end
 
-  def kudu_create_table(table_name, columns)
+  def kudu_create_table(columns)
     impala_host, impala_port = get_impala_address
-    Dataenchilada::Agents::CreateKuduTable.create_custom_table(impala_host, impala_port, table_name, columns)
+    Dataenchilada::Agents::CreateKuduTable.create_custom_table(impala_host, impala_port, columns)
   end
 
   def get_impala_address
@@ -71,10 +71,13 @@ class KuduTablesController < ApplicationController
     columns_attributes.each do |k, v|
       vasya << [v['name'], v['type_name'].upcase]
     end
-    string_with_names_and_types_of_columns = ""
+    columns = ""
     vasya.each do |t|
-      string_with_names_and_types_of_columns << "#{t.join(' ')},\n          "
+      columns << "#{t.join(' ')}, "
     end
-    string_with_names_and_types_of_columns
+    string = "CREATE TABLE IF NOT EXISTS #{table_name}(kudu_id BIGINT, kudu_processed_at STRING, #{columns}PRIMARY KEY(kudu_id, kudu_processed_at))
+     PARTITION BY HASH PARTITIONS 16
+     STORED AS KUDU
+     TBLPROPERTIES ( 'kudu.num_tablet_replicas' =  '1', 'kudu.table_name' = '#{table_name}');"
   end
 end
