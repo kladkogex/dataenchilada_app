@@ -127,8 +127,8 @@ ActiveRecord::Schema.define(version: 20170801092448) do
 
   create_table "kudu_table_columns", force: :cascade do |t|
     t.integer "table_id",    limit: 4,                   null: false
-    t.string  "name",        limit: 255,                 null: false
-    t.string  "type_name",   limit: 255,                 null: false
+    t.string  "name",        limit: 255
+    t.string  "type_name",   limit: 255
     t.boolean "primary_key",             default: false
   end
 
