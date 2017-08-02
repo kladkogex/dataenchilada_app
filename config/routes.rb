@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   end
 
   # kudu
-  resources :kudu_tables, only: [:index, :new] do
+  resources :kudu_tables, except: [:show, :edit, :update] do
   end
   get 'edit_table/:name', to: 'kudu_tables#edit', as: 'edit_table'
   put 'edit_table/:name', to: 'kudu_tables#update', as: 'update_table'

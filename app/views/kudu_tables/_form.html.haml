@@ -1,6 +1,6 @@
 
 
-= simple_form_for(@kudu, url: kudus_tables_path, method: post, html: { class: 'form-horizontal', multipart: true }) do |f|
+= simple_form_for(@kudu, url: kudu_tables_path, method: 'post', html: { class: 'form-horizontal', multipart: true }) do |f|
   = f.error_notification
   -#= render 'shared/form_errors', {f: f}
 

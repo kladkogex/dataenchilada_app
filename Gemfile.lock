@@ -100,6 +100,7 @@ GEM
       ione (~> 1.2)
     celluloid (0.15.2)
       timers (~> 1.1.0)
+    cocoon (1.2.10)
     coderay (1.1.1)
     cool.io (1.5.0)
     debug_inspector (0.0.3)
@@ -375,6 +376,7 @@ PLATFORMS
 DEPENDENCIES
   aasm (= 4.11.0)
   better_errors
+  cocoon
   elasticsearch!
   elasticsearch-dsl!
   elasticsearch-model (= 0.1.9)
