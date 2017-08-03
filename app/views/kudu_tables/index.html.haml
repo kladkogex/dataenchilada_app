@@ -18,4 +18,5 @@
     %tr
       %td= id + 1
       %td= link_to "#{item['name']}", show_table_path(name: item['name'])
-      %td= link_to 'edit', edit_table_path(name: item['name'])
+      %td= link_to 'show', show_table_path(name: item['name'])
+      -#%td= link_to 'edit', edit_table_path(name: item['name'])

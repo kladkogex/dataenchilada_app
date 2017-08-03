@@ -74,7 +74,7 @@ module Dataenchilada::Agents
 
     def self.get_columns(impala_host, impala_port, table_name)
       connect = Impala.connect(impala_host, impala_port)
-      item = connect.query("desc #{table_name};")
+      item = connect.query("describe #{table_name};")
 
       connect.close
       item
