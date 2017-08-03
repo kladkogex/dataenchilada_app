@@ -18,7 +18,7 @@
     %th Block Size
 
 
-  - @table_columns.each_with_index do |item, id|
+  - @table_from_kudu.each_with_index do |item, id|
     %tr
       %td= id + 1
       %td= item['name']
@@ -30,3 +30,8 @@
       %td= item['encoding']
       %td= item['compression']
       %td= item['block_size']
+  -#- @table_columns.each do |t|
+    %tr
+      %td= t.id
+      %td= t.name
+      %td= t.type_name

@@ -8,13 +8,19 @@ class KuduTablesController < ApplicationController
 
   def show
     @name = params[:name]
-    @table_columns = get_columns_form_table(@name)
+    @table_from_kudu = get_columns_form_table(@name)
     # for test
     #@table_columns = KuduTable.where(name: @name).first.columns
   end
 
   def new
-    @kudu = KuduTable.new
+    @table = KuduTable.new
+    @types = KuduTableColumns::TYPES
+  end
+
+  def edit
+    @name = params[:name]
+    @table = KuduTable.where(name: @name).first
     @types = KuduTableColumns::TYPES
   end
 
@@ -38,10 +44,31 @@ class KuduTablesController < ApplicationController
     end
   end
 
+  def update
+    table_name_after = params[:kudu_table][:name]
+    columns_attributes_hash = params[:kudu_table][:columns_attributes]
+    @table_name_before = params[:name]
+    @table = KuduTable.where(name: @table_name_before).first
+
+    res = @table.update(table_params)
+
+    respond_to do |format|
+      if res
+        #data = get_data_for_table(table_name, columns_attributes_hash)
+        #kudu_create_table(data)
+        format.html { redirect_to kudu_tables_path, notice: "table #{table_name_after} was updated" }
+        format.js   { }
+      else
+        format.html { render :new }
+        format.js   { }
+      end
+    end
+  end
+
   private
 
   def table_params
-    params.require(:kudu_table).permit(:name, columns_attributes: [:id, :name, :type_name, :primary_key])
+    params.require(:kudu_table).permit(:name, columns_attributes: [:id, :name, :type_name, :primary_key, :_destroy])
   end
 
   def get_kudu_tables

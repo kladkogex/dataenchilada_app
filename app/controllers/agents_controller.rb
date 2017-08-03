@@ -3,6 +3,9 @@ class AgentsController < ApplicationController
 
 
   def index
+    # for demo
+    kudu_prepare_table
+
     @items = Agent.w_not_deleted.order("created_at desc").all
   end
 
@@ -95,14 +98,23 @@ class AgentsController < ApplicationController
 
   def init_agent
     agent_id = params[:id]
-
     @agent = Agent.get_by_id(agent_id)
-
     if @agent.nil?
       raise 'Agent not set'
     end
-
-
-
   end
+
+  # for demo
+  def kudu_prepare_table
+    impala_host, impala_port = get_impala_address
+    Dataenchilada::Agents::CreateKuduTable.prepare_table_for_demo(impala_host, impala_port, 'bplugin', 'shop_logs')
+  end
+
+  def get_impala_address
+    sys_prop = Dataenchilada::Agents::Configurator.get_system_props
+    impala_host = sys_prop[:impala_host]
+    impala_port = sys_prop[:impala_port] || 21000
+    return [impala_host, impala_port]
+  end
+
 end

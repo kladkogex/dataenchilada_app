@@ -86,6 +86,91 @@ module Dataenchilada::Agents
       connect.close
     end
 
+    def self.prepare_table_for_demo(impala_host, impala_port, table_name, table_name2)
+      connect = Impala.connect(impala_host, impala_port)
+      command = connect.execute("
+        CREATE TABLE IF NOT EXISTS #{table_name}
+          (kudu_id BIGINT,
+          kudu_processed_at STRING,
+          type STRING,
+          fingerprint BIGINT,
+          time BIGINT,
+          href STRING,
+          userAgent STRING,
+          browser STRING,
+          browserVersion STRING,
+          os STRING,
+          screenPrint STRING,
+          plugins STRING,
+          timeZone STRING,
+          language STRING,
+          host STRING,
+          port STRING,
+          height INT,
+          width INT,
+          referrer STRING,
+          device STRING,
+          keyCode INT,
+          keyChar STRING,
+          timeDown BIGINT,
+          targetDownId STRING,
+          targetDownTagName STRING,
+          targetDownText STRING,
+          targetDownPath STRING,
+          timeUp BIGINT,
+          targetUpId STRING,
+          targetUpTagName STRING,
+          targetUpText STRING,
+          targetUpPath STRING,
+          x INT,
+          y INT,
+          moved BOOLEAN,
+          targetId STRING,
+          targetTagName STRING,
+          targetText STRING,
+          targetPath STRING,
+          doAlpha DOUBLE,
+          doBeta DOUBLE,
+          doGamma DOUBLE,
+          doAbsolute BOOLEAN,
+          dmX DOUBLE,
+          dmY DOUBLE,
+          dmZ DOUBLE,
+          dmGx DOUBLE,
+          dmGy DOUBLE,
+          dmGz DOUBLE,
+          PRIMARY KEY(kudu_id, kudu_processed_at))
+          PARTITION BY HASH PARTITIONS 16
+          STORED AS KUDU
+          TBLPROPERTIES ( 'kudu.num_tablet_replicas' =  '1', 'kudu.table_name' = '#{table_name}');
+       ")
+      connect.close
+
+      connect = Impala.connect(impala_host, impala_port)
+      command = connect.execute("
+         CREATE TABLE IF NOT EXISTS #{table_name2}
+          (kudu_id BIGINT,
+          kudu_processed_at STRING,
+          messages STRING,
+          severity STRING,
+          method STRING,
+          path STRING,
+          format_name STRING,
+          controller STRING,
+          action STRING,
+          status INT,
+          duration DOUBLE,
+          view_name DOUBLE,
+          db DOUBLE,
+          location_name STRING,
+          PRIMARY KEY(kudu_id, kudu_processed_at))
+          PARTITION BY HASH PARTITIONS 16
+          STORED AS KUDU
+          TBLPROPERTIES ( 'kudu.num_tablet_replicas' =  '1', 'kudu.table_name' = '#{table_name2}');
+      ")
+      connect.close
+    end
+
   end
 end
 =begin
