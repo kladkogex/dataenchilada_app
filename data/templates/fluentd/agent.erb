@@ -1,7 +1,7 @@
 <%=source%>
 
 
-<% if agent.source.plugin_name == "forward"%> # Separately rendered because of the fact that when the 'forward' is passed the 'tag' of the one who input into the port
+<% if agent.source.plugin_name == "forward"%>
 
     <match <%=tag%>>
       @type record_reformer
@@ -15,7 +15,7 @@
       </record>
     </match>
 
-    <match *.**>
+    <match reformed.<%=tag%>>
       @type copy
 
       <% outputs.each do |output| %>
