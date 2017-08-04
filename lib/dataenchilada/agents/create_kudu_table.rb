@@ -127,7 +127,7 @@ module Dataenchilada::Agents
           x INT,
           y INT,
           moved BOOLEAN,
-          target_id STRING
+          target_id STRING,
           target_tag_name STRING,
           target_text STRING,
           target_path STRING,
