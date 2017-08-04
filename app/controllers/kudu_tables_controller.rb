@@ -102,9 +102,11 @@ class KuduTablesController < ApplicationController
     vasya.each do |t|
       columns << "#{t.join(' ')}, "
     end
-    string = "CREATE TABLE IF NOT EXISTS #{table_name}(kudu_id BIGINT, kudu_processed_at STRING, #{columns}PRIMARY KEY(kudu_id, kudu_processed_at))
+    string = "CREATE TABLE IF NOT EXISTS #{table_name}(kudu_id BIGINT, kudu_processed_at STRING, processed_at STRING, source STRING, #{columns}PRIMARY KEY(kudu_id, kudu_processed_at))
      PARTITION BY HASH PARTITIONS 16
      STORED AS KUDU
      TBLPROPERTIES ( 'kudu.num_tablet_replicas' =  '1', 'kudu.table_name' = '#{table_name}');"
   end
+
+
 end

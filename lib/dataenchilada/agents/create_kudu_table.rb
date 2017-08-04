@@ -92,6 +92,7 @@ module Dataenchilada::Agents
         CREATE TABLE IF NOT EXISTS #{table_name}
           (kudu_id BIGINT,
           kudu_processed_at STRING,
+          processed_at STRING,
           type STRING,
           fingerprint BIGINT,
           time BIGINT,
@@ -108,6 +109,7 @@ module Dataenchilada::Agents
           port STRING,
           height INT,
           width INT,
+          source STRING,
           referrer STRING,
           device STRING,
           key_code INT,
@@ -125,7 +127,7 @@ module Dataenchilada::Agents
           x INT,
           y INT,
           moved BOOLEAN,
-          target_d STRING,
+          target_id STRING
           target_tag_name STRING,
           target_text STRING,
           target_path STRING,
@@ -151,6 +153,7 @@ module Dataenchilada::Agents
          CREATE TABLE IF NOT EXISTS #{table_name2}
           (kudu_id BIGINT,
           kudu_processed_at STRING,
+          processed_at STRING,
           messages STRING,
           severity STRING,
           method STRING,
