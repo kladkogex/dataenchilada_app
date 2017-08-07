@@ -1,6 +1,12 @@
 .nested-fields
 
-  = f.input :name, placeholder: '', :label=>false
-  = f.input :type_name, placeholder: '', :label=>false, collection: @types
-  -#= f.input :primary_key, placeholder: '', :label=>false
-  = link_to_remove_association "remove", f
+  %table.table.table-striped.table-bordered.table-hover
+    %tr
+      %th Name
+      %th Type
+      %th Commands
+    %tr
+      %td= f.input :name, placeholder: '', :label=>false
+      %td= f.input :type_name, placeholder: '', :label=>false, collection: @types
+      -#= f.input :primary_key, placeholder: '', :label=>false
+      %td= link_to_remove_association "remove", f

@@ -12,7 +12,7 @@
       = f.simple_fields_for :columns, html: { class: 'form-horizontal' } do |columns|
         = render 'column_fields', f: columns
       .links
-        = link_to_add_association 'add', f, :columns, class: 'btn btn-primary btn-lg'
+        = link_to_add_association 'add row', f, :columns, class: 'btn btn-primary btn-lg'
 
   .buttons
     = f.button :submit, :class => "btn btn-default", :value=>"Create table"
