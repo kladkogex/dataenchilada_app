@@ -33,7 +33,7 @@ class KuduTablesController < ApplicationController
 
     respond_to do |format|
       if res
-        data = get_data_for_table(table_name, columns_attributes_hash)
+        data = set_data_for_table(table_name, columns_attributes_hash)
         kudu_create_table(data)
         format.html { redirect_to kudu_tables_path, notice: "table #{table_name} was created" }
         format.js   { }
@@ -54,7 +54,7 @@ class KuduTablesController < ApplicationController
 
     respond_to do |format|
       if res
-        #data = get_data_for_table(table_name, columns_attributes_hash)
+        #data = update_data_for_table(table_name, columns_attributes_hash)
         #kudu_create_table(data)
         format.html { redirect_to kudu_tables_path, notice: "table #{table_name_after} was updated" }
         format.js   { }
@@ -93,7 +93,22 @@ class KuduTablesController < ApplicationController
     return [impala_host, impala_port]
   end
 
-  def get_data_for_table(table_name, columns_attributes)
+  def set_data_for_table(table_name, columns_attributes)
+    vasya = []
+    columns_attributes.each do |k, v|
+      vasya << [v['name'], v['type_name'].upcase]
+    end
+    columns = ""
+    vasya.each do |t|
+      columns << "#{t.join(' ')}, "
+    end
+    string = "CREATE TABLE IF NOT EXISTS #{table_name}(kudu_id BIGINT, kudu_processed_at STRING, processed_at STRING, source STRING, #{columns}PRIMARY KEY(kudu_id, kudu_processed_at))
+     PARTITION BY HASH PARTITIONS 16
+     STORED AS KUDU
+     TBLPROPERTIES ( 'kudu.num_tablet_replicas' =  '1', 'kudu.table_name' = '#{table_name}');"
+  end
+
+  def update_data_for_table(table_name, columns_attributes)
     vasya = []
     columns_attributes.each do |k, v|
       vasya << [v['name'], v['type_name'].upcase]

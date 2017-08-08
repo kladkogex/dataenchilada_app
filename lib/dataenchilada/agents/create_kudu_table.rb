@@ -94,7 +94,7 @@ module Dataenchilada::Agents
           kudu_processed_at STRING,
           processed_at STRING,
           type STRING,
-          fingerprint BIGINT,
+          fingerprint STRING,
           time BIGINT,
           href STRING,
           user_agent STRING,
@@ -141,6 +141,8 @@ module Dataenchilada::Agents
           dm_gx DOUBLE,
           dm_gy DOUBLE,
           dm_gz DOUBLE,
+          latitude double,
+          longitude double,
           PRIMARY KEY(kudu_id, kudu_processed_at))
           PARTITION BY HASH PARTITIONS 16
           STORED AS KUDU

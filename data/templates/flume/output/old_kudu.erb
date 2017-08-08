@@ -1,0 +1,19 @@
+<%=agent.tag%>.sources  = source1
+<%=agent.tag%>.channels = channel1
+<%=agent.tag%>.sinks = sink1
+<%=agent.tag%>.sources.source1.type = thrift
+<%=agent.tag%>.sources.source1.bind = localhost
+#todo different port for each flume
+<%=agent.tag%>.sources.source1.port = <%=output.details.flume_sink_port%>
+<%=agent.tag%>.sources.source1.channels = channel1
+<%=agent.tag%>.channels.channel1.type = memory
+<%=agent.tag%>.channels.channel1.capacity = 10000
+<%=agent.tag%>.channels.channel1.transactionCapacity = 1000
+#agent.sinks.sink1.type = logger
+<%=agent.tag%>.sinks.sink1.channel = channel1
+<%=agent.tag%>.sinks.sink1.type = org.apache.kudu.flume.sink.KuduSink
+#agent.sinks.sink1.masterAddresses = <%=servers['kudu']['master']['host']%>:<%=servers['kudu']['master']['port']%>
+<%=agent.tag%>.sinks.sink1.masterAddresses = <%=output.details.master_addresses%>
+<%=agent.tag%>.sinks.sink1.tableName = <%=output.details.table_name%>
+<%=agent.tag%>.sinks.sink1.batchSize = 50
+<%=agent.tag%>.sinks.sink1.producer = KuduJsonProducer

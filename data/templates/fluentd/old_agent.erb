@@ -1,0 +1,25 @@
+<%=source%>
+
+<match fluent.*>
+  @type stdout
+</match>
+
+<match <%=tag%>>
+  @type record_reformer
+  tag reformed.${tag}
+  enable_ruby true
+  auto_typecast true
+  <record>
+    processed_at ${Time.now.utc.strftime("%Y-%m-%dT%H:%M:%S.%LZ")}
+  </record>
+</match>
+
+<match reformed.<%=tag%>>
+  @type copy
+
+  <% outputs.each do |output| %>
+  <store>
+    <%=output%>
+  </store>
+  <% end %>
+</match>
