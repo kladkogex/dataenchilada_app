@@ -150,6 +150,7 @@ module Dataenchilada::Agents
           city STRING,
           zip_code STRING,
           metro_code INT,
+          ip STRING,
           PRIMARY KEY(kudu_id, kudu_processed_at))
           PARTITION BY HASH PARTITIONS 16
           STORED AS KUDU
