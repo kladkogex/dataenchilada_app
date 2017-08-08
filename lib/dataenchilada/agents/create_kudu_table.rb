@@ -141,8 +141,15 @@ module Dataenchilada::Agents
           dm_gx DOUBLE,
           dm_gy DOUBLE,
           dm_gz DOUBLE,
-          latitude double,
-          longitude double,
+          latitude DOUBLE,
+          longitude DOUBLE,
+          country_code STRING,
+          country_name STRING,
+          region_code STRING,
+          region_name STRING,
+          city STRING,
+          zip_code STRING,
+          metro_code INT,
           PRIMARY KEY(kudu_id, kudu_processed_at))
           PARTITION BY HASH PARTITIONS 16
           STORED AS KUDU
