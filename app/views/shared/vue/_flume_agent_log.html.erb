@@ -1,0 +1,69 @@
+<!-- vue.js -->
+<% auto_reload ||= true %>
+<div id="flume-agent-log" logUrl="<%= log_path %>" initialAutoReload="<%= auto_reload ? "true" : "" %>">
+  <div class="bottom-margin form-inline">
+
+    <div class="fl-cont fl-center">
+
+
+      <div class="fl-wrap padd_ri_10">
+        <div class="fl-cont fl-center gx-bage gx-bage-lg lite-gr-bage" style="padding: 4px 12px 4px 7px;">
+          <div class="fl-wrap padd_ri_10">
+            <input type="text" v-model="limit" size="4" v-on="keyup: fetchLogs | key enter" class="form-control emb-input"/>
+          </div>
+          <div class="fl-wrap">
+            <p class="gx-p bold no_marg" style="font-size: 14px !important; ">lines</p>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="fl-wrap padd_ri_10">
+        <button class="mdc-button btn-lite-blue" v-on="click: fetchLogs">
+          <%= t "terms.reload_log" %>
+        </button>
+      </div>
+
+
+      <div class="fl-wrap enabled-{{autoFetch}}">
+        <button class="mdc-button check-btn" v-on="click: autoFetch=!autoFetch">
+          <div class="fl-cont fl-center" v-if="autoFetch">
+            <%=inline_svg "icons/block.svg", class: "sm-icon gex-svg"%>
+            <div class="fl-wrap padd_left_10">
+              Disable auto reload
+            </div>
+          </div>
+          <div class="fl-cont fl-center" v-if="!autoFetch">
+            <%=inline_svg "icons/run.svg", class: "sm-icon gex-svg"%>
+            <div class="fl-wrap padd_left_10">
+              Enable auto reload
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <div class="fl-wrap padd_left_md ">
+        <span v-if="processing"><%= icon('fa-spin fa-refresh') %></span>
+      </div>
+
+    </div>
+  </div>
+
+  <div>
+    <pre v-if="isPresentedLogs" style="overflow-x: hidden;  white-space: pre-wrap;"><!-- be careful indent -->
+      <div style="overflow: initial; margin: -55px;" class="log">
+        <d  v-repeat="logs">
+          {{ $value }}
+      </d>
+      </div>
+    </pre>
+    <div style="height: 76px;" v-if="!isPresentedLogs">
+      <pre class="new-pre"  v-if="!isPresentedLogs && !processing">[log is empty]
+      </pre>
+    </div>
+  </div>
+
+</div>
+<!-- /vue.js -->
+
