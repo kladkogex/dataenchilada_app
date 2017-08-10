@@ -11,7 +11,7 @@
       <record>
         processed_at ${Time.now.utc.strftime("%Y-%m-%dT%H:%M:%S.%LZ")}
         kudu_processed_at ${Time.now.utc.strftime("%Y-%m-%d %H:%M:%S")}
-        kudu_id ${(Time.now.utc.to_f * 1000).to_i}
+        kudu_id ${(Time.now.utc.to_f * 1000).to_i + (0...10).map { ('0'..'9').to_a[rand(11)] }.join.to_i}
       </record>
     </match>
 
@@ -37,7 +37,7 @@
           processed_at ${Time.now.utc.strftime("%Y-%m-%dT%H:%M:%S.%LZ")}
           source <%=topic%>
           kudu_processed_at ${Time.now.utc.strftime("%Y-%m-%d %H:%M:%S")}
-          kudu_id ${(Time.now.utc.to_f * 1000).to_i}
+          kudu_id ${(Time.now.utc.to_f * 1000).to_i + (0...10).map { ('0'..'9').to_a[rand(11)] }.join.to_i}
         </record>
       </match>
     <% end %>
@@ -62,7 +62,7 @@
       <record>
         processed_at ${Time.now.utc.strftime("%Y-%m-%dT%H:%M:%S.%LZ")}
         kudu_processed_at ${Time.now.utc.strftime("%Y-%m-%d %H:%M:%S")}
-        kudu_id ${(Time.now.utc.to_f * 1000).to_i}
+        kudu_id ${(Time.now.utc.to_f * 1000).to_i + (0...10).map { ('0'..'9').to_a[rand(11)] }.join.to_i}
       </record>
     </match>
 
