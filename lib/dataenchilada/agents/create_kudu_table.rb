@@ -92,10 +92,10 @@ module Dataenchilada::Agents
         CREATE TABLE IF NOT EXISTS #{table_name}
           (kudu_id BIGINT,
           kudu_processed_at STRING,
+          time BIGINT,
           processed_at STRING,
           type STRING,
           fingerprint STRING,
-          time BIGINT,
           href STRING,
           user_agent STRING,
           browser STRING,
@@ -151,7 +151,7 @@ module Dataenchilada::Agents
           zip_code STRING,
           metro_code INT,
           ip STRING,
-          PRIMARY KEY(kudu_id, kudu_processed_at))
+          PRIMARY KEY(kudu_id, kudu_processed_at, time))
           PARTITION BY HASH PARTITIONS 16
           STORED AS KUDU
           TBLPROPERTIES ( 'kudu.num_tablet_replicas' =  '1', 'kudu.table_name' = '#{table_name}');
@@ -164,6 +164,7 @@ module Dataenchilada::Agents
           (kudu_id BIGINT,
           kudu_processed_at STRING,
           processed_at STRING,
+          source STRING,
           messages STRING,
           severity STRING,
           method STRING,
