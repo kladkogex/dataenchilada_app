@@ -28,7 +28,9 @@ module ApplicationHelper
   end
 
   def is_kudu_page
-    (current_page?(kudu_tables_path) || current_page?(new_kudu_table_path) || edit_table_path(name: params[:name] || 1))
+    (current_page?(kudu_tables_path) || current_page?(new_kudu_table_path) || current_page?(edit_table_path(name: params[:name] || 1)) ||
+        current_page?(show_table_path(name: params[:name] || 1))
+    )
   end
 
 
