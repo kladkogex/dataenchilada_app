@@ -1,6 +1,6 @@
 <!-- vue.js -->
 <% auto_reload ||= true %>
-<div id="flume-agent-log" logUrl="<%= log_path %>" initialAutoReload="<%= auto_reload ? "true" : "" %>">
+<div id="flume-agent-log" logType="<%= log_type %>" logUrl="<%= log_path %>" initialAutoReload="<%= auto_reload ? "true" : "" %>">
   <div class="bottom-margin form-inline">
 
     <div class="fl-cont fl-center">
@@ -51,7 +51,7 @@
   </div>
 
   <div>
-    <pre v-if="isPresentedLogs" style="overflow-x: hidden;  white-space: pre-wrap;"><!-- be careful indent -->
+    <pre v-if="isPresentedLogs" class="new-pre" style="overflow-x: hidden;  white-space: pre-wrap;"><!-- be careful indent -->
       <div style="overflow: initial; margin: -55px;" class="log">
         <d  v-repeat="logs">
           {{ $value }}

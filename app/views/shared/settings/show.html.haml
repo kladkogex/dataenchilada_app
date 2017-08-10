@@ -117,3 +117,14 @@
           - if @section_id.present?
             = hidden_field_tag :id, @section_id
     = form.submit t('fluentd.common.finish'), class: "btn btn-lg btn-primary pull-right"
+
+:javascript
+
+  $("a[data-toggle=tab]").on("click", function(e) {
+    var agent_name = $('#agent_title').val();
+    if(!agent_name || 0 === agent_name.length){
+      e.preventDefault();
+      alert('!!!!');
+      return false;
+    }
+  });

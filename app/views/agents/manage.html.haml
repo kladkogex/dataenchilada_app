@@ -208,7 +208,7 @@
       .marg_left_10
         .padd_bott_10.padd_top_10
           = preserve do
-            = render partial: "shared/vue/flume_log", locals: { log_path: @agent.flume_log_path }
+            = render partial: "shared/vue/flume_log", locals: { log_path: @agent.flume_log_path, log_type: 'flume_log'}
 
 
     .gx-wrap
@@ -231,6 +231,6 @@
       .marg_left_10
         .padd_bott_10.padd_top_10
           = preserve do
-            = render partial: "shared/vue/flume_agent_log", locals: { log_path: @agent.flume_agent_log_path }
+            = render partial: "shared/vue/flume_agent_log", locals: { log_path: @agent.flume_agent_log_path, log_type: 'flume_agent_log' }
 
 

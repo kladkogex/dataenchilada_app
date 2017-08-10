@@ -11,7 +11,18 @@ class AgentsController < ApplicationController
 
   def log_tail
     limit = (params[:limit] || 10).to_i
-    @logs = file_tail(@agent.app_log_path, limit) if @agent
+    type = params[:type]
+
+    case type
+      when 'flume_agent_log'
+        log_path = @agent.flume_agent_log_path
+      when 'flume_log'
+        log_path = @agent.flume_log_path
+      else
+        log_path = @agent.app_log_path
+    end
+
+    @logs = file_tail(log_path, limit) if @agent
     render json: @logs
   end
 
