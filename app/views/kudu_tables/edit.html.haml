@@ -1,7 +1,12 @@
-.page-header
-  .row
-    .col-md-7
-      %h1
-        Edit table "#{@table.name}"
+.sidebar-header
+  .fl-wrap.fl-grow
+    .fl-cont
+      .fl-wrap.padd_ri_sm
+        %h2.sb-text.sb-h1-text.gr Edit table
+      .fl-wrap
+        %h2.sb-text.sb-h1-text=@table.name
+    .clearfix
+    %p.sb-p-text.gr
+      Use this window to edit Kudu table.
 
 = render 'updform'

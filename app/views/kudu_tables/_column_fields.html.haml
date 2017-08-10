@@ -1,4 +1,27 @@
 .nested-fields
+  .app_wrap.border.marg_bott_md.table-block
+    .padd_10.marg_top_sm.marg_bott_10
+      %table.table.gx-table.no_marg
+        %tr
+          %th Name
+          %th Type
+          -#%th Commands
+        %tr
+          %td= f.input :name, placeholder: '', :label=>false
+          %td
+            .fl-cont.fl-center
+              .fl-wrap.fl-grow
+                = f.input :type_name, placeholder: '', :label=>false, collection: @types, include_blank: false
+              .fl-wrap
+                .padd_left_md.padd_ri_10.marg_left_10
+                  = link_to_remove_association f do
+                    .mdc-fab.material-icons.mdc-fab--mini.mdc-fab--plain.btn-lite-red.remove-table-block
+                      %span.mdc-fab__icon
+                        =inline_svg "icons/delete.svg", class: "sm-icon red-svg"
+                -#= link_to_remove_association "remove", f
+
+
+-#.nested-fields
 
   %table.table.table-striped.table-bordered.table-hover
     %tr

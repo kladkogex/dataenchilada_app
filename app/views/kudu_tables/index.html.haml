@@ -1,22 +1,51 @@
-.page-header
-  .row
-    .col-md-7
-      %h1
-        Kudu tables
-    .col-md-5
-      = link_to "new table", new_kudu_table_path, :class => "btn btn-sm btn-primary"
-
-%br
-%table.table.table-striped.table-bordered.table-hover
-  %tr
-    %th id
-    %th Name
-    %th Commands
+.sidebar-header
+  .fl-wrap.fl-grow
+    %h2.sb-text.sb-h1-text Kudu tables
+    .clearfix
+    %p.sb-p-text.gr
+      Use this window to manage Kubu tables or add new.
+  .fl-wrap
+    = link_to "Add table", new_kudu_table_path, :class => "undec mdc-button gex-btn-new"
 
 
-  - @items.each_with_index do |item, id|
-    %tr
-      %td= id + 1
-      %td= link_to "#{item['name']}", show_table_path(name: item['name'])
-      %td= link_to 'show', show_table_path(name: item['name'])
-      -#%td= link_to 'edit', edit_table_path(name: item['name'])
+-if !@items || @items.length == 0
+  .fl-cont.padd_top_big
+    .fl-wrap.fl-grow
+    .fl-wrap
+      .text-center.marg_left_big.marg_ri_big
+        %h2.no_marg.bold.no-items-h.gr Looks like you do not have any Kudu tables yet.
+        %p.no_marg.gr.marg_top_10
+          You can add a new table by clicking 'Add table' button.
+    .fl-wrap.fl-grow
+
+-if @items && @items.length != 0
+  .app_wrap.border.marg_bott_md{:style=>"border-bottom: 0px"}
+    .grey_bg.padd_top_15.padd_bott_15
+      .row.no_marg
+        .col-md-2.col-sm-2.col-xs-2
+          .marg_left_md
+            %p.no_marg{style:"font-size: 16px;"} ID
+        .col-md-2.col-sm-4.col-xs-6.no_padd
+          %p.no_marg{style:"font-size: 16px;"} Name
+
+
+    - @items.each_with_index do |item, id|
+      .row.bord_bott.table-row.gr-hover-el.no_marg
+        .col-md-2.col-sm-2.col-xs-2
+          =link_to show_table_path(name: item['name']), class: 'undec' do
+            .marg_left_md.padd_top_md.padd_bott_md
+              %p.gx-p.no_marg.gr=id+1
+        .col-md-8.col-sm-4.col-xs-6.no_padd
+          =link_to show_table_path(name: item['name']), class: 'undec' do
+            .padd_top_md.padd_bott_md
+              %p.gx-p.no_marg.bold= item['name']
+        .col-md-2.no_padd{style:"height: 60px;"}
+          .pull-right.row-buttons.padd_ri_md{style:"height: 100%;"}
+            .fl-center{style:"height: 100%;"}
+              = link_to edit_table_path(name: item['name']) do
+                .mdc-button.btn-lite-blue
+                  .fl-cont.gx-fl-center
+                    .fl-wrap.padd_ri_10
+                      =inline_svg "icons/edit.svg", class: "sm-icon gex-svg"
+                    .fl-wrap{style:'padding-top:1px;'}
+                      Edit table

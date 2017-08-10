@@ -1,19 +1,25 @@
 
+.gx-form-md
+  = simple_form_for(@table, url: update_table_path, method: 'put', html: { class: 'gx-form', multipart: true }) do |f|
+    = f.error_notification
+    -#= render 'shared/form_errors', {f: f}
 
-= simple_form_for(@table, url: update_table_path, method: 'put', html: { class: 'form-horizontal', multipart: true }) do |f|
-  = f.error_notification
-  -#= render 'shared/form_errors', {f: f}
+    .input-group{style:'width: 100%;'}
+      = f.input :name, placeholder: 'Enter table name', :label=>'Name of table', class:'new-input'
 
-  .input-group
-    = f.input :name, placeholder: '', :label=>false
+      .padd_bott_md.padd_top_md
+        %h3.bold.no_marg Columns
+      #columns
 
-    %h3 Columns
-    #columns
-      = f.simple_fields_for :columns, html: { class: 'form-horizontal' } do |columns|
-        -#= render 'upd_column_fields', f: columns
-        = render 'column_fields', f: columns
-      .links
-        = link_to_add_association 'add row', f, :columns, class: 'btn btn-primary btn-lg'
+        = f.simple_fields_for :columns, html: { class: 'form-horizontal' } do |columns|
+          = render 'column_fields', f: columns
+        .links
+          = link_to_add_association f, :columns do
+            %button.mdc-button.btn-lite-blue{style:'background-color: rgba(61, 232, 100, 0.2) !important; color: #109c37 !important;'}
+              .fl-cont.gx-fl-center
+                .fl-wrap.padd_ri_10
+                  =inline_svg "icons/add_circle.svg", class: "sm-icon btn-green-svg"
+                .fl-wrap{style:'padding-top:1px;'} Add row
 
-  .buttons
-    = f.button :submit, :class => "btn btn-default", :value=>"Update table"
+    .buttons.padd_top_md.marg_top_md.pull-right
+      = f.button :submit, :class => "mdc-button gex-btn-new", :value=>"Update table"
