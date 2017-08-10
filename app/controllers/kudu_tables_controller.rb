@@ -111,7 +111,12 @@ class KuduTablesController < ApplicationController
   def update_data_for_table(table_name, columns_attributes)
     vasya = []
     columns_attributes.each do |k, v|
-      vasya << [v['name'], v['type_name'].upcase]
+      if v['_destroy']
+
+      else
+        vasya << [v['name'], v['type_name'].upcase]
+      end
+
     end
     columns = ""
     vasya.each do |t|
