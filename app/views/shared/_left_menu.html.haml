@@ -42,7 +42,7 @@
               .fl-wrap
                 %h3=t('agents.page_title')
 
-          -selected = current_page?(kudu_tables_path) ? 'current' : ''
+          -selected = is_kudu_page ? 'current' : ''
           = link_to kudu_tables_path, class: "left-menu-el left-menu-#{selected}" do
             .fl-cont.gx-fl-center
               .fl-wrap.padd_ri_sm

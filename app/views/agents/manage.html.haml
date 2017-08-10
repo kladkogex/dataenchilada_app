@@ -136,6 +136,31 @@
           = @agent.config
 
 
+  -if @agent_outputs_is_kudu
+    .gx-wrap
+      .div{style:'padding: 40px 0 30px 0;'}
+        .bord_bott
+
+
+      .fl-cont.gx-fl-center.padd_bott_md
+        .fl-wrap.padd_ri_10
+          .card-h-icon
+            .svg-wrap
+              =inline_svg "icons/build.svg", class: "sm-icon white-svg fx-sm-icon"
+        .fl-wrap.fl-grow
+          %p.card-h.bold Flume config
+        -#.fl-wrap
+          = link_to edit_config_agent_path(@agent), class:'undec' do
+            .mdc-button.btn-lite-blue
+              Edit
+
+      .marg_left_10.padd_top_10
+        .padd_bott_10.padd_top_10
+          %pre.new-pre
+            = preserve do
+              = @agent.flume_config
+
+
   .div{style:'padding: 40px 0 30px 0;'}
     .bord_bott
 
@@ -160,3 +185,52 @@
     .padd_bott_10.padd_top_10
       = preserve do
         = render partial: "shared/vue/fluent_log", locals: { log_path: @agent.app_log_path }
+
+
+  -if @agent_outputs_is_kudu
+    .gx-wrap
+      .div{style:'padding: 40px 0 30px 0;'}
+        .bord_bott
+
+      .fl-cont.gx-fl-center.padd_bott_md
+        .fl-wrap.padd_ri_10
+          .card-h-icon
+            .svg-wrap
+              =inline_svg "icons/logs.svg", class: "sm-icon white-svg fx-sm-icon"
+        .fl-wrap.fl-grow
+          %p.card-h.bold Flume log
+        .fl-wrap
+          .gx-bage.lite-gr-bage.gr{style:'padding: 7px 15px;'}
+            .gr.inl.padd_ri_sm Source:
+            .black.inl{style:'color: #565656'} #{@agent.flume_log_path}
+
+
+      .marg_left_10
+        .padd_bott_10.padd_top_10
+          = preserve do
+            = render partial: "shared/vue/flume_log", locals: { log_path: @agent.flume_log_path }
+
+
+    .gx-wrap
+      .div{style:'padding: 40px 0 30px 0;'}
+        .bord_bott
+
+      .fl-cont.gx-fl-center.padd_bott_md
+        .fl-wrap.padd_ri_10
+          .card-h-icon
+            .svg-wrap
+              =inline_svg "icons/logs.svg", class: "sm-icon white-svg fx-sm-icon"
+        .fl-wrap.fl-grow
+          %p.card-h.bold Flume agent log
+        .fl-wrap
+          .gx-bage.lite-gr-bage.gr{style:'padding: 7px 15px;'}
+            .gr.inl.padd_ri_sm Source:
+            .black.inl{style:'color: #565656'} #{@agent.flume_agent_log_path}
+
+
+      .marg_left_10
+        .padd_bott_10.padd_top_10
+          = preserve do
+            = render partial: "shared/vue/flume_agent_log", locals: { log_path: @agent.flume_agent_log_path }
+
+

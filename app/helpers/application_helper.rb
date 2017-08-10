@@ -20,9 +20,17 @@ module ApplicationHelper
     end
   end
 
+  #current_page?(kudu_tables_path) ?
+
   def is_agents_page
     (current_page?(agents_path) || current_page?(new_agent_path)|| current_page?(manage_agent_path(id: params[:id] || 1)) ||
         current_page?(edit_config_agent_path(id: params[:id] || 1)) || @page_selected == 'agents')
+  end
+
+  def is_kudu_page
+    (current_page?(kudu_tables_path) || current_page?(new_kudu_table_path) || current_page?(edit_table_path(name: params[:name] || 1)) ||
+        current_page?(show_table_path(name: params[:name] || 1))
+    )
   end
 
 

@@ -24,7 +24,7 @@ class AgentsController < ApplicationController
   end
 
   def manage
-
+    @agent_outputs_is_kudu = Dataenchilada::Agents::Manager.agent_outputs_is_kudu?(@agent)
   end
 
   def raw_log

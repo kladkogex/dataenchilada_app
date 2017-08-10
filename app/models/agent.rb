@@ -51,13 +51,25 @@ class Agent < ActiveRecord::Base
     File.join(base_dir, "flume.conf")
   end
 
+  def flume_agent_log_path
+    File.join(base_dir, "flume.log")
+  end
+
+  def flume_log_path
+    File.join(log_prefix, "data_enchilada_agent_#{conf_name}_flume.out.log")
+  end
+
+  def app_log_path
+    File.join(log_prefix, "data_enchilada_agent_#{conf_name}.out.log")
+  end
+
   def log_path
     File.join(base_dir, "agent.log")
     #File.join(log_prefix, "data_enchilada_agent_#{conf_name}.out.log")
   end
 
-  def app_log_path
-    File.join(log_prefix, "data_enchilada_agent_#{conf_name}.out.log")
+  def flume_config
+    File.read flume_config_path rescue ''
   end
 
   def config
