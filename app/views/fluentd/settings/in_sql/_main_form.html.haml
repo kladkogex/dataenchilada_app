@@ -13,7 +13,7 @@
         -#.well
           = raw t(".option_guide")
         .padd_top_md.padd_bott_md
-          = f.input :title, label: 'Name of agent', placeholder: "My new agent", input_html: {class: "new-input", value: nil}
+          = f.input :title, label: 'Name of agent', placeholder: "My new agent", input_html: {class: "new-input", value: nil, "data-toggle"=>"tooltip", "data-placement"=>"right", "title"=>"This field is required"}
         -#= f.input :tag, label: 'Tag', input_html: {class: "form-control"}
 
         = render "shared/setting_errors"
@@ -118,6 +118,17 @@
     var html = "#{escape_javascript(render partial: 'fluentd/settings/in_sql/table_form', locals: {table: @agent.source.tables.first.class.new, index: rand(99..9999), table_count: 2})}";
     $('#tables_container').append(html);
     updateTables();
+  });
+
+
+  $("a[data-toggle=tab]").on("click", function(e) {
+    var agent_field = $('#agent_title');
+    var agent_name = agent_field.val();
+    if(!agent_name || 0 === agent_name.length){
+      agent_field.attr('data-original-title', 'This field is required').tooltip('show');
+      e.preventDefault();
+      return false;
+    }
   });
 
   // $('#fluentd_setting_in_sql_all_tables').change(function() {
