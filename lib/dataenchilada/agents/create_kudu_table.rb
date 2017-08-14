@@ -185,5 +185,11 @@ module Dataenchilada::Agents
       connect.close
     end
 
+    def self.update_table_kudu(impala_host, impala_port, query)
+      connect = Impala.connect(impala_host, impala_port)
+      command = connect.execute(query)
+      connect.close
+    end
+
   end
 end

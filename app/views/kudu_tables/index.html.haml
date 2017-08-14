@@ -42,10 +42,11 @@
         .col-md-2.no_padd{style:"height: 60px;"}
           .pull-right.row-buttonss.padd_ri_md{style:"height: 100%;"}
             .fl-center{style:"height: 100%;"}
-              = link_to edit_table_path(name: item['name']) do
-                .mdc-button.btn-lite-blue{style:'background-color: rgba(226, 241, 255, 0.82) !important;'}
-                  .fl-cont.gx-fl-center
-                    .fl-wrap.padd_ri_10
-                      =inline_svg "icons/edit.svg", class: "xsm-icon gex-svg"
-                    .fl-wrap{style:'padding-top:1px;'}
-                      Edit table
+              -if table_in_db?(item['name'])
+                = link_to edit_table_path(name: item['name']) do
+                  .mdc-button.btn-lite-blue{style:'background-color: rgba(226, 241, 255, 0.82) !important;'}
+                    .fl-cont.gx-fl-center
+                      .fl-wrap.padd_ri_10
+                        =inline_svg "icons/edit.svg", class: "xsm-icon gex-svg"
+                      .fl-wrap{style:'padding-top:1px;'}
+                        Edit table

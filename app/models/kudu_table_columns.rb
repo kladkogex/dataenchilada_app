@@ -5,4 +5,7 @@ class KuduTableColumns < ActiveRecord::Base
   DEFAULT_NAME = "none"
   TYPES = %w(string int bigint boolean float double)
 
+  validates :name, presence: true
+
+
 end

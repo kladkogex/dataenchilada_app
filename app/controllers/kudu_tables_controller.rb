@@ -9,6 +9,7 @@ class KuduTablesController < ApplicationController
   def show
     @name = params[:name]
     @table_from_kudu = get_columns_form_table(@name)
+    create_if_no_exist_in_db(@name, @table_from_kudu)
     # for test
     #@table_columns = KuduTable.where(name: @name).first.columns
   end
@@ -47,15 +48,20 @@ class KuduTablesController < ApplicationController
   def update
     table_name_after = params[:kudu_table][:name]
     columns_attributes_hash = params[:kudu_table][:columns_attributes]
-    @table_name_before = params[:name]
-    @table = KuduTable.where(name: @table_name_before).first
+    table_name_before = params[:name]
+    @table = KuduTable.where(name: table_name_before).first
+    # for kudu
+    update_delete_column(table_name_before, columns_attributes_hash)
+    update_add_column(table_name_before, columns_attributes_hash)
+    if table_name_before != table_name_after
+      rename_query = "ALTER TABLE #{table_name_before} rename to #{table_name_after};"
+      kudu_update(rename_query)
+    end
 
     res = @table.update(table_params)
 
     respond_to do |format|
       if res
-        #data = update_data_for_table(table_name, columns_attributes_hash)
-        #kudu_create_table(data)
         format.html { redirect_to kudu_tables_path, notice: "table #{table_name_after} was updated" }
         format.js   { }
       else
@@ -86,6 +92,11 @@ class KuduTablesController < ApplicationController
     Dataenchilada::Agents::CreateKuduTable.create_custom_table(impala_host, impala_port, data)
   end
 
+  def kudu_update(query)
+    impala_host, impala_port = get_impala_address
+    Dataenchilada::Agents::CreateKuduTable.update_table_kudu(impala_host, impala_port, query)
+  end
+
   def get_impala_address
     sys_prop = Dataenchilada::Agents::Configurator.get_system_props
     impala_host = sys_prop[:impala_host]
@@ -108,25 +119,43 @@ class KuduTablesController < ApplicationController
      TBLPROPERTIES ( 'kudu.num_tablet_replicas' =  '1', 'kudu.table_name' = '#{table_name}');"
   end
 
-  def update_data_for_table(table_name, columns_attributes)
+  def update_delete_column(table_name_before, columns_attributes)
+    columns_attributes.each do |k, v|
+      if v['_destroy'] != "false"
+        column_name = KuduTableColumns.find(v['id'].to_i).name
+        del_column = "ALTER TABLE #{table_name_before} DROP column #{column_name};"
+        # execute
+        kudu_update(del_column)
+      end
+    end
+  end
+
+  def update_add_column(table_name_before, columns_attributes)
     vasya = []
     columns_attributes.each do |k, v|
-      if v['_destroy']
-
-      else
+      if !v['name'].blank?
         vasya << [v['name'], v['type_name'].upcase]
       end
-
     end
     columns = ""
     vasya.each do |t|
       columns << "#{t.join(' ')}, "
     end
-    string = "CREATE TABLE IF NOT EXISTS #{table_name}(kudu_id BIGINT, kudu_processed_at STRING, processed_at STRING, source STRING, #{columns}PRIMARY KEY(kudu_id, kudu_processed_at))
-     PARTITION BY HASH PARTITIONS 16
-     STORED AS KUDU
-     TBLPROPERTIES ( 'kudu.num_tablet_replicas' =  '1', 'kudu.table_name' = '#{table_name}');"
+
+    add_query = "ALTER TABLE #{table_name_before} ADD COLUMNS (#{columns.first(-2)})"
+    # execute
+    kudu_update(add_query) if !columns.blank?
   end
 
-
+  def create_if_no_exist_in_db(name, table_from_kudu)
+    table = KuduTable.where(name: name).first.blank?
+    if table
+      new_table = KuduTable.new(name: name)
+      new_table.save
+      table_from_kudu.each do |item|
+        columns = KuduTableColumns.new(table_id: new_table.id, name: item['name'], type_name: item['type'])
+        columns.save
+      end
+    end
+  end
 end
