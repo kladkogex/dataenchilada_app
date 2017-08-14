@@ -6,7 +6,7 @@
 
     new Vue({
       el: "#flume-agent-log",
-      paramAttributes: ["logUrl", "initialAutoReload"],
+      paramAttributes: ["logUrl", "logType", "initialAutoReload"],
       data: {
         "autoFetch": false,
         "logs": [],
@@ -46,8 +46,11 @@
           if(this.processing) return;
           this.processing = true;
           var self = this;
+
+          console.log(self);
+
           new Promise(function(resolve, reject) {
-            $.getJSON('log_tail?limit='+ self.limit, resolve).fail(reject);
+            $.getJSON('log_tail?limit='+ self.limit+'&type='+self.logType, resolve).fail(reject);
           }).then(function(logs){
             self.logs = logs;
             setTimeout(function(){
