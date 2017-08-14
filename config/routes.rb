@@ -20,11 +20,12 @@ Rails.application.routes.draw do
   end
 
   # kudu
-  resources :kudu_tables, except: [:show, :edit, :update] do
+  resources :kudu_tables, except: [:show, :edit, :update, :destroy] do
   end
   get 'edit_table/:name', to: 'kudu_tables#edit', as: 'edit_table'
   put 'edit_table/:name', to: 'kudu_tables#update', as: 'update_table'
   get 'show_table/:name', to: 'kudu_tables#show', as: 'show_table'
+  delete 'destroy/:name', to: 'kudu_tables#destroy', as: 'destroy_table'
 
   resource :daemon, controller: :fluentd do
     get "log"

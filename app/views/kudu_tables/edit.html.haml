@@ -8,5 +8,7 @@
     .clearfix
     %p.sb-p-text.gr
       Use this window to edit Kudu table.
+  .fl-wrap
+    = link_to 'Drop table',  destroy_table_path(:name => @table.name),  method: :delete, data: { confirm: 'Are you sure?' }, :class => "undec mdc-button gex-btn-new-red"
 
 = render 'updform'

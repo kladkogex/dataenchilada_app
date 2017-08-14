@@ -28,14 +28,16 @@ class KuduTablesController < ApplicationController
   def create
     table_name = params[:kudu_table][:name]
     columns_attributes_hash = params[:kudu_table][:columns_attributes]
+    # for kudu
+    data = set_data_for_table(table_name, columns_attributes_hash)
+    kudu_create_table(data)
 
+    #
     res = KuduTable.new(table_params)
     res.save
 
     respond_to do |format|
       if res
-        data = set_data_for_table(table_name, columns_attributes_hash)
-        kudu_create_table(data)
         format.html { redirect_to kudu_tables_path, notice: "table #{table_name} was created" }
         format.js   { }
       else
@@ -51,8 +53,8 @@ class KuduTablesController < ApplicationController
     table_name_before = params[:name]
     @table = KuduTable.where(name: table_name_before).first
     # for kudu
-    update_delete_column(table_name_before, columns_attributes_hash)
-    update_add_column(table_name_before, columns_attributes_hash)
+    update_delete_column(table_name_before, columns_attributes_hash) if columns_attributes_hash
+    update_add_column(table_name_before, columns_attributes_hash) if columns_attributes_hash
     if table_name_before != table_name_after
       rename_query = "ALTER TABLE #{table_name_before} rename to #{table_name_after};"
       kudu_update(rename_query)
@@ -66,6 +68,22 @@ class KuduTablesController < ApplicationController
         format.js   { }
       else
         format.html { render :new }
+        format.js   { }
+      end
+    end
+  end
+
+  def destroy
+    @table = KuduTable.where(name: params[:name]).first
+    delete_table_from_kudu(params[:name])
+
+    res = @table.destroy
+    respond_to do |format|
+      if res
+        format.html { redirect_to kudu_tables_path, notice: "table was dropped" }
+        format.js   { }
+      else
+        format.html { render :edit }
         format.js   { }
       end
     end
@@ -106,13 +124,16 @@ class KuduTablesController < ApplicationController
 
   def set_data_for_table(table_name, columns_attributes)
     vasya = []
-    columns_attributes.each do |k, v|
-      vasya << [v['name'], v['type_name'].upcase]
+    if columns_attributes
+      columns_attributes.each do |k, v|
+        vasya << [v['name'], v['type_name'].upcase]
+      end
+      columns = ""
+      vasya.each do |t|
+        columns << "#{t.join(' ')}, "
+      end
     end
-    columns = ""
-    vasya.each do |t|
-      columns << "#{t.join(' ')}, "
-    end
+
     string = "CREATE TABLE IF NOT EXISTS #{table_name}(kudu_id BIGINT, kudu_processed_at STRING, processed_at STRING, source STRING, #{columns}PRIMARY KEY(kudu_id, kudu_processed_at))
      PARTITION BY HASH PARTITIONS 16
      STORED AS KUDU
@@ -158,4 +179,10 @@ class KuduTablesController < ApplicationController
       end
     end
   end
+
+  def delete_table_from_kudu(table_name)
+    del_table = "DROP TABLE #{table_name};"
+    kudu_update(del_table)
+  end
+
 end
