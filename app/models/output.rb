@@ -41,7 +41,7 @@ class Output < ActiveRecord::Base
       #'forward' => ['server'],
       'forward' => ['server_host', 'server_port', ],
       'file' => ['path'],
-      'kudu' => ['table_name'],
+      'kudu' => ['table_name', 'master_host', 'master_port'],
   }
 
   def output_type_name

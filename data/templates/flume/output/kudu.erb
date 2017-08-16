@@ -14,7 +14,7 @@
 #agent.sinks.sink1.type = logger
 <%=agent_name%>.sinks.sink1.type = org.apache.kudu.flume.sink.KuduSink
 <%=agent_name%>.sinks.sink1.channel = channel1
-<%=agent_name%>.sinks.sink1.masterAddresses = <%=master_addresses%>
+<%=agent_name%>.sinks.sink1.masterAddresses = <%=master_host%>:<%=master_port%>
 <%=agent_name%>.sinks.sink1.tableName = <%=table_name%>
 <%=agent_name%>.sinks.sink1.batchSize = 50
 <%=agent_name%>.sinks.sink1.producer = KuduJsonProducer
