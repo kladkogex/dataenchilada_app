@@ -6,6 +6,7 @@
 <%=agent_name%>.sources.source1.bind = localhost
 <%=agent_name%>.sources.source1.port = <%=flume_sink_port%>
 <%=agent_name%>.sources.source1.channels = channel1
+<%=agent_name%>.sources.source1.threads = 50
 #
 <%=agent_name%>.channels.channel1.type = memory
 <%=agent_name%>.channels.channel1.capacity = 10000
