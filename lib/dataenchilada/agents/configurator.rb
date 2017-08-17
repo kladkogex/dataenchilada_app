@@ -22,8 +22,8 @@ module Dataenchilada::Agents
           :agent_name => agent.tag,
           :flume_sink_port => kudu_details.flume_sink_port,
           :master_addresses => kudu_details.master_addresses,
-          :master_host => kudu_details.master_host,
-          :master_port => kudu_details.master_port,
+          :master_host => kudu_details.master_host.blank? ? Fluentd::Setting::OutKudu.initial_params[:master_host] : kudu_details.master_host,
+          :master_port => kudu_details.master_port.blank? ? Fluentd::Setting::OutKudu.initial_params[:master_port] : kudu_details.master_port,
           :table_name => kudu_details.table_name,
       }
 
