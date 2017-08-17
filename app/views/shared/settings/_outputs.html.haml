@@ -26,8 +26,10 @@
               .fl-cont.padd_top_md.padd_left_md.padd_ri_md
                 .fl-wrap.fl-grow
                   - Output::STREAM_FIELD_NAMES[key].each do |val|
-                    - if val == "master_host" || val ==  "master_port"
-                      = out_details.input val, :input_html => { placeholder: "If you leave this field blank, it will be filled by default", class: "output-name new-input", style: 'width: 100%;' }
+                    - if val == "master_host"
+                      = out_details.input val, :input_html => { placeholder: Fluentd::Setting::OutKudu.initial_params[:master_host], class: "output-name new-input", style: 'width: 100%;' }
+                    -elsif val ==  "master_port"
+                      = out_details.input val, :input_html => { placeholder: Fluentd::Setting::OutKudu.initial_params[:master_port], class: "output-name new-input", style: 'width: 100%;' }
                     - else
                       = out_details.input val, :input_html => { class: "output-name new-input", style: 'width: 100%;' }
   .pull-right
